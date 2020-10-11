@@ -1,5 +1,5 @@
 ---
-title: TravisCI+Hexo博客自动部署.md
+title: TravisCI+Hexo博客自动部署
 tags: TravisCI
 categories: hexo
 top_img: >-
