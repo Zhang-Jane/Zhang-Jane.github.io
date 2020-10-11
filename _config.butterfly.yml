@@ -41,7 +41,7 @@ copy:
 # formal:
 #   icon: link || the description
 social:
-  fab fa-github: https://github.com/ZhangJane || Github
+  fab fa-github: https://github.com/Zhang-Jane || Github
   fas fa-envelope: mailto:luckingshine@gmail.com || Email
 
 # search (搜索)
