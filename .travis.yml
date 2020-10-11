@@ -2,9 +2,9 @@
 language: node_js
 node_js: stable
 
-env:
- global:
-   - URL_REPO: github.com/Zhang-Jane/Zhang-Jane.github.io.git
+# env:
+#  global:
+#    - URL_REPO: github.com/Zhang-Jane/Zhang-Jane.github.io.git
 
 # 设置钩子只检测blog-source分支的push变动
 branches:
@@ -26,9 +26,9 @@ cache:
 
   # 设置git提交名，邮箱；替换真实token到_config.yml文件
 before_script:
-  - git config user.name "Zhang-Jane"
-  - git config user.email "2855512028@qq.com"
-  # 替换同目录下的_config.yml文件中github_token字符串为travis后台刚才配置的变量，注>意此处sed命令用了双引号。单引号无效！
+  # - git config user.name "Zhang-Jane"
+  # - git config user.email "2855512028@qq.com"
+  # 替换同目录下的_config.yml文件中github_token字符串为travis后台刚才配置的变量(Environment Variables中的${github_token})，注>意此处sed命令用了双引号。单引号无效！
   - sed -i "s/github_token/${github_token}/g" _config.yml || exit 1
 
 # 执行清缓存，生成网页操作
