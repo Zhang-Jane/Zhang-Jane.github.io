@@ -3,6 +3,7 @@ title: hexo 入门
 abbrlink: 3e57632f
 date: 2020-10-10 12:44:04
 tags: hexo
+categories: hexo
 top_img: http://pic1.win4000.com/wallpaper/2020-10-09/5f801df37a7c1.jpg
 cover: https://pic4.zhimg.com/v2-7bbe64c2282a997092613d004f0222f2_1440w.jpg?source=172ae18b
 
