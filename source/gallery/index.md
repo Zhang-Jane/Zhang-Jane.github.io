@@ -1,15 +1,12 @@
 ---
-title: gallery
+title: 画廊
 date: 2020-10-10 10:27:40
 type: "gallery"
 ---
-{% gallery %}
-![](https://i.loli.net/2019/12/25/Fze9jchtnyJXMHN.jpg)
-![](https://i.loli.net/2019/12/25/ryLVePaqkYm4TEK.jpg)
-![](https://i.loli.net/2019/12/25/gEy5Zc1Ai6VuO4N.jpg)
-![](https://i.loli.net/2019/12/25/d6QHbytlSYO4FBG.jpg)
-![](https://i.loli.net/2019/12/25/6nepIJ1xTgufatZ.jpg)
-![](https://i.loli.net/2019/12/25/E7Jvr4eIPwUNmzq.jpg)
-![](https://i.loli.net/2019/12/25/mh19anwBSWIkGlH.jpg)
-![](https://i.loli.net/2019/12/25/2tu9JC8ewpBFagv.jpg)
+{% gallery %} h
+![](https://w.wallhaven.cc/full/zm/wallhaven-zmprlw.jpg)
+![](ttps://w.wallhaven.cc/full/4g/wallhaven-4g2jy7.jpg)
+![](https://w.wallhaven.cc/full/kw/wallhaven-kwmgr1.jpg)
+![](https://w.wallhaven.cc/full/83/wallhaven-83g8gk.jpg)
+![](https://w.wallhaven.cc/full/nm/wallhaven-nmeor8.jpg)
 {% endgallery %}
