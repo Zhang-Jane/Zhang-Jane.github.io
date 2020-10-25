@@ -87,7 +87,7 @@ katex:
 # --------------------------------------
 
 # Favicon（網站圖標）
-favicon: /img/favicon.png
+favicon: /img/hamburger.ico
 
 # Avatar (頭像)
 avatar:
@@ -99,7 +99,7 @@ index_img: https://pic2.zhimg.com/v2-24ae9869e03dee51d4ebe9cc6a824264_r.jpg?sour
 
 
 # If the banner of page not setting, it will show the top_img
-default_top_img: false
+default_top_img: False
 
 # The banner image of archive page
 archive_img: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1602308782342&di=9f5e33b598ea1c647fc2385eb2728390&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201303%2F18%2F233119quyrec7to3ws3rco.jpg
@@ -131,18 +131,18 @@ category_per_img:
 
 cover:
   # display the cover or not (是否顯示文章封面)
-  index_enable: true
-  aside_enable: true
-  archives_enable: true
+  index_enable: false
+  aside_enable: false
+  archives_enable: false
   # the position of cover in home page (封面顯示的位置)
   # left/right/both
   position: both
   # When cover is not set, the default cover is displayed (當沒有設置cover時，默認的封面顯示)
-  default_cover:
+  default_cover: /extra_imgs/town.jpg
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
-  flink: /img/friend_404.gif
-  post_page: /img/404.jpg
+  flink: /img/unfind.jpg
+  post_page: /img/unfind.jpg
 
 # A simple 404 page
 error_404:
@@ -835,7 +835,7 @@ inject:
   # - <link rel="stylesheet" href="/xxx.css">
   bottom:
     # - <script src="xxxx"></script>
-    # - <div class="aplayer no-destroy" data-id="0000F1OO2HxcnJ" data-server="tencent" data-type="album" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div>
+    - <div class="aplayer no-destroy" data-id="43049" data-server="netease" data-type="album" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div>
 
 
 # CDN

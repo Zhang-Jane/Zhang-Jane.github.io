@@ -1,0 +1,201 @@
+---
+title: android刷机
+tags: android刷机
+abbrlink: 20d1e394
+date: 2020-10-25 22:11:33
+categories: 刷机
+---
+# 刷机相关的词汇解释
+
+## Bootloader锁
+
+Bootloader中文名称为“启动加载”。在嵌入式操作系统中，BootLoader是在操作系统内核运行之前运行，它可以初始化硬件设备、建立内存空间映射图，从而将系统的软硬件环境带到一个合适状态，以便为最终调用操作系统内核准备好正确的环境。
+
+Bootloader引导启动时检测即将被启动的东西（recovery.img / boot.img）的签名是否是厂商的，如果不是的话就拒绝启动。
+
+
+
+## Recovery
+
+Recovery是Android手机备份功能，指的是一种可以对安卓机内部的数据或系统进行修改的模式（类似于windows PE或DOS）。在这个模式下可以，对已有的系统进行备份或升级，也可以在此恢复出厂设置。
+
+刷入第三方的Recovery，将获得更多的功能，并且可以刷入第三方rom，官方自带则不行。
+
+**进入recovery的方法：**
+
+1、将手机完全关机后，按住音量键下（上）+电源键，进入bootloader界面；
+
+2、按音量键将光标移动到recovery那一行；
+
+3、按电源键，之后手机会自动重启进入recovery模式。
+
+其中音量键为光标选择键，可以用来移动光标，电源键则是确认键。
+
+### 主界面
+
+*reboot system now*：重启手机（刷机完毕选择此项就能重新启动系统）
+
+*apply SDcard：update.zip*：安装存储卡中的update.zip升级包（你可以把刷机包命名为update.zip然后用这个选项直接升级）
+
+*wipe data/factory reset*：清除用户数据并恢复出厂设置（刷机前必须执行的选项）
+
+*wipe cache partition*：清除系统缓存（刷机前执行）（系统出问题也可尝试此选项，一般能够解决）
+
+*install zip from SDcard*：从SDcard上安装zip升级包（可以执行任意名称的zip升级包，不限制升级包名称）
+
+*backup and restore*：备份和还原系统（作用和原理如同电脑上的Ghost一键备份和还原）
+
+*mounts and storage*：挂载和存储选项（详细功能见下面的解释）
+
+*advanced*：高级设置
+
+## Fastboot
+
+Fastboot，英语翻译意思是快速启动。在安卓手机中fastboot是一种比recovery更底层的刷机模式（俗称引导模式）。就是使用USB数据线连接手机的一种刷机模式。相对于某些系统（如iOS）卡刷来说，线刷更可靠，安全。
+
+### 准备工具
+
+1. fastboot工具(安卓工具箱中有提供)
+2. 自己手机能用的boot.img、recovery.img文件。
+
+### 具体步骤
+
+一、手机进入fastboot模式并用数据线连接电脑，安装好相关驱动程序。
+
+二、解压下载好的fastboot工具，如解压到D:/fastboot/。
+
+三、将准备好的boot.img、recovery.img文件文件也放到D:/fastboot/中。
+
+四、打开命令行工具cmd，执行如下命令进入到fastboot所在目录中
+
+d: 回车
+
+cd fastboot 回车
+
+fastboot devices 回车
+
+如果它列出了你的手机，如HT*******，说明手机连接好了
+
+执行以下命令刷入boot与recovery：
+
+fastboot flash recovery recovery.img 回车
+
+等待OKAY （这里是刷新recovery）
+
+fastboot flash boot boot.img 回车
+
+等待OKAY （这里是刷新boot）
+
+## 双清/三清/四清
+
+双清就是清除Data、Cache两个分区，这个操作会导致你在系统刷好后安装的普通APP通通被清空，但并不会清空sdcard中的数据（也就是你日常存文件的那个目录），相当于恢复出厂设置。
+
+三清就是在双清的基础上把Dalvik Cache也给清了，某些特定场景下可以解决程序崩溃的问题。
+
+四清通常指的是在三清的基础上连System分区也给清了，这会导致你的系统彻底消失，类似于在电脑上把系统盘格式化了一样，通常并不需要进行这个操作。
+
+## boot.img
+
+boot.img是Android系统启动所必须加载的文件。简单的说，boot.img包含两部分，分别为kernel 和ramdisk。
+
+## twrp.img
+
+TWRP实际上就是替换了原机自带Recovery的第三方程序
+
+# 常用的命名
+
+## adb命令
+
+```bash
+adb devices                         显示设备信息
+adb install 123.apk                 安装一个软件
+adb uninstall -k 123.apk            删除一个软件
+adb shell                           进入shell环境
+adb push c:/1.txt /sdcard/sdir/     向设备推送文件
+adb pull /sdcard/1.txt C:/          从设备取回文件
+adb reboot bootloader/recovery      使手机重启进入BL或RE
+adb reboot recovery 
+```
+
+## fastboot命令
+
+```bash
+# 进入fastboot
+adb  reboot  fastboot 
+# 刷入第三方的recovery
+fastboot flash recovery recovery.img
+# 重启手机
+adb reboot
+# 重启到Recovery界面
+adb reboot recovery
+# 重启到bootloader界面
+adb reboot bootloader
+```
+
+
+
+# 刷机
+
+## twrp
+
+**TWRP实际上就是替换了原机自带Recovery的第三方程序**
+
+https://twrp.me/
+
+### 1.找手机厂商
+
+https://twrp.me/Devices/
+
+### 2. 找机型
+
+https://twrp.me/Devices/LG/
+
+### 3.找img包
+
+https://dl.twrp.me/hammerhead/
+
+### 刷包
+
+然后将手机设置到`fastboot`模式，使用`fastboot`命令将镜像刷进去。
+
+```bash
+$ fastboot flash recovery twrp-3.2.3-0-bullhead.img
+```
+
+## 谷歌的原生系统
+
+根据手机的型号找就行了
+
+https://developers.google.com/android/ota#hammerhead
+
+## 面具（帮你root的app）
+
+https://github.com/topjohnwu/Magisk/releases
+
+## 老版本的xposed
+
+安装https://repo.xposed.info/module/de.robv.android.xposed.installer
+
+或者
+
+下载Xposed框架：http://dl-xda.xposed.info/framework/sdk23/arm/
+我这里是下载最新的v86-sdk23版本。直接刷入
+
+## 新版本的edxposed，安卓8以后
+
+https://repo.xposed.info/module/org.meowcat.edxposed.manager
+
+# 刷机谷歌pixel手机（版本android8.1.0，系统[sailfish](https://developers.google.com/android/ota#sailfish)）
+
+## 步骤
+
+注意：刷完机之后，取消账号登录
+
+1. `adb reboot bootloader`进入Bootloader界面
+2. 刷入必要的img文件，执行flash-all
+3. 刷入TWRP（和刷入的系统发布年份差不多一致）
+4. 安装https://github.com/ElderDrivers/EdXposed
+5. 安装frida
+6. 配置charles（注意android7版本以上，证书不信任问题）
+    1. https://github.com/NVISO-BE/MagiskTrustUserCerts（必须刷入Magisk）
+    2. re管理器把`/data/misc/user/0/cacerts-added/`这个路径下面的文件复制到`/system/etc/security/cacerts`，记得挂在读写
