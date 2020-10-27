@@ -1,9 +1,9 @@
 ---
 title: flask的开发环境
 tags: flask
-abbrlink: 20d1e394
-date: 2020-10-17 20:00:31
 categories: flask
+abbrlink: '34964073'
+date: 2020-10-17 20:00:31
 ---
 # python开发环境
 

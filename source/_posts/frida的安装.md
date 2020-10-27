@@ -1,9 +1,9 @@
 ---
 title: frida的安装
 tags: frida
-abbrlink: 20d1e394
-date: 2020-10-25 22:31:33
 categories: frida
+abbrlink: 2e576213
+date: 2020-10-25 22:31:33
 ---
 # 1. 概述
 
