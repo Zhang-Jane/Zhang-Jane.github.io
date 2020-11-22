@@ -27,6 +27,51 @@ pip3 install objection
 安装完成后, 直接输入`objection`, 就可以看到食用方法了
 
 ## 简单使用一下
+CmdLine:
+
+```bash
+Usage: objection [OPTIONS] COMMAND [ARGS]...
+
+       _   _         _   _
+   ___| |_|_|___ ___| |_|_|___ ___
+  | . | . | | -_|  _|  _| | . |   |
+  |___|___| |___|___|_| |_|___|_|_|
+        |___|(object)inject(ion)
+  
+       Runtime Mobile Exploration
+          by: @leonjza from @sensepost
+
+  By default, communications will happen over USB, unless the --network
+  option is provided.
+
+Options:
+  -N, --network            Connect using a network connection instead of USB.
+                           [default: False]
+
+  -h, --host TEXT          [default: 127.0.0.1]
+  -p, --port INTEGER       [default: 27042]
+  -ah, --api-host TEXT     [default: 127.0.0.1]
+  -ap, --api-port INTEGER  [default: 8888]
+  -g, --gadget TEXT        Name of the Frida Gadget/Process to connect to.
+                           [default: Gadget]
+
+  -S, --serial TEXT        A device serial to connect to.
+  -d, --debug              Enable debug mode with verbose output. (Includes
+                           agent source map in stack traces)
+
+  --help                   Show this message and exit.
+
+Commands:
+  api          Start the objection API server in headless mode.
+  device-type  Get information about an attached device.
+  explore      Start the objection exploration REPL.
+  patchapk     Patch an APK with the frida-gadget.so.
+  patchipa     Patch an IPA with the FridaGadget dylib.
+  run          Run a single objection command.
+  version      Prints the current version and exists.
+```
+参数详解：
+-N 使用网络代替usb、-h 使用ip、-s 设备号、-d debug模式、-g 安卓没有root权限，可以把app进行重新打包，即使安卓没有root权限，也可以连接frida。
 
 - 使用前几个使用tips
 
