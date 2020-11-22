@@ -15,7 +15,6 @@ branches:
 cache:
   directories:
     - node_modules
-    - source
     - themes/butterfly
 
 # #在构建之前安装hexo环境

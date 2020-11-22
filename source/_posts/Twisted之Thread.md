@@ -1,8 +1,9 @@
 ---
 title: Twisted之Thread
-date: 2020-11-14 01:03:25
 tags: Twisted
 categories: Twisted
+abbrlink: 35c415ad
+date: 2020-11-14 01:03:25
 ---
 ## callFromThread和callInThread区别
 ```python

@@ -1,8 +1,9 @@
 ---
 title: Twisted(一)简介
-date: 2020-11-12 22:09:37
 tags: Twisted
 categories: Twisted
+abbrlink: 86a0063b
+date: 2020-11-12 22:09:37
 ---
 ### 1.介绍
 

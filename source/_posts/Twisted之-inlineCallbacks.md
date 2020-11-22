@@ -1,5 +1,6 @@
 ---
 title: Twisted之@inlineCallbacks
+abbrlink: 631ce788
 date: 2020-11-14 01:13:21
 tags:
 ---

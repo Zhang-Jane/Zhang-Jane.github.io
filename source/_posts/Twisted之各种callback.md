@@ -1,8 +1,9 @@
 ---
 title: Twisted之各种callback
-date: 2020-11-13 23:43:52
 tags: Twisted
 categories: Twisted
+abbrlink: cd11064
+date: 2020-11-13 23:43:52
 ---
 ```python
 from twisted.internet.defer import Deferred

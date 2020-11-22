@@ -1,8 +1,9 @@
 ---
 title: Twisted之twisted.web.client.Agent
-date: 2020-11-12 22:18:22
 tags: Twisted
 categories: Twisted
+abbrlink: d78ab318
+date: 2020-11-12 22:18:22
 ---
 ## 文档
 https://twistedmatrix.com/documents/current/api/twisted.web.client.html

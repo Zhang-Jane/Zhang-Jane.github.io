@@ -36,7 +36,12 @@ tutorial/spiders/: 放置spider代码的目录.
 ## 新建一个爬虫项目：
 
 ```bash
-    scrapy -t genspider 爬虫名 爬虫地址的域名	#名称不能和项目相同
+    Available templates:
+        basic
+        crawl
+        csvfeed
+        xmlfeed
+    scrapy -t basic genspider 爬虫名 爬虫地址的域名 # -t 表示使用的模板，默认使用的就是basic，所以-t basic可以不写
 ```
 
 ## 运行爬虫：
@@ -285,7 +290,7 @@ SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 SCHEDULER_PERSIST = True
 ```
 
-4(必须). 通过配置RedisPipeline将item写入key为 spider.name : items 的redis的list中，供后面的分布式处理item 这个已经由 scrapy-redis 实现，不需要我们写代码，直接使用即可
+4(可以自定义). 通过配置RedisPipeline将item写入key为 spider.name : items 的redis的list中，供后面的分布式处理item 这个已经由 scrapy-redis 实现，不需要我们写代码，直接使用即可
 
 ```
 ITEM_PIPELINES = {　　 'scrapy_redis.pipelines.RedisPipeline': 100 ,}
