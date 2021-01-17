@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>android刷机教程 | desperado</title><meta name="keywords" content="android刷机"><meta name="author" content="Jane"><meta name="copyright" content="Jane"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="刷机相关的词汇解释Bootloader锁Bootloader中文名称为“启动加载”。在嵌入式操作系统中，BootLoader是在操作系统内核运行之前运行，它可以初始化硬件设备、建立内存空间映射图，从而将系统的软硬件环境带到一个合适状态，以便为最终调用操作系统内核准备好正确的环境。 Bootloader引导启动时检测即将被启动的东西（recovery.img &#x2F; boot.img）的签名是否是厂商的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android刷机教程">
+<meta property="og:url" content="http://www.idesperado.com/post/574e8458.html">
+<meta property="og:site_name" content="desperado">
+<meta property="og:description" content="刷机相关的词汇解释Bootloader锁Bootloader中文名称为“启动加载”。在嵌入式操作系统中，BootLoader是在操作系统内核运行之前运行，它可以初始化硬件设备、建立内存空间映射图，从而将系统的软硬件环境带到一个合适状态，以便为最终调用操作系统内核准备好正确的环境。 Bootloader引导启动时检测即将被启动的东西（recovery.img &#x2F; boot.img）的签名是否是厂商的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.idesperado.com/extra_imgs/town.jpg">
+<meta property="article:published_time" content="2020-11-08T21:37:52.000Z">
+<meta property="article:modified_time" content="2021-01-17T11:09:43.641Z">
+<meta property="article:author" content="Jane">
+<meta property="article:tag" content="android刷机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.idesperado.com/extra_imgs/town.jpg"><link rel="shortcut icon" href="/img/hamburger.ico"><link rel="canonical" href="http://www.idesperado.com/post/574e8458.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2021-01-17 11:09:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {
+  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }
+})()</script><style type="text/css">#toggle-sidebar {bottom: 80px}</style><meta name="generator" content="Hexo 5.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=913641852,1716810451&amp;fm=26&amp;gp=0.jpg" onerror="onerror=null;src='/img/unfind.jpg'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">41</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">19</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">15</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-heartbeat"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 听音乐</span></a></li><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%B7%E6%9C%BA%E7%9B%B8%E5%85%B3%E7%9A%84%E8%AF%8D%E6%B1%87%E8%A7%A3%E9%87%8A"><span class="toc-number">1.</span> <span class="toc-text">刷机相关的词汇解释</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Bootloader%E9%94%81"><span class="toc-number">1.1.</span> <span class="toc-text">Bootloader锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Recovery"><span class="toc-number">1.2.</span> <span class="toc-text">Recovery</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E7%95%8C%E9%9D%A2"><span class="toc-number">1.2.1.</span> <span class="toc-text">主界面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fastboot"><span class="toc-number">1.3.</span> <span class="toc-text">Fastboot</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E5%85%B7"><span class="toc-number">1.3.1.</span> <span class="toc-text">准备工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.3.2.</span> <span class="toc-text">具体步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E6%B8%85-%E4%B8%89%E6%B8%85-%E5%9B%9B%E6%B8%85"><span class="toc-number">1.4.</span> <span class="toc-text">双清&#x2F;三清&#x2F;四清</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#boot-img"><span class="toc-number">1.5.</span> <span class="toc-text">boot.img</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#twrp-img"><span class="toc-number">1.6.</span> <span class="toc-text">twrp.img</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E5%90%8D"><span class="toc-number">2.</span> <span class="toc-text">常用的命名</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#adb%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.</span> <span class="toc-text">adb命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fastboot%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.</span> <span class="toc-text">fastboot命令</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%B7%E6%9C%BA"><span class="toc-number">3.</span> <span class="toc-text">刷机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#twrp"><span class="toc-number">3.1.</span> <span class="toc-text">twrp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%89%BE%E6%89%8B%E6%9C%BA%E5%8E%82%E5%95%86"><span class="toc-number">3.1.1.</span> <span class="toc-text">1.找手机厂商</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%89%BE%E6%9C%BA%E5%9E%8B"><span class="toc-number">3.1.2.</span> <span class="toc-text">2. 找机型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%89%BEimg%E5%8C%85"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.找img包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B7%E5%8C%85"><span class="toc-number">3.1.4.</span> <span class="toc-text">刷包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%B7%E6%AD%8C%E7%9A%84%E5%8E%9F%E7%94%9F%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.2.</span> <span class="toc-text">谷歌的原生系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%85%B7%EF%BC%88%E5%B8%AE%E4%BD%A0root%E7%9A%84app%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">面具（帮你root的app）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%81%E7%89%88%E6%9C%AC%E7%9A%84xposed"><span class="toc-number">3.4.</span> <span class="toc-text">老版本的xposed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84edxposed%EF%BC%8C%E5%AE%89%E5%8D%938%E4%BB%A5%E5%90%8E"><span class="toc-number">3.5.</span> <span class="toc-text">新版本的edxposed，安卓8以后</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%8F%E7%B1%B3%E6%89%8B%E6%9C%BA%E6%8C%82%E8%BD%BD%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">小米手机挂载问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%B7%E6%9C%BA%E8%B0%B7%E6%AD%8Cpixel%E6%89%8B%E6%9C%BA%EF%BC%88%E7%89%88%E6%9C%ACandroid8-1-0%EF%BC%8C%E7%B3%BB%E7%BB%9Fsailfish%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">刷机谷歌pixel手机（版本android8.1.0，系统sailfish）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">5.1.</span> <span class="toc-text">步骤</span></a></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(/extra_imgs/town.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">desperado</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-heartbeat"></i><span> 休闲</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 听音乐</span></a></li><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">android刷机教程</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-11-08T21:37:52.000Z" title="发表于 2020-11-08 21:37:52">2020-11-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-01-17T11:09:43.641Z" title="更新于 2021-01-17 11:09:43">2021-01-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%88%B7%E6%9C%BA/">刷机</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="刷机相关的词汇解释"><a href="#刷机相关的词汇解释" class="headerlink" title="刷机相关的词汇解释"></a>刷机相关的词汇解释</h1><h2 id="Bootloader锁"><a href="#Bootloader锁" class="headerlink" title="Bootloader锁"></a>Bootloader锁</h2><p>Bootloader中文名称为“启动加载”。在嵌入式操作系统中，BootLoader是在操作系统内核运行之前运行，它可以初始化硬件设备、建立内存空间映射图，从而将系统的软硬件环境带到一个合适状态，以便为最终调用操作系统内核准备好正确的环境。</p>
+<p>Bootloader引导启动时检测即将被启动的东西（recovery.img / boot.img）的签名是否是厂商的，如果不是的话就拒绝启动。</p>
+<h2 id="Recovery"><a href="#Recovery" class="headerlink" title="Recovery"></a>Recovery</h2><p>Recovery是Android手机备份功能，指的是一种可以对安卓机内部的数据或系统进行修改的模式（类似于windows PE或DOS）。在这个模式下可以，对已有的系统进行备份或升级，也可以在此恢复出厂设置。</p>
+<p>刷入第三方的Recovery，将获得更多的功能，并且可以刷入第三方rom，官方自带则不行。</p>
+<p><strong>进入recovery的方法：</strong></p>
+<p>1、将手机完全关机后，按住音量键下（上）+电源键，进入bootloader界面；</p>
+<p>2、按音量键将光标移动到recovery那一行；</p>
+<p>3、按电源键，之后手机会自动重启进入recovery模式。</p>
+<p>其中音量键为光标选择键，可以用来移动光标，电源键则是确认键。</p>
+<h3 id="主界面"><a href="#主界面" class="headerlink" title="主界面"></a>主界面</h3><p><em>reboot system now</em>：重启手机（刷机完毕选择此项就能重新启动系统）</p>
+<p><em>apply SDcard：update.zip</em>：安装存储卡中的update.zip升级包（你可以把刷机包命名为update.zip然后用这个选项直接升级）</p>
+<p><em>wipe data/factory reset</em>：清除用户数据并恢复出厂设置（刷机前必须执行的选项）</p>
+<p><em>wipe cache partition</em>：清除系统缓存（刷机前执行）（系统出问题也可尝试此选项，一般能够解决）</p>
+<p><em>install zip from SDcard</em>：从SDcard上安装zip升级包（可以执行任意名称的zip升级包，不限制升级包名称）</p>
+<p><em>backup and restore</em>：备份和还原系统（作用和原理如同电脑上的Ghost一键备份和还原）</p>
+<p><em>mounts and storage</em>：挂载和存储选项（详细功能见下面的解释）</p>
+<p><em>advanced</em>：高级设置</p>
+<h2 id="Fastboot"><a href="#Fastboot" class="headerlink" title="Fastboot"></a>Fastboot</h2><p>Fastboot，英语翻译意思是快速启动。在安卓手机中fastboot是一种比recovery更底层的刷机模式（俗称引导模式）。就是使用USB数据线连接手机的一种刷机模式。相对于某些系统（如iOS）卡刷来说，线刷更可靠，安全。</p>
+<h3 id="准备工具"><a href="#准备工具" class="headerlink" title="准备工具"></a>准备工具</h3><ol>
+<li>fastboot工具(安卓工具箱中有提供)</li>
+<li>自己手机能用的boot.img、recovery.img文件。</li>
+</ol>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><p>一、手机进入fastboot模式并用数据线连接电脑，安装好相关驱动程序。</p>
+<p>二、解压下载好的fastboot工具，如解压到D:/fastboot/。</p>
+<p>三、将准备好的boot.img、recovery.img文件文件也放到D:/fastboot/中。</p>
+<p>四、打开命令行工具cmd，执行如下命令进入到fastboot所在目录中</p>
+<p>d: 回车</p>
+<p>cd fastboot 回车</p>
+<p>fastboot devices 回车</p>
+<p>如果它列出了你的手机，如HT*<strong>**</strong>，说明手机连接好了</p>
+<p>执行以下命令刷入boot与recovery：</p>
+<p>fastboot flash recovery recovery.img 回车</p>
+<p>等待OKAY （这里是刷新recovery）</p>
+<p>fastboot flash boot boot.img 回车</p>
+<p>等待OKAY （这里是刷新boot）</p>
+<h2 id="双清-三清-四清"><a href="#双清-三清-四清" class="headerlink" title="双清/三清/四清"></a>双清/三清/四清</h2><p>双清就是清除Data、Cache两个分区，这个操作会导致你在系统刷好后安装的普通APP通通被清空，但并不会清空sdcard中的数据（也就是你日常存文件的那个目录），相当于恢复出厂设置。</p>
+<p>三清就是在双清的基础上把Dalvik Cache也给清了，某些特定场景下可以解决程序崩溃的问题。</p>
+<p>四清通常指的是在三清的基础上连System分区也给清了，这会导致你的系统彻底消失，类似于在电脑上把系统盘格式化了一样，通常并不需要进行这个操作。</p>
+<h2 id="boot-img"><a href="#boot-img" class="headerlink" title="boot.img"></a>boot.img</h2><p>boot.img是Android系统启动所必须加载的文件。简单的说，boot.img包含两部分，分别为kernel 和ramdisk。</p>
+<h2 id="twrp-img"><a href="#twrp-img" class="headerlink" title="twrp.img"></a>twrp.img</h2><p>TWRP实际上就是替换了原机自带Recovery的第三方程序</p>
+<h1 id="常用的命名"><a href="#常用的命名" class="headerlink" title="常用的命名"></a>常用的命名</h1><h2 id="adb命令"><a href="#adb命令" class="headerlink" title="adb命令"></a>adb命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">adb devices                         显示设备信息</span><br><span class="line">adb install 123.apk                 安装一个软件</span><br><span class="line">adb uninstall -k 123.apk            删除一个软件</span><br><span class="line">adb shell                           进入shell环境</span><br><span class="line">adb push c:/1.txt /sdcard/sdir/     向设备推送文件</span><br><span class="line">adb pull /sdcard/1.txt C:/          从设备取回文件</span><br><span class="line">adb reboot bootloader/recovery      使手机重启进入BL或RE</span><br><span class="line">adb reboot recovery </span><br></pre></td></tr></table></figure>
+
+<h2 id="fastboot命令"><a href="#fastboot命令" class="headerlink" title="fastboot命令"></a>fastboot命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入fastboot</span></span><br><span class="line">adb  reboot  fastboot </span><br><span class="line"><span class="comment"># 刷入第三方的recovery</span></span><br><span class="line">fastboot flash recovery recovery.img</span><br><span class="line"><span class="comment"># 重启手机</span></span><br><span class="line">adb reboot</span><br><span class="line"><span class="comment"># 重启到Recovery界面</span></span><br><span class="line">adb reboot recovery</span><br><span class="line"><span class="comment"># 重启到bootloader界面</span></span><br><span class="line">adb reboot bootloader</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h1><h2 id="twrp"><a href="#twrp" class="headerlink" title="twrp"></a>twrp</h2><p><strong>TWRP实际上就是替换了原机自带Recovery的第三方程序</strong></p>
+<p><a target="_blank" rel="noopener" href="https://twrp.me/">https://twrp.me/</a></p>
+<h3 id="1-找手机厂商"><a href="#1-找手机厂商" class="headerlink" title="1.找手机厂商"></a>1.找手机厂商</h3><p><a target="_blank" rel="noopener" href="https://twrp.me/Devices/">https://twrp.me/Devices/</a></p>
+<h3 id="2-找机型"><a href="#2-找机型" class="headerlink" title="2. 找机型"></a>2. 找机型</h3><p><a target="_blank" rel="noopener" href="https://twrp.me/Devices/LG/">https://twrp.me/Devices/LG/</a></p>
+<h3 id="3-找img包"><a href="#3-找img包" class="headerlink" title="3.找img包"></a>3.找img包</h3><p><a target="_blank" rel="noopener" href="https://dl.twrp.me/hammerhead/">https://dl.twrp.me/hammerhead/</a></p>
+<h3 id="刷包"><a href="#刷包" class="headerlink" title="刷包"></a>刷包</h3><p>然后将手机设置到<code>fastboot</code>模式，使用<code>fastboot</code>命令将镜像刷进去。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fastboot flash recovery twrp-3.2.3-0-bullhead.img</span><br></pre></td></tr></table></figure>
+
+<h2 id="谷歌的原生系统"><a href="#谷歌的原生系统" class="headerlink" title="谷歌的原生系统"></a>谷歌的原生系统</h2><p>根据手机的型号找就行了</p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/android/ota#hammerhead">https://developers.google.com/android/ota#hammerhead</a></p>
+<h2 id="面具（帮你root的app）"><a href="#面具（帮你root的app）" class="headerlink" title="面具（帮你root的app）"></a>面具（帮你root的app）</h2><p><a target="_blank" rel="noopener" href="https://github.com/topjohnwu/Magisk/releases">https://github.com/topjohnwu/Magisk/releases</a></p>
+<h2 id="老版本的xposed"><a href="#老版本的xposed" class="headerlink" title="老版本的xposed"></a>老版本的xposed</h2><p>安装<a target="_blank" rel="noopener" href="https://repo.xposed.info/module/de.robv.android.xposed.installer">https://repo.xposed.info/module/de.robv.android.xposed.installer</a></p>
+<p>或者</p>
+<p>下载Xposed框架：<a target="_blank" rel="noopener" href="http://dl-xda.xposed.info/framework/sdk23/arm/">http://dl-xda.xposed.info/framework/sdk23/arm/</a><br>我这里是下载最新的v86-sdk23版本。直接刷入</p>
+<h2 id="新版本的edxposed，安卓8以后"><a href="#新版本的edxposed，安卓8以后" class="headerlink" title="新版本的edxposed，安卓8以后"></a>新版本的edxposed，安卓8以后</h2><p><a target="_blank" rel="noopener" href="https://repo.xposed.info/module/org.meowcat.edxposed.manager">https://repo.xposed.info/module/org.meowcat.edxposed.manager</a></p>
+<h1 id="小米手机挂载问题"><a href="#小米手机挂载问题" class="headerlink" title="小米手机挂载问题"></a>小米手机挂载问题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 手机 root 方法参考各手机 root 教程，小米手机在 Windows 电脑下载[解锁工具](&#x2F;&#x2F;www.miui.com&#x2F;unlock&#x2F;index.html)，开启 fastboot 模式，手机端启用 root 权限（注意备份好手机上的数据到电脑）</span><br><span class="line"># 以小米手机为例来开启 root 权限后设置 &#x2F;system 目录为读写</span><br><span class="line"># 以 root 权限执行</span><br><span class="line">adb root</span><br><span class="line"># 解决目录 read only 关键命令行</span><br><span class="line">adb disable-verity</span><br><span class="line"># 重启</span><br><span class="line">adb reboot</span><br><span class="line"># 以 root 权限运行</span><br><span class="line">adb root</span><br><span class="line"># 重新挂载</span><br><span class="line">adb remount</span><br><span class="line"># 设置读写</span><br><span class="line">adb shell mount -o rw,remount &#x2F;system</span><br></pre></td></tr></table></figure>
+
+<h1 id="刷机谷歌pixel手机（版本android8-1-0，系统sailfish）"><a href="#刷机谷歌pixel手机（版本android8-1-0，系统sailfish）" class="headerlink" title="刷机谷歌pixel手机（版本android8.1.0，系统sailfish）"></a>刷机谷歌pixel手机（版本android8.1.0，系统<a target="_blank" rel="noopener" href="https://developers.google.com/android/ota#sailfish">sailfish</a>）</h1><h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>注意：刷完机之后，取消账号登录</p>
+<ol>
+<li><code>adb reboot bootloader</code>进入Bootloader界面</li>
+<li>刷入必要的img文件，执行flash-all</li>
+<li>刷入TWRP（和刷入的系统发布年份差不多一致）</li>
+<li>安装<a target="_blank" rel="noopener" href="https://github.com/ElderDrivers/EdXposed">https://github.com/ElderDrivers/EdXposed</a></li>
+<li>安装frida</li>
+<li>配置charles（注意android7版本以上，证书不信任问题）<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/NVISO-BE/MagiskTrustUserCerts%EF%BC%88%E5%BF%85%E9%A1%BB%E5%88%B7%E5%85%A5Magisk%EF%BC%89">https://github.com/NVISO-BE/MagiskTrustUserCerts（必须刷入Magisk）</a></li>
+<li>re管理器把<code>/data/misc/user/0/cacerts-added/</code>这个路径下面的文件复制到<code>/system/etc/security/cacerts</code>，记得挂在读写</li>
+</ol>
+</li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Jane</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.idesperado.com/post/574e8458.html">http://www.idesperado.com/post/574e8458.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.idesperado.com" target="_blank">desperado</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/android%E5%88%B7%E6%9C%BA/">android刷机</a></div><div class="post_share"><div class="social-share" data-image="/extra_imgs/town.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/86a0063b.html"><img class="prev-cover" src="/extra_imgs/town.jpg" onerror="onerror=null;src='/img/unfind.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Twisted(一)简介</div></div></a></div><div class="next-post pull-right"><a href="/post/1c2afddb.html"><img class="next-cover" src="/extra_imgs/town.jpg" onerror="onerror=null;src='/img/unfind.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">scrapy基础</div></div></a></div></nav></article></main><footer id="footer" style="background-image: url(/extra_imgs/town.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Jane</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href=""></a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div class="aplayer no-destroy" data-id="43049" data-server="netease" data-type="album" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script></div></body></html>
