@@ -123,3 +123,64 @@ if __name__ == '__main__':
     print(defered)
     # print(next(s))
 ```
+
+demo03
+
+```
+from twisted.internet import reactor, defer
+
+
+def get_dummpy_data(input_data):
+    print('get_dummpy_data called')
+    deferred = defer.Deferred()
+    reactor.callLater(2, deferred.callback, input_data * 3)
+    return deferred
+
+def cb_print_data(result):
+    print('Result received: {}'.format(result))
+
+# @defer.inlineCallbacks
+def main():
+    result = get_dummpy_data(3)
+    print(result)
+    return result
+
+d = main()
+
+d.addCallback(cb_print_data)
+
+reactor.callLater(4, reactor.stop)
+reactor.run()
+
+# ---------------------------------------------
+
+from twisted.internet import reactor, defer
+
+
+def get_dummpy_data(input_data):
+    print('get_dummpy_data called')
+    deferred = defer.Deferred()
+    reactor.callLater(2, deferred.callback, input_data * 3)
+    return deferred
+
+
+def cb_print_data(result):
+    print('Result received: {}'.format(result))
+
+
+@defer.inlineCallbacks
+def main():
+    result = yield get_dummpy_data(3)
+    print(result)
+    return result
+
+
+d = main()
+
+d.addCallback(cb_print_data)
+
+reactor.callLater(4, reactor.stop)
+reactor.run()
+
+```
+
