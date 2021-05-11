@@ -1,8 +1,9 @@
 ---
 title: django的DRF
-date: 2021-05-11 17:12:41
 tags: django
 categories: django
+abbrlink: 7dc334fa
+date: 2021-05-11 17:12:41
 ---
 ## 前后端分离
 
@@ -807,7 +808,7 @@ REST framework提供了两个router
 
 ## 1. 使用方法
 
-1） 创建router对象，并注册视图集，例如
+1.创建router对象，并注册视图集，例如
 
 ```python
 from rest_framework import routers
@@ -829,7 +830,7 @@ register(prefix, viewset, base_name)
 ^books/{pk}/$   name: book-detail
 ```
 
-2）添加路由数据
+2.添加路由数据
 
 可以有两种方式：
 

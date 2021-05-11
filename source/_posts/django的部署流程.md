@@ -1,8 +1,9 @@
 ---
 title: django的部署流程
-date: 2021-05-11 17:17:33
 tags: django
 categories: django
+abbrlink: f634517f
+date: 2021-05-11 17:17:33
 ---
 
 # django部署流程

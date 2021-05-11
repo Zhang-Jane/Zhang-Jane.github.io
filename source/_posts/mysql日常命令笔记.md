@@ -1,8 +1,9 @@
 ---
 title: mysql日常命令笔记
-date: 2021-05-11 17:49:21
 tags: mysql
 categories: mysql
+abbrlink: c718fbdb
+date: 2021-05-11 17:49:21
 ---
 # mysql的sql语句
 
@@ -135,9 +136,9 @@ show variables like 'tx_isolation'
 
   - desc 表名;
 
-    - ```
-      Field　　字段名　　   就是你字段的名字
-      
+    
+    - Field　　字段名　　   就是你字段的名字
+    
       Type　　字段类型　　说明了你定义的字符类型　　注意：unsigned[无符号] 说明这个字段不能为负
       
       Null　　  是否为空　　定义了字段名是否可以为空
@@ -147,7 +148,6 @@ show variables like 'tx_isolation'
       Default   默认值　　   定义了该字段的默认值
       
       Extra 　 其他信息
-      ```
 
 - 使用库(选中库)
 
@@ -236,6 +236,10 @@ create table dianping.shops_2020_09 like dianping.shops_2020_08;
   7、delete语句是数据库操作语言(dml)，这个操作会放到 rollback segement 中，事务提交之后才生效；如果有相应的 trigger，执行的时候将被触发。
 
 ​       truncate、drop 是数据库定义语言(ddl)，操作立即生效，原数据不放到 rollback segment 中，不能回滚，操作不触发 trigger。
+
+## 连表查询
+
+![blocking-io](mysql\mysql的多表连接.jpg)
 
 ## 常用的sql语句
 
