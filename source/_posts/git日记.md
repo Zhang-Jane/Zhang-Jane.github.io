@@ -182,3 +182,6 @@ commit subject 应该清晰明了，说明本次提交的⽬的
 
 subject前⾯有个空格
 
+# git误提交敏感信息
+1. git filter-branch --force --index-filter "git rm --cached --ignore-unmatch -r 要删除的文件,相对路径" --prune-empty --tag-name-filter cat -- --all
+2. git push origin --all --force
