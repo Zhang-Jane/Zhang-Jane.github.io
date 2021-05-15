@@ -1,8 +1,9 @@
 ---
 title: redis日常命令笔记
-date: 2021-05-11 17:47:15
 tags: redis
 categories: redis
+abbrlink: f3bc1db9
+date: 2021-05-11 17:47:15
 ---
 
 ## redis命令
@@ -65,7 +66,7 @@ categories: redis
 
 ### list
 
-- lrange（索引从0~N-1（从左往右），从-1~-N（从右往左），因此，0~-1表示整个列表）
+- lrange（`索引从0~N-1（从左往右），从-1~-N（从右往左），因此，0~-1表示整个列表`）
 - lpop,rpop
 - Bloop,brpop
 
