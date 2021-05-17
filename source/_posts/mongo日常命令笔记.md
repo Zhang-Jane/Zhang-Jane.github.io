@@ -2,6 +2,7 @@
 title: mongo日常命令笔记
 tags: mongodb
 categories: mongodb
+abbrlink: 3898c7fc
 date: 2021-05-11 17:43:34
 ---
 
