@@ -1,5 +1,5 @@
 ---
-title: 亡命之徒
+title: 赠友
 date: 2020-10-10 11:15:40
 type: "about"
 ---

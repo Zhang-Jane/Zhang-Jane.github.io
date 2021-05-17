@@ -11,9 +11,10 @@ menu:
   时间线: /archives/ || fas fa-archive
   标签: /tags/ || fas fa-tags
   分类: /categories/ || fas fa-folder-open
-  # 休闲||fas fa-heartbeat:
-  #   - 听音乐 || /music/ || fas fa-music
-  #   - 相册 || /gallery/ || fas fa-images
+  休闲||fas fa-heartbeat:
+    - 听音乐 || /music/ || fas fa-music
+    - 相册 || /gallery/ || fas fa-images
+    - 说说 || /artitalk/ || fas fa-comment-dots
   友情链接: /link/ || fas fa-link
   关于: /about/ || fas fa-heart
 
@@ -754,12 +755,17 @@ note:
 # other
 # --------------------------------------
 
+
 # Artitalk
 # see https://artitalk.js.org/
 artitalk:
-  appId:
-  appKey:
+  enable: true
+  appId: KzI5iLC4opWP6ONF4dmc9yli-MdYXbMMI
+  appKey: BzTMROHuLTBQu4r5xV9Lc4LN
+  path: artitalk/index.html
+  js: https://cdn.jsdelivr.net/npm/artitalk
   option:
+  front_matter:
 
 # Pjax [Beta]
 # It may contain bugs and unstable, give feedback when you find the bugs.
