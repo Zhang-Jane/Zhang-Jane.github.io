@@ -157,24 +157,24 @@ show variables like 'tx_isolation'
 
 ### 查看表的信息
 
-- 查看索引
+查看索引
 
-  - SHOW INDEX FROM <表名> [ FROM <数据库名>]
+SHOW INDEX FROM <表名> [ FROM <数据库名>]
 
-  - ```
-    Table	表示创建索引的数据表名，这里是 tb_stu_info2 数据表。
-    Non_unique	表示该索引是否是唯一索引。若不是唯一索引，则该列的值为 1；若是唯一索引，则该列的值为 0。
-    Key_name	表示索引的名称。
-    Seq_in_index	表示该列在索引中的位置，如果索引是单列的，则该列的值为 1；如果索引是组合索引，则该列的值为每列在索引定义中的顺序。
-    Column_name	表示定义索引的列字段。
-    Collation	表示列以何种顺序存储在索引中。在 MySQL 中，升序显示值“A”（升序），若显示为 NULL，则表示无分类。
-    Cardinality	索引中唯一值数目的估计值。基数根据被存储为整数的统计数据计数，所以即使对于小型表，该值也没有必要是精确的。基数越大，当进行联合时，MySQL 使用该索引的机会就越大。
-    Sub_part	表示列中被编入索引的字符的数量。若列只是部分被编入索引，则该列的值为被编入索引的字符的数目；若整列被编入索引，则该列的值为 NULL。
-    Packed	指示关键字如何被压缩。若没有被压缩，值为 NULL。
-    Null	用于显示索引列中是否包含 NULL。若列含有 NULL，该列的值为 YES。若没有，则该列的值为 NO。
-    Index_type	显示索引使用的类型和方法（BTREE、FULLTEXT、HASH、RTREE）。
-    Comment	显示评注。
-    ```
+
+Table	表示创建索引的数据表名，这里是 tb_stu_info2 数据表。
+Non_unique	表示该索引是否是唯一索引。若不是唯一索引，则该列的值为 1；若是唯一索引，则该列的值为 0。
+Key_name	表示索引的名称。
+Seq_in_index	表示该列在索引中的位置，如果索引是单列的，则该列的值为 1；如果索引是组合索引，则该列的值为每列在索引定义中的顺序。
+Column_name	表示定义索引的列字段。
+Collation	表示列以何种顺序存储在索引中。在 MySQL 中，升序显示值“A”（升序），若显示为 NULL，则表示无分类。
+Cardinality	索引中唯一值数目的估计值。基数根据被存储为整数的统计数据计数，所以即使对于小型表，该值也没有必要是精确的。基数越大，当进行联合时，MySQL 使用该索引的机会就越大。
+Sub_part	表示列中被编入索引的字符的数量。若列只是部分被编入索引，则该列的值为被编入索引的字符的数目；若整列被编入索引，则该列的值为 NULL。
+Packed	指示关键字如何被压缩。若没有被压缩，值为 NULL。
+Null	用于显示索引列中是否包含 NULL。若列含有 NULL，该列的值为 YES。若没有，则该列的值为 NO。
+Index_type	显示索引使用的类型和方法（BTREE、FULLTEXT、HASH、RTREE）。
+Comment	显示评注。
+    
 
 ### 创建表
 
@@ -239,7 +239,7 @@ create table dianping.shops_2020_09 like dianping.shops_2020_08;
 
 ## 连表查询
 
-![blocking-io](mysql\mysql的多表连接.jpg)
+![mysql的多表连接](mysql\mysql的多表连接.jpg)
 
 ## 常用的sql语句
 
