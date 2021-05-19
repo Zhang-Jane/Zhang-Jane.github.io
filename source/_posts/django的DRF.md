@@ -127,7 +127,7 @@ class BookInfo(models.Model):
 
 
 
-#### 字段与选项(基本和在models中定义的类型一样，仅供参考，后续版本可能有新的)
+#### 字段与选项(基本和在models中定义的类型一样，仅供参考，后续版本可能有新的)
 
 **常用字段类型**：
 
@@ -351,6 +351,36 @@ class BookInfoSerializer(serializers.ModelSerializer):
 
 ```
 rest_framework.views.APIView
+```
+APIView
+```python
+class APIView(View):
+	def dispatch(self, request, *args, **kwargs):
+        self.args = args
+        self.kwargs = kwargs
+        # 调用 APIView.self.initialize_request，创建一个新的Request对象
+        request = self.initialize_request(request, *args, **kwargs)
+        self.request = request
+        self.headers = self.default_response_headers  # deprecate?
+        # ################把一些值封装到新的Request对象 ################
+        try:
+            self.initial(request, *args, **kwargs)
+
+            # Get the appropriate handler method
+            # request.method，通过新request的getattr方法调用django的request.method
+            if request.method.lower() in self.http_method_names:
+                # getattr(self,"get")  => self.get
+                handler = getattr(self, request.method.lower(),self.http_method_not_allowed)
+            else:
+                handler = self.http_method_not_allowed
+
+            response = handler(request, *args, **kwargs)
+
+        except Exception as exc:
+            response = self.handle_exception(exc)
+
+        self.response = self.finalize_response(request, response, *args, **kwargs)
+        return self.response
 ```
 
 `APIView`是REST framework提供的所有视图的基类，继承自Django的`View`父类。
@@ -872,3 +902,70 @@ class BookInfoViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, GenericV
 ^books/latest/$    name: book-latest
 ^books/{pk}/read/$  name: book-read
 ```
+## DRF的版本控制
+E:\python3.7.6\Lib\site-packages\rest_framework\views.py
+```python
+    def initial(self, request, *args, **kwargs):
+        """
+        Runs anything that needs to occur prior to calling the method handler.
+        """
+        self.format_kwarg = self.get_format_suffix(**kwargs)
+
+        # Perform content negotiation and store the accepted info on the request
+        neg = self.perform_content_negotiation(request)
+        request.accepted_renderer, request.accepted_media_type = neg
+
+        # Determine the API version, if versioning is in use.
+        version, scheme = self.determine_version(request, *args, **kwargs)
+        request.version, request.versioning_scheme = version, scheme
+
+        # Ensure that the incoming request is permitted
+        self.perform_authentication(request)
+        self.check_permissions(request)
+        self.check_throttles(request)
+```
+E:\python3.7.6\Lib\site-packages\rest_framework\views.py
+```python
+    versioning_class = api_settings.DEFAULT_VERSIONING_CLASS
+    def determine_version(self, request, *args, **kwargs):
+        """
+        If versioning is being used, then determine any API version for the
+        incoming request. Returns a two-tuple of (version, versioning_scheme)
+        """
+        if self.versioning_class is None:
+            return (None, None)
+        scheme = self.versioning_class()
+        return (scheme.determine_version(request, *args, **kwargs), scheme)
+```
+## 配置
+```python
+# 全局配置
+REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS': "rest_framework.versioning.URLPathVersioning"
+}
+REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS':"rest_framework.versioning.URLPathVersioning",
+    "ALLOWED_VERSIONS":['v1','v2'] # allowed_versions
+}
+# 项目的urls
+]
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^api/(?P<version>\w+)/', include('api.urls')),
+]
+# app的urls
+urlpatterns = [
+    url(r'^order/$', views.OrderView.as_view()),
+```
+
+# 补充
+推荐一个查看类继承关系的方法：https://blog.csdn.net/tscaxx/article/details/106819855
+
+drf的文档：
+
+drf-yasg
+
+django+fastapi：
+
+https://django-ninja.rest-framework.com/
+

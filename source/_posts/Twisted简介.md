@@ -1,13 +1,11 @@
 ---
-title: Twisted(一)简介
+title: Twisted简介
 tags: Twisted
 categories: Twisted
 abbrlink: 86a0063b
 date: 2020-11-12 22:09:37
 ---
 ### 1.介绍
-
-​	教程<https://blog.oo87.com/python/2149.html>
 
 ​	熟悉scrpay爬虫框架的人，对Twisted应该不太陌生，scrapy底层请求就是基于Twisted框架实现的。
 
