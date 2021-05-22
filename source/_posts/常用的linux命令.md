@@ -8,6 +8,8 @@ date: 2021-05-11 17:29:37
 
 # 常用的linux命令
 
+## 帮助命令tldr
+
 ## du
 
 du -sh ./* | grep "G" | sort
@@ -30,35 +32,45 @@ https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/wget.html
 
 ## kill端口占用lsof
 
-1.netstat -tunplp | grep 端口号，命令用于显示tcp，udp的端口和进程等相关情况
+- netstat -tunplp | grep 端口号，命令用于显示tcp，udp的端口和进程等相关情况
 
-2.使用 lsof -i 命令
+- 使用 lsof -i 命令
 
-lsof  -i:<port>
-lsof  -iTCP
-lsof  -iUDP
+  - ```css
+    lsof  -i:<port>
+    lsof  -iTCP
+    lsof  -iUDP
+    ```
 
-3.利用 kill -9 PID 干掉目标进程
+- 利用 kill -9 PID 干掉目标进程
 
 ## curl
 
 curl https://blog.csdn.net/daiyu__zz/article/details/84887211 -x https://127.0.0.1:9991
 
+curl https://hungerstation.com/sa-en/restaurants/riyadh/al-rawdah  -x  https://45.131.177.36:3389
+
 测试网站响应时间
+
 time_connect：建立到服务器的 TCP 连接所用的时间
 time_starttransfer：在发出请求之后，Web 服务器返回数据的第一个字节所用的时间
 time_total：完成请求所用的时间
 
+```
 curl -o /dev/null -s -w "time_connect: %{time_connect}\ntime_starttransfer: %{time_starttransfer}\ntime_total: %{time_total}\n" "http://www.zhengdazhi.com"
+```
 
 post请求：
 
--H 指的是请求的头信息，多个头信息加多个-H即可，-d用于指定的发送的数据，-X用于指定请求的方式
+-H指的是请求的头信息，多个头信息加多个-H即可，-d用于指定的发送的数据，-X用于指定请求的方式
 
--A 自定义用户代理
+-A自定义用户代理
 
-## 日常使用
+curl -v www.baidu.com
 
+## 补充
+
+```
 stat
 file 查看文件类型
 cut
@@ -81,13 +93,16 @@ uniq
 -f<栏位>或--skip-fields=<栏位> 忽略比较指定的栏位。
 -s<字符位置>或--skip-chars=<字符位置> 忽略比较指定的字符。
 -u或--unique 仅显示出一次的行列。
+```
 
 ## 统计重复的信息
 
+```
 grep " Crawled (200)" as_talabat_area_restaurants_21_2021-02-15_14:03:01.log | grep -Eo "http(.*)>" | uniq -d
 
 grep " Crawled (200)" as_talabat_area_restaurants_21_2021-02-15_14:03:01.log | awk '{print $10}'
 
+```
 
 ## Linux系统中暂停正在运行的进程并放入后台
 
@@ -108,6 +123,7 @@ grep " Crawled (200)" as_talabat_area_restaurants_21_2021-02-15_14:03:01.log | a
 
 **SCP拷贝命令中常用的几个参数说明**
 
+```
 -B  使用批处理模式（传输过程中不询问传输口令或短语） 
 -C  允许压缩。（将-C标志传递给ssh，从而打开压缩功能） 
 -p  保留原文件的修改时间，访问时间和访问权限。 
@@ -121,6 +137,7 @@ grep " Crawled (200)" as_talabat_area_restaurants_21_2021-02-15_14:03:01.log | a
 -o ssh_option  如果习惯于使用ssh_config(5)中的参数传递方式，  
 -P port  注意是大写的P, port是指定数据传输用到的端口号  
 -S program  指定加密传输时所使用的程序。此程序必须能够理解ssh(1)的选项。
+```
 
 正常传输：
 
@@ -138,17 +155,19 @@ Linux 系统里的进程状态:https://liam.page/2020/01/10/the-states-of-proces
 
 ## 批量kill进程
 
-ps -aux | grep "scrapy crawl shop_spider" | grep -v "grep" |cut -c 9-15 | xargs kill
-
-ps -ef | grep "关键词" | awk '{print $2}' | xargs kill
-multi_process_task3.py
-ps -ef | grep -w "traverse_id" | awk '{print $2}' | xargs kill
-
+```shell
+ ps -aux | grep "scrapy crawl shop_spider" | grep -v "grep" |cut -c 9-15 | xargs kill
+ 
+ ps -ef | grep "关键词" | awk '{print $2}' | xargs kill
+ multi_process_task3.py
+ ps -ef | grep -w "traverse_id" | awk '{print $2}' | xargs kill
+ 
 ps -ef | grep "scrapy crawl shop_spider" | awk '{print $2}' | xargs kill
-
+```
 
 ## 日志查询scrapy请求的数量
 
+```bash
 //查询上下
 git log |grep "xxxx" -C 5
 
@@ -170,6 +189,8 @@ cat box_online_2020-11-26 | grep "downloader/request_count" | wc -l
 
 //列出最新的日志文件
 ll -t | grep elong_hotel_list | head -1 | awk '{print $9}'
+```
+
 
 
 ## 日志分析命令
@@ -214,29 +235,29 @@ sed  -n  ‘2p;6p’  fstab           //显示第2行和第6行
 
 ### 常用选项：
 
--m, --max-count=NUM       NUM 次匹配后停止
-​		
--E ：开启扩展（Extend）的正则表达式。或者直接使用egrep
+​		-m, --max-count=NUM       NUM 次匹配后停止
 
--i ：忽略大小写（ignore case）。
+　　-E ：开启扩展（Extend）的正则表达式。或者直接使用egrep
 
--v ：反过来（invert），只打印没有匹配的，而匹配的反而不打印。
+　　-i ：忽略大小写（ignore case）。
 
--n ：显示行号
+　　-v ：反过来（invert），只打印没有匹配的，而匹配的反而不打印。
 
--w ：被匹配的文本只能是单词，而不能是单词中的某一部分，如文本中有liker，而我搜寻的只是like，就可以使用-w选项来避免匹配liker
+　　-n ：显示行号
 
--c ：显示总共有多少行被匹配到了，而不是显示被匹配到的内容，注意如果同时使用-cv选项是显示有多少行没有被匹配到。
+　　-w ：被匹配的文本只能是单词，而不能是单词中的某一部分，如文本中有liker，而我搜寻的只是like，就可以使用-w选项来避免匹配liker
 
--o ：只显示被模式匹配到的字符串。
+　　-c ：显示总共有多少行被匹配到了，而不是显示被匹配到的内容，注意如果同时使用-cv选项是显示有多少行没有被匹配到。
 
---color :将匹配到的内容以颜色高亮显示。
+　　-o ：只显示被模式匹配到的字符串。
 
--A  n：显示匹配到的字符串所在的行及其后n行，after
+　　--color :将匹配到的内容以颜色高亮显示。
 
--B  n：显示匹配到的字符串所在的行及其前n行，before
+　　-A  n：显示匹配到的字符串所在的行及其后n行，after
 
--C  n：显示匹配到的字符串所在的行及其前后各n行，context
+　　-B  n：显示匹配到的字符串所在的行及其前n行，before
+
+　　-C  n：显示匹配到的字符串所在的行及其前后各n行，context
 
 ## awk
 
@@ -249,22 +270,10 @@ NF是个代表总列数的系统变量，所以$NF代表最后一列，还支持
 只写一个print 是 print $0的简写，打印整行所有数据。
 
 默认以空格做分割符，也可以重新指定:
--F 
 
-使用","分割
+​	-F 
+
+```
+# 使用","分割
 awk -F, '{print $1,$2}'   log.txt
-
-## Shell重定向 ＆>file、2>&1、1>&2 、/dev/null的区别
-
-在shell脚本中，默认情况下，总是有三个文件处于打开状态，标准输入(键盘输入)、标准输出（输出到屏幕）、标准错误（也是输出到屏幕），它们分别对应的**文件描述符**是0，1，2 。
-
-**>  默认为标准输出重定向，与 1> 相同
-2>&1**  意思是把 标准错误输出 重定向到 标准输出.
-
-**&>file** 意思是把**标准输出** 和 **标准错误输出** 都重定向到文件file中
-
-**/dev/null是一个文件，这个文件比较特殊，所有传给它的东西它都丢弃掉**
-
-**1>&2 正确返回值传递给2输出通道 &2表示2输出通道**
-如果此处错写成 1>2, 就表示把1输出重定向到文件2中.
-**2>&1 错误返回值传递给1输出通道, 同样&1表示1输出通道**
+```
