@@ -16,7 +16,7 @@ https://www.runoob.com/mysql/mysql-install.html
 
 `show engines;` 查看所有的引擎
 
-`show variable like "default_storage_engine";` 查看当前默认引擎
+`SHOW VARIABLES LIKE 'default_storage_engine';` 查看当前默认引擎
 
 ```
 存储引擎 -- 存储数据的方式
@@ -308,7 +308,7 @@ limit m,n
 
 # 连表查询
 
-![mysql的多表连接](mysql的多表连接.jpg)
+![mysql的多表连接](mysql/mysql的多表连接.jpg)
 
 # 索引
 
@@ -387,7 +387,7 @@ InnoDB**聚集索引**的叶子节点存储行记录，因此， InnoDB必须要
 > 只需要在一棵索引树上就能获取SQL所需的所有列数据，无需回表，速度更快。
 > 例如：select id,age from user where age = 10;
 >
-> ## 如何实现覆盖索引
+## 如何实现覆盖索引
 >
 > > 常见的方法是：将被查询的字段，建立到联合索引里去。
 > > 1、如实现：select id,age from user where age = 10;
@@ -481,55 +481,61 @@ MySql索引使用的数据结构是B+树
 
 
 # 数据库使用的时候有什么注意事项
+```
+从搭建数据库的角度上来描述问题
 
-    # 从搭建数据库的角度上来描述问题
-    # 建表的角度上
-        # 1.合理安排表关系
-        # 2.尽量把固定长度的字段放在前面
-        # 3.尽量使用char代替varchar
-        # 4.分表: 水平分,垂直分
-    # 使用sql语句的时候
-        # 1.尽量用where来约束数据范围到一个比较小的程度,比如说分页的时候
-        # 2.尽量使用连表查询而不是子查询
-        # 3.删除数据或者修改数据的时候尽量要用主键作为条件
-        # 4.合理的创建和使用索引
-            # 1.查询的条件字段不是索引字段
-                # 对哪一个字段创建了索引,就用这个字段做条件查询
-            # 2.在创建索引的时候应该对区分度比较大的列进行创建
-                # 1/10以下的重复率比较适合创建索引
-            # 3.范围
-                # 范围越大越慢
-                # 范围越小越快
-                # like 'a%'  快
-                # like '%a'  慢
-            # 4.条件列参与计算/使用函数
-            # 5.and和or
-                # id name
-                # select * from s1 where id = 1800000 and name = 'eva';
-                # select count(*) from s1 where id = 1800000 or name = 'eva';
-                # 多个条件的组合,如果使用and连接
-                    # 其中一列含有索引,都可以加快查找速度
-                # 如果使用or连接
-                    # 必须所有的列都含有索引,才能加快查找速度
-            # 6.联合索引 : 最左前缀原则(必须带着最左边的列做条件,从出现范围开始整条索引失效)
-                # (id,name,email)
-                # select * from s1 where id = 1800000 and name = 'eva' and email = 'eva1800000@oldboy';
-                # select * from s1 where id = 1800000 and name = 'eva';
-                # select * from s1 where id = 1800000 and email = 'eva1800000@oldboy';
-                # select * from s1 where id = 1800000;
-                # select * from s1 where name = 'eva' and email = 'eva1800000@oldboy';
-                # (email,id,name)
-                # select * from s1 where id >10000 and email = 'eva1800000@oldboy';
-            # 7.条件中写出来的数据类型必须和定义的数据类型一致
-                # select * from biao where name = 666   # 不一致
-            # 8.select的字段应该包含order by的字段
-                # select name,age from 表 order by age;  # 比较好
-                # select name from 表 order by age;  # 比较差
-    
-    什么是最左前缀原则？什么是最左匹配原则
-    顾名思义，就是最左优先，在创建多列索引时，要根据业务需求，where子句中使用最频繁的一列放在最左边。
-    最左前缀匹配原则，非常重要的原则，mysql会一直向右匹配直到遇到范围查询(>、<、between、like)就停止匹配，比如a = 1 and b = 2 and c > 3 and d = 4 如果建立(a,b,c,d)顺序的索引，d是用不到索引的，如果建立(a,b,d,c)的索引则都可以用到，a,b,d的顺序可以任意调整。
-    =和in可以乱序，比如a = 1 and b = 2 and c = 3 建立(a,b,c)索引可以任意顺序，mysql的查询优化器会帮你优化成索引可以识别的形式
+建表的角度上
+
+1.合理安排表关系
+2.尽量把固定长度的字段放在前面
+3.尽量使用char代替varchar
+4.分表: 水平分,垂直分
+
+使用sql语句的时候
+
+1.尽量用where来约束数据范围到一个比较小的程度,说分页的时候
+2.尽量使用连表查询而不是子查询
+3.删除数据或者修改数据的时候尽量要用主键作为条件
+4.合理的创建和使用索引
+    # 1.查询的条件字段不是索引字段
+        # 对哪一个字段创建了索引,就用这个字段做条件查询
+    # 2.在创建索引的时候应该对区分度比较大的列进行创建
+        # 1/10以下的重复率比较适合创建索引
+    # 3.范围
+        # 范围越大越慢
+        # 范围越小越快
+        # like 'a%'  快
+        # like '%a'  慢
+    # 4.条件列参与计算/使用函数
+    # 5.and和or
+        # id name
+        # select * from s1 where id = 1800000 and name = 'eva';
+        # select count(*) from s1 where id = 1800000 or name = 'eva';
+        # 多个条件的组合,如果使用and连接
+            # 其中一列含有索引,都可以加快查找速度
+        # 如果使用or连接
+            # 必须所有的列都含有索引,才能加快查找速度
+    # 6.联合索引 : 最左前缀原则(必须带着最左边的列做条件,从出现范围开始整条索引失效)
+        # (id,name,email)
+        # select * from s1 where id = 1800000 and name = 'eva' and email = 'eva1800000@oldboy';
+        # select * from s1 where id = 1800000 and name = 'eva';
+        # select * from s1 where id = 1800000 and email = 'eva1800000@oldboy';
+        # select * from s1 where id = 1800000;
+        # select * from s1 where name = 'eva' and email = 'eva1800000@oldboy';
+        # (email,id,name)
+        # select * from s1 where id >10000 and email = 'eva1800000@oldboy';
+    # 7.条件中写出来的数据类型必须和定义的数据类型一致
+        # select * from biao where name = 666   # 不一致
+    # 8.select的字段应该包含order by的字段
+        # select name,age from 表 order by age;  # 比较好
+        # select name from 表 order by age;  # 比较差
+```
+## 最左前缀原则
+
+什么是最左前缀原则？什么是最左匹配原则
+顾名思义，就是最左优先，在创建多列索引时，要根据业务需求，where子句中使用最频繁的一列放在最左边。
+最左前缀匹配原则，非常重要的原则，mysql会一直向右匹配直到遇到范围查询(>、<、between、like)就停止匹配，比如a = 1 and b = 2 and c > 3 and d = 4 如果建立(a,b,c,d)顺序的索引，d是用不到索引的，如果建立(a,b,d,c)的索引则都可以用到，a,b,d的顺序可以任意调整。
+=和in可以乱序，比如a = 1 and b = 2 and c = 3 建立(a,b,c)索引可以任意顺序，mysql的查询优化器会帮你优化成索引可以识别的形式
 
 # 事物
 
