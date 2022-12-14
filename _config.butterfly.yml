@@ -91,7 +91,7 @@ favicon: /img/hamburger.ico
 
 # Avatar (頭像)
 avatar:
-  img: 
+  img: https://img2.baidu.com/it/u=4274118481,3879373441&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400
   effect: false
 
 # The banner image of home page

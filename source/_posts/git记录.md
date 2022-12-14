@@ -6,6 +6,8 @@ abbrlink: d9283bc6
 date: 2021-01-15 23:46:26
 ---
 # 常用的git命令
+- git mv file_from file_to（重命名文件，删除原来的文件，添加新文件到暂存区）
+- git switch 命令专门用于切换分支，可以用来替代 checkout 的部分用途。
 - git update-index --skip-worktree
 - git branch -u origin/branch 建立当前分支与远程分支的映射关系
 - git update-index --assume-unchanged 
@@ -29,17 +31,26 @@ date: 2021-01-15 23:46:26
 - git reset <file> 撤销单个文件的add
 - git stash apply 应用某个存储,但不会把存储从存储列表中删除，默认使用第一个存储,即stash@{0}，如果要使用其他个，git stash apply stash@{$num} ， 比如第二个：git stash apply stash@{1} 
 - git commit --amend -m "更好的提交日志" 编辑上次提交
-
-# git add 的各种区别(version：git version 2.30.1 (Apple Git-130)):
-- git add -u [<path>]: 把<path>中所有跟踪文件中被修改过或已删除文件的信息添加到索引库。它不会处理那些不被跟踪的文件。省略<path>表示 . ,即当前目录。
-
+# 如何使用git clone一个指定文件或者目录
+```bash
+$ mkdir xx # 创建一个与要clone的仓库同名或不同命的目录
+$ cd xx
+$ git init #初始化
+$ git remote add origin  https://github.com/xxx.git # 增加远端的仓库地址
+$ git config core.sparsecheckout true # 设置Sparse Checkout 为true 
+$ echo "xx/xxx" >> .git/info/sparse-checkout # 将要部分clone的目录相对根目录的路径写入配置文件
+$ git pull origin xxx # pull下来代码
+$ git ls-files -v # S: skip-worktree H: 缓存 R: removed/deleted C：modified/changed
+```
+# git add 的各种区别(version：git version 2.36.1.windows.1):
+- git add -u ：他仅监控已经被add的文件（即tracked file），他会将被修改的文件提交到暂存区。add -u 不会提交新文件（untracked file）。（git add --update的缩写）
+- git add . ：他会监控工作区的状态树，使用它会把工作时的所有变化提交到暂存区，包括文件内容修改(modified)以及新文件(new)，包括被删除的文件(网上好多说不包含，实际测试被删除的也会被添加，这是因为版本问题2.x版本包含被删除的文件)。
 - git add -A: []表示把中所有跟踪文件中被修改过或已删除文件和所有未跟踪的文件信息添加到索引库。省略<path>表示 . ,即当前目录。
-  
 
 - git add -i: 我们可以通过git add -i [<path>]命令查看中被所有修改过或已删除文件但没有提交的文件，并通过其revert子命令可以查看<path>中所有未跟踪的文件，同时进入一个子命令系统。
 
 
-.和*分别是目录路径(当前目录)和通配符，用于说明命令的路径。例如，如果在工作目录的某些子目录中执行git add .或git add *命令，那么它们的操作仅在该子目录中使用，而不是在整个工作目录中使用
+.和*分别是目录路径(当前目录)和通配符，用于说明命令的路径。
 # 代码回滚
 
 工作区 -> 暂存区（stage） -> 版本库

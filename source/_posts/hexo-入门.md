@@ -4,9 +4,6 @@ abbrlink: 3e57632f
 date: 2020-10-10 12:44:04
 tags: hexo
 categories: hexo
-top_img: http://pic1.win4000.com/wallpaper/2020-10-09/5f801df37a7c1.jpg
-cover: https://pic4.zhimg.com/v2-7bbe64c2282a997092613d004f0222f2_1440w.jpg?source=172ae18b
-
 ---
 # 查看官方的文档
 
@@ -56,4 +53,31 @@ _config.yml
 2. 在_config.yml中的menu:中配置About: about  # 关于
 3. 在根目录的source会生成一个md文件，在这个md文件中写入相关的信息
 ```
+## 5.hexo-server
+`npm install hexo-server --save`
 
+安装完成后，输入以下命令以启动服务器，您的网站会在 http://localhost:4000 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，您无须重启服务器。
+
+## hexo的升级
+升级 Hexo:
+使用淘宝源的 cnpm 替换 npm（可选，我用的还是npm）
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+npm install -g cnpm                 # 升级 npm
+npm cache clean -f                 # 清除 npm 缓存
+
+
+### 更新 package.json 中的 hexo 及个插件版本（更新 hexo: 进入blog的根目录，执行如下命令）
+npm install -g npm-check           # 检查之前安装的插件，都有哪些是可以升级的 
+npm install -g npm-upgrade         # 升级系统中的插件
+npm-check  # 这一步会让你选择那些更新那些不更新
+npm-upgrade # 更新上一步你所选择的
+
+### 更新 hexo 及所有插件
+npm update
+
+### 确认 hexo 已经更新
+hexo -v
+
+## 更新主题
+https://butterfly.js.org/
