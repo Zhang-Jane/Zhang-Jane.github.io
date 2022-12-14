@@ -14,7 +14,7 @@ branches:
 设置缓存文件
 cache:
   directories:
-    # - node_modules
+    - node_modules
     - themes/butterfly
 
 # #在构建之前安装hexo环境
