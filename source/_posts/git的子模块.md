@@ -72,7 +72,7 @@ $ git submodule add https://github.com/my-user/my-submodule.git <指定目录>
 
 - 如果想要在 push 主仓库时同时推送子仓库，你可以使用 `git push --recurse-submodules=on-demand` 选项，如果有任意一个子模块有更新，就会 push 到远程仓库。
 - 如果你想要强制 push 所有的子仓库，不管它们是否有更新，那么可以使用` git push --recurse-submodules=on-demand --force` 选项
-
+上面的可能不好使，这和git版本有关，详细可以参考：https://stackoverflow.com/questions/5814319/git-submodule-push
 注意：
 主模块和子模块在同一个git目录下面管理，如果不在一个目录会出现俩个不同git，而且新的.git目录再管理另外一个submodule
 ```bash
