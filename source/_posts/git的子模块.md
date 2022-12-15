@@ -22,19 +22,19 @@ $ git submodule add https://github.com/my-user/my-submodule.git <指定目录>
 
 加上 --recursive 拉取嵌套的子模块（子模块本身又有子模块）
 
-git submodule update --init --recursive
+`git submodule update --init --recursive`
 
 在clone时加上 --recurse-submodules选项自动拉取子模块
 
-git clone --recurse-submodules <main-project-repo-url>
+`git clone --recurse-submodules <main-project-repo-url>`
 
 
-git submodule update --remote [submodule-path] (不用切目录进行手动更新)
+`git submodule update --remote [submodule-path] `(不用切目录进行手动更新)
 
-git submodule foreach git pull 遍历更新所有子库
+`git submodule foreach git pull `遍历更新所有子库
 
 删除子版本库
-- git rm --cache mymodule
+- `git rm --cache mymodule`
 - 将submodule从工作区中删除
 - 最后将.gitmodules目录删除
 
@@ -48,11 +48,9 @@ git submodule foreach git pull 遍历更新所有子库
 
 # git subtree
 
- git remote add subtree-origin git@github.com:xxxx/git_subtree_child.git
-
- git remote show  
-
- git subtree add --prefix=subtree subtree-origin master --squash #其中的--prefix=subtree可以写成：--p subtree 或 --prefix subtree
+`git remote add subtree-origin git@github.com:xxxx/git_subtree_child.git`
+`git remote show`
+` git subtree add --prefix=subtree subtree-origin master --squash` #其中的--prefix=subtree可以写成：--p subtree 或 --prefix subtree
  该命令表示将远程地址为subtree-origin的，子版本库上master分支的，文件克隆到subtree目录下
 
 --squash是可选参数，它的含义是合并，压缩的意思。
@@ -62,7 +60,7 @@ git submodule foreach git pull 遍历更新所有子库
 
 父库中通过如下指令更新依赖的子库内容：
 
-git subtree pull --prefix=subtree subtree-origin master --squash
+`git subtree pull --prefix=subtree subtree-origin master --squash`
 
 # 区别
 1. git subtree把子仓库当作整个仓库的一个子目录来处理，而git submodule则把子仓库作为一个独立的仓库来处理。
@@ -70,10 +68,16 @@ git subtree pull --prefix=subtree subtree-origin master --squash
 3. git subtree允许把子仓库的内容合并到父仓库中，并且可以在父仓库中直接对子仓库的内容进行修改和提交，而git submodule则不允许这样做。相反，git submodule只能在父仓库中记录子仓库的提交历史，并且必须在子仓库中进行更改并提交。这意味着，使用git subtree可以更方便地管理父仓库和子仓库之间的关系，并且可以更灵活地组织和维护代码。
 
 # 查缺补漏
-因为submodule的特性，在push主模块的时候，子模块默认不会推送，只会推送一个空文件，所以：
-- 如果想要在 push 主仓库时同时推送子仓库，你可以使用 git push --recurse-submodules=on-demand 选项，如果有任意一个子模块有更新，就会 push 到远程仓库。
-- 如果你想要强制 push 所有的子仓库，不管它们是否有更新，那么可以使用 git push --recurse-submodules=on-demand --force 选项
+因为submodule的特性，在push主模块的时候，子模块默认不会推送所以：
 
+- 如果想要在 push 主仓库时同时推送子仓库，你可以使用 `git push --recurse-submodules=on-demand` 选项，如果有任意一个子模块有更新，就会 push 到远程仓库。
+- 如果你想要强制 push 所有的子仓库，不管它们是否有更新，那么可以使用` git push --recurse-submodules=on-demand --force` 选项
 
 注意：
---recurse-submodules 选项会克隆整个仓库，包括所有的子模块，而 --recursive 只会克隆主仓库本身，并且在进行初始化和更新时，不会处理子模块
+主模块和子模块在同一个git目录下面管理，如果不在一个目录会出现俩个不同git，而且新的.git目录再管理另外一个submodule
+```bash
+--recurse-submodules[=<pathspec>]
+                        initialize submodules in the clone
+--recursive[=<pathspec>]
+                        alias of --recurse-submodules
+```
