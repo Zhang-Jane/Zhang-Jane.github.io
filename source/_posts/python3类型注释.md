@@ -2,7 +2,8 @@
 title: python3类型注释
 abbrlink: f19d1117
 date: 2021-04-20 17:54:18
-tags:
+tags: python3
+categories: python3
 ---
 
 ### 普通的注释

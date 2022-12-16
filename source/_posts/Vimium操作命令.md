@@ -2,7 +2,7 @@
 title: Vimium操作命令
 abbrlink: 73fb024
 date: 2021-04-20 15:52:33
-tags:
+tags: vim
 ---
 # v(visual mode)， 需要着重讲一下
 
