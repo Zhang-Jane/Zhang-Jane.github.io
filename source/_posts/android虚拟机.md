@@ -88,4 +88,4 @@ Android 7.0上，JIT 编译器被再次使用，采用AOT/JIT 混合编译的策
 
 
 
-![虚拟机](android虚拟机/虚拟机.png)
+![虚拟机](../images/andorid/虚拟机.png)

@@ -76,7 +76,7 @@ Android完整打包流程
 
 8. 流程图如下：
 
-![apk生成的过程](andorid逆向基础之apk文件/apk生成的过程.jpg)
+![apk生成的过程](../images/andorid/apk生成的过程.jpg)
 
 # AndroidManifest.xml 最全详解
 

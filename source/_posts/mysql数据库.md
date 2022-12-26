@@ -8,7 +8,7 @@ date: 2021-05-11 18:04:16
 
 # 安装mysql
 
-https://www.runoob.com/mysql/mysql-install.html
+https://www.runoob.com/../images/mysql/mysql-install.html
 
 # mysql的存储引擎
 
@@ -308,7 +308,7 @@ limit m,n
 
 # 连表查询
 
-![mysql的多表连接](mysql/mysql的多表连接.jpg)
+![mysql的多表连接](../images/mysql/mysql的多表连接.jpg)
 
 # 索引
 

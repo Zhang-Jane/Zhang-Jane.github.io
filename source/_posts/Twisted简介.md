@@ -26,7 +26,7 @@ Twisted supports all major system event loops -- `select` (all platforms), `poll
 ### 2.核心模块：
 
 #### 2.1 reactor模式
-![twsited-reactor](Twisted/twsited-reactor.png)
+![twsited-reactor](../images/Twisted/twsited-reactor.png)
 1. 我们的代码与Twisted代码运行在同一个线程中。
 2. 当我们的代码运行时，Twisted代码是处于暂停状态的。
 3. 同样，当Twisted代码处于运行状态时，我们的代码处于暂停状态。

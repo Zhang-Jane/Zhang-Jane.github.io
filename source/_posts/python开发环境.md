@@ -27,9 +27,153 @@ https://virtualenv.pypa.io/en/latest/
 
 virtualenv 的一组扩展
 
-## pyenv(pyenv 不支持 Windows 系统)
+## pyenv(pyenv官方不支持 Windows 系统，但是也可以用https://github.com/pyenv-win/pyenv-win)
+https://github.com/pyenv/pyenv#windows
 
 pyenv lets you easily switch between multiple versions of Python. It's simple, unobtrusive, and follows the UNIX tradition of single-purpose tools that do one thing well.
+
+
+- `pyenv`：简单的 Python 版本管理工具。
+- `virtualenv`：创建独立 Python 环境的工具。
+- `virtualenvwrapper`：virtualenv 的一组扩展。
+
+```
+~/.bash_profile: 每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次!默认情况下,他设置一些环境变量,执行用户的.bashrc文件.
+~/.bashrc: 该文件包含专用于你的``bash` `shell的``bash``信息,当登录时以及每次打开新的shell时,该该文件被读取.
+
+```
+
+Ubuntu的环境
+
+### 第一步
+
+sudo apt-get update
+
+安装依赖库
+
+```
+sudo apt-get install git gcc make openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev
+```
+
+### 安裝pyenv
+
+https://github.com/pyenv/pyenv
+
+```bash
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n eval "$(pyenv init -)"\nfi' >> ~/.bashrc
+```
+
+在使用 pyenv 之前，重新初始化 shell 环境，执行如下命令
+
+```bash
+exec $SHELL
+```
+
+```
+sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+```
+
+
+
+### 安裝virtualenv
+
+https://github.com/pyenv/pyenv-virtualenv
+
+1. **Check out pyenv-virtualenv into plugin directory**
+
+   ```bash
+   $ git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+   ```
+
+
+1. (OPTIONAL) **Add `pyenv virtualenv-init` to your shell** to enable auto-activation of virtualenvs. This is entirely optional but pretty useful. See "Activate virtualenv" below.
+
+   ```bash
+   $ echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bash_profile
+   ```
+
+   **Fish shell note**: Add this to your `~/.config/fish/config.fish`
+
+   ```bash
+   status --is-interactive; and pyenv init - | source
+   status --is-interactive; and pyenv virtualenv-init - | source
+   ```
+
+   **Zsh note**: Modify your `~/.zshenv` file instead of `~/.bash_profile`.
+
+   **Pyenv note**: You may also need to add `eval "$(pyenv init -)"` to your profile if you haven't done so already.
+
+2. **Restart your shell to enable pyenv-virtualenv**
+
+   ```bash
+   $ exec "$SHELL"
+   ```
+
+### pyenv使用
+
+#### 安装python的版本
+
+```bash
+v=3.7.2;wget https://npm.taobao.org/mirrors/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/;pyenv install $v 
+```
+
+#### 查看 pyenv 已经托管了哪些 python 版本
+
+```
+pyenv versions
+```
+
+#### 选择python版本
+
+pyenv global 3.5.0 //设置全局版本，即系统使用的将是此版本
+
+pyenv local 3.5.0 //当前目录下的使用版本，有点类似virtualenv
+
+### 安装virtualenvwrapper
+
+```bash
+pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple virtualenvwrapper
+```
+
+配置环境
+
+```bash
+  
+echo 'export WORKON_HOME="/home/jane/.virtualenv/"' >> ~/.bashrc
+source /home/jane/.pyenv/versions/3.7.2/bin/virtualenvwrapper.sh
+```
+
+### virtualenvwrapper使用
+
+#### 创建虚拟环境
+
+利用 virtualenvwrapper，我们可以使用下面的命令轻松创建一个虚拟环境。
+
+> mkvirtualenv spider
+
+之后我们就有了一个叫做 spider 的虚拟环境。它被存放在 $WORKON_HOME/spider 目录下。
+
+##### 新建虚拟环境之后会自动激活虚拟环境。如果我们平时想要进入某个虚拟环境，可以用下面的命令。
+
+> workon spider
+
+这也就是为什么环境变量中存放虚拟环境的目录为啥叫做WORKON_HOME。顺便说一句，workon 后面可是可以支持用 tab自动补全的哟。
+
+##### 同样，离开虚拟环境，可以使用。
+
+> deactivate
+
+##### 另外，删除虚拟环境也一样简单。
+
+> rmvirtualenv spider
+
+
+
 
 ## Python 虚拟环境和依赖管理工具
 

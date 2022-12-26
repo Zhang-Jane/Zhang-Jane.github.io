@@ -226,7 +226,6 @@ axios({
 ```
 
 ## 同源策略和跨域
-
 ### 什么是同源
 
 如果两个页面的协议，域名和端口都相同，则两个页面具有相同的源。
@@ -245,7 +244,38 @@ MDN 官方给定的概念：同源策略限制了从同一个源加载的文档�
 同源指的是两个 URL 的协议、域名、端口一致，反之，则是跨域。
 出现跨域的根本原因：浏览器的同源策略不允许非同源的 URL 之间进行资源的交互。
 
-### 如何实现跨域数据请求
+https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS
+简单的总结：
+一个请求分为简单的请求和复杂的请求
+1. 简单的请求不会触发CORS预检请求(https://developer.mozilla.org/zh-CN/docs/Glossary/Preflight_request)
+2. 复杂的请求会触发CORS预检请求，需预检的请求要求必须首先使用OPTIONS方法发起一个预检请求到服务器，以获知服务器是否允许该实际请求。预检请求的使用，可以避免跨域请求对服务器的用户数据产生未预期的影响。预检请求完成之后，发送实际请求。
+```bash
+# http OPTIONS http://example.org
+HTTP/1.1 200 OK
+Allow: OPTIONS, GET, HEAD, POST
+Cache-Control: max-age=604800
+Connection: keep-alive
+Content-Length: 0
+Content-Type: text/html; charset=UTF-8
+Date: Wed, 21 Dec 2022 08:14:10 GMT
+Expires: Wed, 28 Dec 2022 08:14:10 GMT
+Keep-Alive: timeout=4
+Proxy-Connection: keep-alive
+Server: EOS (vny/0452)
+```
+### 后端处理跨域
+几个重要的头部信息：
+1. Access-Control-Request-Method(出现于 preflight request（预检请求）请求头，告知服务器，实际请求将使用xx方法)
+2. Access-Control-Allow-Origin(响应标头,指定了该响应的资源是否被允许与给定的来源（origin）共享。)
+3. Access-Control-Allow-Headers(响应首部,用于 preflight request（预检请求）中，列出了将会在正式请求的 Access-Control-Request-Headers 字段中出现的首部信息。)
+4. Access-Control-Allow-Methods(响应首部字段，指定了访问资源时允许使用的请求方法，用于预检请求的响应。其指明了实际请求所允许使用的 HTTP 方法)
+5. Access-Control-Allow-Credentials(响应头，用于在请求要求包含 credentials（Request.credentials 的值为 include）时，告知浏览器是否可以将对请求的响应暴露给前端 JavaScript 代码。)
+6. Access-Control-Expose-Headers(响应首部,列出了哪些首部可以作为响应的一部分暴露给外部。)
+
+注意：
+一般来说，登录成功后，server会通过set-cookie，将cookie设置到浏览器中，这样，下次访问同源下的api时，cookie就会被带上。但是**浏览器发起跨域请求的时候，是不会主动带上cookie**，因为这个https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie/SameSite，SameSite是为了防止csrf攻击(详细查看：https://juejin.cn/post/7116055668485783589)而产生的属性，`Set-Cookie: flavor=choco; SameSite=None; Secure`（https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie）
+
+### 前端如何实现跨域数据请求
 
 现如今，实现跨域数据请求，最主要的两种解决方案，分别是 JSONP 和 CORS。
 JSONP：出现的早，兼容性好（兼容低版本IE）。是前端程序员为了解决跨域问题，被迫想出来的一种临时解决方案。缺点是只支持 GET 请求，不支持 POST 请求。
