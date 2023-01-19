@@ -243,8 +243,71 @@ create table dianping.shops_2020_09 like dianping.shops_2020_08;
 
 ## 连表查询
 
-![mysql的多表连接](mysql/mysql的多表连接.jpg)
+![mysql的多表连接](../images/mysql/mysql的多表连接.jpg)
+### Mysql的join算法
+```bash
+CREATE TABLE `t2` (
+  `id` int(11) NOT NULL,
+  `a` int(11) DEFAULT NULL,
+  `b` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `a` (`a`)
+) ENGINE=InnoDB;
 
+drop procedure idata;
+delimiter ;;
+create procedure idata()
+begin
+  declare i int;
+  set i=1;
+  while(i<=1000)do
+    insert into t2 values(i, i, i);
+    set i=i+1;
+  end while;
+end;;
+delimiter ;
+call idata();
+
+create table t1 like t2;
+insert into t1 (select * from t2 where id<=100)
+往表t2里插入1000行数据，在表t1里插入100行数据。
+```
+**Simple Nested-Loop**
+简单嵌套循环连接
+![](../images/mysql/join%E7%9A%84%E9%97%AE%E9%A2%982.png)
+
+**Index Nested-Loop Join**
+索引嵌套循环连接，只有内层表join的列有索引时，才能用到Index Nested-LoopJoin进行连接
+>原来的匹配次数 = 外层表行数 * 内层表行数
+>优化后的匹配次数= 外层表的行数 * 内层表索引的高度
+![](../images/mysql/join%E7%9A%84%E9%97%AE%E9%A2%98.png)
+
+
+**Block Nested-Loop Join**
+缓存块嵌套循环连接
+
+什么是Join Buffer？
+块嵌套循环（BNL）联接算法将外循环中读取行放在缓冲区来减少内循环中表必须被读取的次数。例如，如果将10条记录读入缓冲区，并将缓冲区传递给下一个内循环，那么内循环中读取的每条记录都可以与缓冲区中的所有10条记录进行比较。这就使内层循环的表必须被读取的次数减少了一个数量级。
+
+在MySQL 8.0.18之前，这种算法适用于不能使用索引的等价联接（equi-joins）；在MySQL 8.0.18及以后的版本中，这种情况会采用哈希联接优化。从MySQL 8.0.20开始，MySQL不再使用块嵌套循环，在以前使用块嵌套循环的所有情况下都采用哈希联接（Hash Join）。
+
+MySQL join buffer具有以下特征：
+
+- 当联接的类型为ALL或index或range时可以使用join buffer。
+- 永远不会给第一个非Constant Table分配join buffer，即使它的类型是ALL或index。
+- 只有参与join的列存储在join buffer中，而不是整个行。
+- 系统变量join_buffer_size决定了用于处理查询的每个缓冲区的大小。--调优
+- 为每个可以缓冲的联接分配一个缓冲区，因此一个查询可以使用多个缓冲区来处理。
+- 在执行联接（join）之前分配（allocate）缓冲区，并在查询完成后释放（free）缓冲区。
+
+![](../images/mysql/join%E7%9A%84%E9%97%AE%E9%A2%983.png)
+
+**哈希联接（Hash Join）**
+通常将Hash Join分为两个阶段。构建阶段（build phase）和探测阶段（probe phase）。
+
+在构建阶段，从其中一个表输入（通常是两个中较小的一个）构建内存中的哈希表，服务器使用联接属性作为哈希表键。一旦所有行都存储在哈希表中，就完成了构建阶段。
+
+在探测阶段，将第二个表的每一行计算联接键哈希，并检查它是否存在于在构建阶段创建的哈希表中。如果找到该哈希的匹配项，则它还需验证哈希表中的行与第二个表中的行之间的联接键是否真的匹配（由于存在哈希冲突）
 ## 常用的sql语句
 
 ### sql比较两张表数据是否一致
@@ -260,3 +323,4 @@ and table1.name=table2.name
 
 and table1.num=table2.num;
 ```
+

@@ -227,9 +227,10 @@ pytesseract识别一般的可还好些，噪点多不行。其他方式
 通过js操作css的伪类插入内容，无法直接获取数据
 
 
+### 13.TLS
+不同的 TLS implementation （浏览器 / 各种语言的 HTTP 库）在建立 TLS 连接的时候发送的信息（支持的密码学套件 / 签名算法之类的）不一样。如果对面使用了某些流行的 HTTP 库，并且没有试图模仿浏览器的行为的话，你可以利用 tls fingerprint 把它和正常的浏览器区分开来。
 
-
-
+比如目前 Chrome 的 tls fingerprint 是 e47eae8f8c4887b6 ，可以在这里查看详细信息 https://tlsfingerprint.io/id/e47eae8f8c4887b6
 
 
 
