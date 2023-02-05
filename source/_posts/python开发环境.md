@@ -206,4 +206,99 @@ https://python-poetry.org/docs/
 - Miniconda：精简版的 Anaconda，也是一个 Python 发行版，只包含 conda、Python 和一些基本的包。
 
 
+# windows下虚拟环境的安装与配置
+
+## 1.安装虚拟环境
+
+```
+pip install virtualenv 
+```
+
+## **2.通过豆瓣源安装，寻找python豆瓣源镜像**
+
+ 豆瓣源路径：https://pypi.douban.com/simple
+
+```
+pip install -i https://pypi.douban.com/simple/ django   #安装
+pip uninstall django  #卸载
+```
+
+ 
+
+## **3.新建 virtualenv，新建虚拟环境**
+
+- 选择一个用来存放虚拟环境的文件，如E:/python3
+
+```
+cd E:python3  # 进入该文件
+virtualenv envname   # 创建一个名字为envname的虚拟环境
+dir     # 查看当前目录可以知道一个envname的文件已经被创建
+virtualenv -p python2 envname  # 如果安装了多个python版本，如py2和py3，需要指定使用哪个创建虚拟环境
+```
+
+ 
+
+**注意：**
+
+- 如果不识别virtualenv命令，可能是python安装路径没添加到系统环境变量或没安装virtualenv或没有重新打开一个cmd窗口；
+- 启动虚拟环境
+
+```
+cd envname # 进入虚拟环境文件
+cd Scripts # 进入相关的启动文件夹
+
+activate  # 启动虚拟环境
+deactivate # 退出虚拟环境
+```
+
+ 
+
+## 4.virtualenvwrapper，新建虚拟环境
+
+```
+pip install virtualenvwrapper-win # 虚拟环境管理包
+workon #显示所有虚拟环境
+mkvirtualenv py3scrapy  #新建虚拟环境，默认放在C盘Envs中,可以创建环境变量WORKON_HOME,E:\python3\Envs,将Envs放在自己想要的位置
+deactivate  #退出编辑
+```
+
+## virtualenvwrapper 常用命令
+
+```
+1.退出当前虚拟环境
+
+$deactivate
+
+2.列出虚拟环境列表
+
+$lsvirtualenv -b
+
+env1
+
+env2
+
+3.切换虚拟环境
+
+$workon env2
+
+4.进入当前虚拟环境
+
+$cdvirtualenv
+
+5.删除虚拟环境
+
+$rmvirtualenv env1
+
+6.进入当前环境的site-packages
+
+$cdsitepackages
+
+7.查看环境中安装了哪些包
+
+$lssitepackages
+
+8.复制虚拟环境
+
+$cpvirtualenv env1 env3
+```
 
