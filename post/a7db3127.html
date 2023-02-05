@@ -1,0 +1,275 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>mitmdump | desperado</title><meta name="author" content="Jane"><meta name="copyright" content="Jane"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="mitmdump文档https:&amp;#x2F;&amp;#x2F;docs.mitmproxy.org&amp;#x2F;stable&amp;#x2F;  安装pip install mitmproxy  mitmdump -q -s inect_js.py -p 9999  -q：屏蔽mitmdump默认的控制台日志，只显示自己脚本中的  -s：入口脚本文件"><link rel="shortcut icon" href="/img/hamburger.ico"><link rel="canonical" href="http://www.idesperado.com/post/a7db3127.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'mitmdump',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-05 16:48:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom: 80px}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img2.baidu.com/it/u=4274118481,3879373441&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=400&amp;h=400" onerror="onerror=null;src='/img/unfind.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/program/nav.html"><i class="fa-fw fas fa-list"></i><span> pdf笔记</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heartbeat"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 听音乐</span></a></li><li><a class="site-page child" href="/concert/"><i class="fa-fw fas fa-video"></i><span> 演唱会</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/extra_imgs/town.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">desperado</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/program/nav.html"><i class="fa-fw fas fa-list"></i><span> pdf笔记</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heartbeat"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 听音乐</span></a></li><li><a class="site-page child" href="/concert/"><i class="fa-fw fas fa-video"></i><span> 演唱会</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">mitmdump</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-16T13:18:28.000Z" title="发表于 2021-01-16 21:18:28">2021-01-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-05T08:48:50.244Z" title="更新于 2023-02-05 16:48:50">2023-02-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="mitmdump"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="mitmdump"><a href="#mitmdump" class="headerlink" title="mitmdump"></a>mitmdump</h1><h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p><a target="_blank" rel="noopener" href="https://docs.mitmproxy.org/stable/">https://docs.mitmproxy.org/stable/</a></p>
+<ul>
+<li><p>安装<code>pip install mitmproxy</code></p>
+</li>
+<li><p>mitmdump -q -s inect_js.py -p 9999</p>
+</li>
+<li><p>-q：屏蔽mitmdump默认的控制台日志，只显示自己脚本中的</p>
+</li>
+<li><p>-s：入口脚本文件</p>
+</li>
+<li><p>-p：更改端口，默认为8080</p>
+</li>
+<li><p>修改脚本文件时，不用重启也会生效</p>
+</li>
+</ul>
+<h2 id="针对-HTTP-生命周期的事件"><a href="#针对-HTTP-生命周期的事件" class="headerlink" title="针对 HTTP 生命周期的事件"></a>针对 HTTP 生命周期的事件</h2><ul>
+<li><p>请求：def request(self, flow: mitmproxy.http.HTTPFlow):</p>
+</li>
+<li><p>响应：def response(self, flow: mitmproxy.http.HTTPFlow):</p>
+</li>
+<li><p>其它：</p>
+<ul>
+<li><p>def http_connect(self, flow: mitmproxy.http.HTTPFlow):</p>
+</li>
+<li><p>def requestheaders(self, flow: mitmproxy.http.HTTPFlow):</p>
+</li>
+<li><p>def responseheaders(self, flow: mitmproxy.http.HTTPFlow):</p>
+</li>
+<li><p>def error(self, flow: mitmproxy.http.HTTPFlow):</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="请求：def-request-flow-flow"><a href="#请求：def-request-flow-flow" class="headerlink" title="请求：def request(flow:flow)"></a>请求：def request(flow:flow)</h2><ul>
+<li>flow.request.headers<ul>
+<li>获取所有头信息，包含Host、User-Agent、Content-type等字段</li>
+</ul>
+</li>
+<li>flow.request.url<ul>
+<li>完整的请求地址，包含域名及请求参数，但是不包含放在body里面的请求参数</li>
+</ul>
+</li>
+<li>flow.request.host<ul>
+<li>域名</li>
+</ul>
+</li>
+<li>flow.request.method<ul>
+<li>请求方式：POST、GET等</li>
+</ul>
+</li>
+<li>flow.request.scheme<ul>
+<li>请求类型：http、https</li>
+</ul>
+</li>
+<li>flow.request.path<ul>
+<li>请求的路径，URL除域名之外的内容</li>
+</ul>
+</li>
+<li>flow.request.get_text()<ul>
+<li>请求中body的内容，有一些http会把请求参数放在body里面，可通过此方法获取，返回字典类型</li>
+</ul>
+</li>
+<li>flow.request.get_content()<ul>
+<li>结果如flow.request.get_text()，返回bytes类型</li>
+</ul>
+</li>
+<li>flow.request.raw_content<ul>
+<li>结果如flow.request.get_content()，返回bytes类型</li>
+</ul>
+</li>
+<li>flow.request.urlencoded_form<ul>
+<li>MultiDictView，content-type：application&#x2F;x-www-form-urlencoded的请求参数，不包含url直接带的键值参数</li>
+</ul>
+</li>
+<li>flow.request.multipart_form<ul>
+<li>MultiDictView，content-type：multipart&#x2F;form-data</li>
+</ul>
+</li>
+<li>flow.request.query<ul>
+<li>返回MultiDictView类型的数据，URL的键值参数</li>
+<li>flow.request.query.get(‘wd‘)<ul>
+<li>取得请求参数wd的值</li>
+</ul>
+</li>
+<li>flow.request.query.keys()<ul>
+<li>取得所有请求参数</li>
+</ul>
+</li>
+<li>flow.request.query.set_all(key,[value])<ul>
+<li>修改请求参数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">from mitmproxy.http import flow</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def request(flow:flow):</span><br><span class="line">    # 获取所有头信息，包含Host、User-Agent、Content-type等字段</span><br><span class="line">    # print(flow.request.headers)</span><br><span class="line"></span><br><span class="line">    # 域名</span><br><span class="line">    # print(flow.request.host)</span><br><span class="line"></span><br><span class="line">    # 请求方式：POST、GET等</span><br><span class="line">    # print(flow.request.method)</span><br><span class="line"></span><br><span class="line">    # 请求类型：http、https</span><br><span class="line">    # print(flow.request.scheme)</span><br><span class="line"></span><br><span class="line">    # 请求的路径，URL除域名之外的内容</span><br><span class="line">    # print(flow.request.path)</span><br><span class="line"></span><br><span class="line">    # 请求中body的内容，有一些http会把请求参数放在body里面，可通过此方法获取，返回字典类型</span><br><span class="line">    # print(flow.request.get_text())</span><br><span class="line"></span><br><span class="line">    # 返回MultiDictView类型的数据，URL的键值参数</span><br><span class="line">    # print(flow.request.query)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # 完整的请求地址，包含域名及请求参数，但是不包含放在body里面的请求参数</span><br><span class="line">    if &#x27;https://www.baidu.com&#x27; in flow.request.url:</span><br><span class="line">        # 取得请求参数wd的值</span><br><span class="line">        # print(flow.request.query.get(&#x27;wd&#x27;))</span><br><span class="line"></span><br><span class="line">        # 取得所有请求参数</span><br><span class="line">        print(list(flow.request.query.keys()))</span><br><span class="line"></span><br><span class="line">        # 修改请求参数</span><br><span class="line">        flow.request.query.set_all(&#x27;wd&#x27;,[&#x27;python&#x27;])</span><br><span class="line">        # 打印修改过后的参数</span><br><span class="line">        print(flow.request.query.get(&#x27;wd&#x27;))</span><br></pre></td></tr></table></figure>
+
+<h2 id="响应：def-response-flow-flow"><a href="#响应：def-response-flow-flow" class="headerlink" title="响应：def response(flow: flow)"></a>响应：def response(flow: flow)</h2><ul>
+<li>flow.response.status_code<ul>
+<li>状态码</li>
+</ul>
+</li>
+<li>flow.response.text<ul>
+<li>返回内容，已解码</li>
+</ul>
+</li>
+<li>flow.response.content<ul>
+<li>返回内容，Bytes类型</li>
+</ul>
+</li>
+<li>flow.response.get_text()<ul>
+<li>取得响应的文本</li>
+</ul>
+</li>
+<li>flow.response.set_text()<ul>
+<li>修改响应的文本</li>
+</ul>
+</li>
+<li>flow.response &#x3D; flow.response.make(404)<ul>
+<li>返回404</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> mitmproxy.http <span class="keyword">import</span> flow</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">response</span>(<span class="params">flow: flow</span>):</span><br><span class="line">    <span class="comment"># 状态码</span></span><br><span class="line">    <span class="comment"># print(flow.response.status_code)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 返回内容，已解码</span></span><br><span class="line">    <span class="comment"># print(flow.response.text)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 返回内容，Bytes类型</span></span><br><span class="line">    <span class="comment"># print(flow.response.content)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 取得响应的文本</span></span><br><span class="line">    <span class="comment"># print(flow.response.get_text())</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 修改响应的文本</span></span><br><span class="line">    <span class="comment"># flow.response.set_text(&#x27;123&#x27;)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 返回404</span></span><br><span class="line">    <span class="comment"># flow.response = flow.response.make(404)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 修改淘宝对selenium的js检测文件</span></span><br><span class="line">    targetUrl = <span class="string">&#x27;https://g.alicdn.com/AWSC/uab/122.js&#x27;</span></span><br><span class="line">    <span class="keyword">if</span>  targetUrl <span class="keyword">in</span> flow.request.url:</span><br><span class="line">        taobao_js =flow.response.get_text()</span><br><span class="line">        taobao_js = taobao_js.replace(<span class="string">&#x27;!function()&#123;function&#x27;</span>,<span class="string">&#x27;!function ()&#123;Object.defineProperties(navigator,&#123;webdriver: &#123;get: () =&gt; false&#125;&#125;)function&#x27;</span>)</span><br><span class="line">        flow.response.set_text(taobao_js)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;已修改&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 淘宝搜索商品时，自动打印商品信息</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;https://s.taobao.com/search&#x27;</span> <span class="keyword">in</span> flow.request.url:</span><br><span class="line">        start = flow.response.text.strip().index(<span class="string">&#x27;&#123;&#x27;</span>)</span><br><span class="line">        end = -<span class="number">2</span></span><br><span class="line">        <span class="built_in">print</span>(json.loads(flow.response.text.strip()[start: end])[<span class="string">&#x27;mods&#x27;</span>][<span class="string">&#x27;itemlist&#x27;</span>][<span class="string">&#x27;data&#x27;</span>][<span class="string">&#x27;auctions&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 空气质量网，修改检测F12的JS</span></span><br><span class="line">    <span class="comment"># https://www.aqistudy.cn/historydata</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;https://www.aqistudy.cn/historydata/monthdata.php&#x27;</span> <span class="keyword">in</span> flow.request.url:</span><br><span class="line">        js = flow.response.text</span><br><span class="line">        js = re.sub(<span class="string">r&#x27;endebug.*?&#125;\);&#x27;</span>,<span class="string">&#x27;&#x27;</span>,js,flags=re.S)</span><br><span class="line">        flow.response.set_text(js)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;已正常&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># *_*coding:utf-8 *_*</span><br><span class="line">import sys</span><br><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line">import mitmproxy</span><br><span class="line">from mitmproxy import http</span><br><span class="line">from mitmproxy import flow, proxy, controller, options</span><br><span class="line">from mitmproxy.proxy.server import ProxyServer</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">程序运行</span><br><span class="line"> mitmdump -s scripts.py</span><br><span class="line"> mitmdump -s &lt;python1.y&gt; | python &lt;python2.py&gt;</span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">#https://api-litchi.jstv.com/nav/10002630?OrderIndex=0&amp;channel=0&amp;pagesize=20&amp;gid=9c2ea19a3963&amp;AppID=litchiV5&amp;Sign=e3b261f567e71db23d8d329a0c573f26&amp;TT=495074222</span><br><span class="line">def response(flow):</span><br><span class="line">    if &#x27;https://api-litchi.jstv.com/v6s/nav&#x27;  in flow.request.url:</span><br><span class="line">        data = flow.request.url</span><br><span class="line">        print(f&quot;&gt;&gt;&gt;&#123;data&#125;&lt;&lt;&lt;&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="自定义脚本编写"><a href="#自定义脚本编写" class="headerlink" title="自定义脚本编写"></a>自定义脚本编写</h2><h3 id="脚本编写的两个条件"><a href="#脚本编写的两个条件" class="headerlink" title="脚本编写的两个条件"></a>脚本编写的两个条件</h3><ul>
+<li>1.1、编写一个 py 文件供 mitmproxy 加载，文件中定义了若干函数，这些函数实现了某些 mitmproxy 提供的事件，mitmproxy 会在某个事件发生时调用对应的函数</li>
+<li>1.2、编写一个 py 文件供 mitmproxy 加载，文件定义了【变量 addons】，addons 是个数组，每个元素是一个类实例，这些类有若干方法，这些方法实现了某些 mitmproxy 提供的事件，mitmproxy 会在某个事件发生时调用对应的方法。这些类，称为一个个 addon。</li>
+</ul>
+<h3 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from mitmproxy import http, ctx</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">class xxx:</span><br><span class="line">	def xxx:</span><br><span class="line">	def xxx</span><br><span class="line"></span><br><span class="line">addons = [</span><br><span class="line">	xxx() //类名的加载，也可以定义多个类，然后以数组的形式添加，进行加载</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://docs.mitmproxy.org/stable/addons-examples/">https://docs.mitmproxy.org/stable/addons-examples/</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.idesperado.com">Jane</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.idesperado.com/post/a7db3127.html">http://www.idesperado.com/post/a7db3127.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.idesperado.com" target="_blank">desperado</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/mitmdump/">mitmdump</a></div><div class="post_share"><div class="social-share" data-image="/extra_imgs/town.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/415eb720.html" title="scrapy的spider中间件"><img class="cover" src="/extra_imgs/town.jpg" onerror="onerror=null;src='/img/unfind.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">scrapy的spider中间件</div></div></a></div><div class="next-post pull-right"><a href="/post/d9283bc6.html" title="git笔记"><img class="cover" src="/extra_imgs/town.jpg" onerror="onerror=null;src='/img/unfind.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">git笔记</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img2.baidu.com/it/u=4274118481,3879373441&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=400&amp;h=400" onerror="this.onerror=null;this.src='/img/unfind.jpg'" alt="avatar"/></div><div class="author-info__name">Jane</div><div class="author-info__description">We think too much and feel too little. More than machinery we need humanity!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Zhang-Jane"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Zhang-Jane" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luckingshine@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mitmdump"><span class="toc-number">1.</span> <span class="toc-text">mitmdump</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%A1%A3"><span class="toc-number">1.1.</span> <span class="toc-text">文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%92%88%E5%AF%B9-HTTP-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E4%BA%8B%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">针对 HTTP 生命周期的事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%EF%BC%9Adef-request-flow-flow"><span class="toc-number">1.3.</span> <span class="toc-text">请求：def request(flow:flow)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%EF%BC%9Adef-response-flow-flow"><span class="toc-number">1.4.</span> <span class="toc-text">响应：def response(flow: flow)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99"><span class="toc-number">1.5.</span> <span class="toc-text">自定义脚本编写</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.5.1.</span> <span class="toc-text">脚本编写的两个条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.5.2.</span> <span class="toc-text">模板</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/80db8027.html" title="go语言基础">go语言基础</a><time datetime="2023-02-05T07:50:08.000Z" title="发表于 2023-02-05 15:50:08">2023-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/897196e0.html" title="日常使用的工具">日常使用的工具</a><time datetime="2023-02-05T07:39:33.000Z" title="发表于 2023-02-05 15:39:33">2023-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/b3a6abb4.html" title="线程和进程">线程和进程</a><time datetime="2023-01-26T13:57:12.000Z" title="发表于 2023-01-26 21:57:12">2023-01-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/bbdeeae3.html" title="IDA手册">IDA手册</a><time datetime="2023-01-24T14:51:47.000Z" title="发表于 2023-01-24 22:51:47">2023-01-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/3ad834c9.html" title="zookeeper">zookeeper</a><time datetime="2022-12-25T15:25:46.000Z" title="发表于 2022-12-25 23:25:46">2022-12-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/extra_imgs/town.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Jane</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="43049" data-server="netease" data-type="album" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

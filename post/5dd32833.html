@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Python的dataclass类装饰器 | desperado</title><meta name="author" content="Jane"><meta name="copyright" content="Jane"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Python3.7 dataclass使用指南 本文将带你走进python3.7的新特性dataclass，通过本文你将学会dataclass的使用并避免踏入某些陷阱。   dataclass简介 dataclass的使用 定义一个dataclass 深入dataclass装饰器 数据类的基石——d"><link rel="shortcut icon" href="/img/hamburger.ico"><link rel="canonical" href="http://www.idesperado.com/post/5dd32833.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python的dataclass类装饰器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-05 16:48:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom: 80px}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img2.baidu.com/it/u=4274118481,3879373441&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=400&amp;h=400" onerror="onerror=null;src='/img/unfind.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/program/nav.html"><i class="fa-fw fas fa-list"></i><span> pdf笔记</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heartbeat"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 听音乐</span></a></li><li><a class="site-page child" href="/concert/"><i class="fa-fw fas fa-video"></i><span> 演唱会</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/extra_imgs/town.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">desperado</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/program/nav.html"><i class="fa-fw fas fa-list"></i><span> pdf笔记</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heartbeat"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 听音乐</span></a></li><li><a class="site-page child" href="/concert/"><i class="fa-fw fas fa-video"></i><span> 演唱会</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python的dataclass类装饰器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-20T09:32:33.000Z" title="发表于 2021-04-20 17:32:33">2021-04-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-05T08:48:50.160Z" title="更新于 2023-02-05 16:48:50">2023-02-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python的dataclass类装饰器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Python3-7-dataclass使用指南"><a href="#Python3-7-dataclass使用指南" class="headerlink" title="Python3.7 dataclass使用指南"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/apocelipes/p/10284346.html">Python3.7 dataclass使用指南</a></h1><hr>
+<p>本文将带你走进python3.7的新特性dataclass，通过本文你将学会dataclass的使用并避免踏入某些陷阱。</p>
+<blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/apocelipes/p/10284346.html#abstract">dataclass简介</a></li>
+<li>dataclass的使用<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/apocelipes/p/10284346.html#using-define">定义一个dataclass</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/apocelipes/p/10284346.html#using-decorator">深入dataclass装饰器</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/apocelipes/p/10284346.html#using-field">数据类的基石——dataclasses.field</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/apocelipes/p/10284346.html#using-funcs">一些常用函数</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/apocelipes/p/10284346.html#using-inheritance">dataclass继承</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/apocelipes/p/10284346.html#summary">总结</a></li>
+</ul>
+</blockquote>
+<h2 id="dataclass简介"><a href="#dataclass简介" class="headerlink" title="dataclass简介"></a>dataclass简介</h2><p>dataclass的定义位于<a target="_blank" rel="noopener" href="https://www.python.org/dev/peps/pep-0557/">PEP-557</a>，根据定义一个dataclass是指“一个带有默认值的可变的namedtuple”，广义的定义就是有一个类，它的属性均可公开访问，可以带有默认值并能被修改，而且类中含有与这些属性相关的类方法，那么这个类就可以称为dataclass，再通俗点讲，dataclass就是一个含有数据及操作数据方法的容器。</p>
+<p>乍一看可能会觉得这个概念不就是普通的class么，然而还是有几处不同：</p>
+<ol>
+<li>相比普通class，dataclass通常不包含私有属性，数据可以直接访问</li>
+<li>dataclass的repr方法通常有固定格式，会打印出类型名以及属性名和它的值</li>
+<li>dataclass拥有<code>__eq__</code>和<code>__hash__</code>魔法方法</li>
+<li>dataclass有着模式单一固定的构造方式，或是需要重载运算符，而普通class通常无需这些工作</li>
+</ol>
+<p>基于上述原因，通常自己实现一个dataclass是繁琐而无聊的，而dataclass单一固定的行为正适合程序为我们自动生成，于是<code>dataclasses</code>模块诞生了。</p>
+<p>配合类型注解语法，我们可以轻松生成一个实现了<code>__init__</code>，<code>__repr__</code>，<code>__cmp__</code>等方法的dataclass：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from dataclasses import dataclass</span><br><span class="line"></span><br><span class="line">@dataclass</span><br><span class="line">class InventoryItem:</span><br><span class="line">    &#x27;&#x27;&#x27;Class for keeping track of an item in inventory.&#x27;&#x27;&#x27;</span><br><span class="line">    name: str</span><br><span class="line">    unit_price: float</span><br><span class="line">    quantity_on_hand: int = 0</span><br><span class="line"></span><br><span class="line">    def total_cost(self) -&gt; float:</span><br><span class="line">        return self.unit_price * self.quantity_on_hand</span><br></pre></td></tr></table></figure>
+
+<p>同时使用dataclass也有一些好处，它比namedtuple更灵活。同时因为它是一个常规的类，所以你可以享受继承带来的便利。</p>
+<h2 id="dataclass的使用"><a href="#dataclass的使用" class="headerlink" title="dataclass的使用"></a>dataclass的使用</h2><p>我们分x步介绍dataclass的使用，首先是如何定义一个dataclass。</p>
+<h3 id="定义一个dataclass"><a href="#定义一个dataclass" class="headerlink" title="定义一个dataclass"></a>定义一个dataclass</h3><p><code>dataclasses</code>模块提供了一个装饰器帮助我们定义自己的数据类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@dataclass</span><br><span class="line">class Lang:</span><br><span class="line">    &quot;&quot;&quot;a dataclass that describes a programming language&quot;&quot;&quot;</span><br><span class="line">    name: str = &#x27;python&#x27;</span><br><span class="line">    strong_type: bool = True</span><br><span class="line">    static_type: bool = False</span><br><span class="line">    age: int = 28</span><br></pre></td></tr></table></figure>
+
+<p>我们定义了一个描述某种程序语言特性的数据类——<code>Lang</code>，在接下来的例子中我们都会用到这个类。</p>
+<p>在数据类被定义后，会根据给出的类型注解生成一个如下的初始函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def __init__(self, name: str=&#x27;python&#x27;,</span><br><span class="line">            strong_type: bool=True,</span><br><span class="line">            static_type: bool=False,</span><br><span class="line">            age: int=28):</span><br><span class="line">    self.name = name</span><br><span class="line">    self.strong_type = strong_type</span><br><span class="line">    self.static_type = static_type</span><br><span class="line">    self.age = age</span><br></pre></td></tr></table></figure>
+
+<p>可以看到初始化操作都已经自动生成了，让我们试用一下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Lang()</span><br><span class="line">Lang(name=&#x27;python&#x27;, strong_type=True, static_type=False, age=28)</span><br><span class="line">&gt;&gt;&gt; Lang(&#x27;js&#x27;, False, False, 23)</span><br><span class="line">Lang(name=&#x27;js&#x27;, strong_type=False, static_type=False, age=23)</span><br><span class="line">&gt;&gt;&gt; Lang(&#x27;js&#x27;, False, False, 23) == Lang()</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; Lang(&#x27;python&#x27;, True, False, 28) == Lang()</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>例子中可以看出<code>__repr__</code>和<code>__eq__</code>方法也已经为我们生成了，如果没有其他特殊要求的话这个dataclass已经具备了投入生产环境的能力，是不是很神奇？</p>
+<h3 id="深入dataclass装饰器"><a href="#深入dataclass装饰器" class="headerlink" title="深入dataclass装饰器"></a>深入dataclass装饰器</h3><p>dataclass的魔力源泉都在<code>dataclass</code>这个装饰器中，如果想要完全掌控dataclass的话那么它是你必须了解的内容。</p>
+<p>装饰器的原型如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataclasses.dataclass(*, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False)</span><br></pre></td></tr></table></figure>
+
+<p><code>dataclass</code>装饰器将根据类属性生成数据类和数据类需要的方法。</p>
+<p>我们的关注点集中在它的<code>kwargs</code>上：</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>init</td>
+<td>指定是否自动生成<code>__init__</code>，如果已经有定义同名方法则忽略这个值，也就是指定为True也不会自动生成</td>
+</tr>
+<tr>
+<td>repr</td>
+<td>同init，指定是否自动生成<code>__repr__</code>；自动生成的打印格式为<code>class_name(arrt1:value1, attr2:value2, ...)</code></td>
+</tr>
+<tr>
+<td>eq</td>
+<td>同init，指定是否生成<code>__eq__</code>；自动生成的方法将按属性在类内定义时的顺序逐个比较，全部的值相同才会返回True</td>
+</tr>
+<tr>
+<td>order</td>
+<td>自动生成<code>__lt__</code>，<code>__le__</code>，<code>__gt__</code>，<code>__ge__</code>，比较方式与eq相同；如果order指定为True而eq指定为False，将引发<code>ValueError</code>；如果已经定义同名函数，将引发<code>TypeError</code></td>
+</tr>
+<tr>
+<td>unsafehash</td>
+<td>如果是False，将根据eq和frozen参数来生成<code>__hash__</code>: 1. eq和frozen都为True，<code>__hash__</code>将会生成 2. eq为True而frozen为False，<code>__hash__</code>被设为<code>None</code> 3. eq为False，frozen为True，<code>__hash__</code>将使用超类（object）的同名属性（通常就是基于对象id的hash） 当设置为True时将会根据类属性自动生成<code>__hash__</code>，然而这是不安全的，因为这些属性是默认可变的，这会导致hash的不一致，所以除非能保证对象属性不可随意改变，否则应该谨慎地设置该参数为True</td>
+</tr>
+<tr>
+<td>frozen</td>
+<td>设为True时对field赋值将会引发错误，对象将是不可变的，如果已经定义了<code>__setattr__</code>和<code>__delattr__</code>将会引发<code>TypeError</code></td>
+</tr>
+</tbody></table>
+<p>有默认值的属性必须定义在没有默认值的属性之后，和对kw参数的要求一样。</p>
+<p>上面我们偶尔提到了field的概念，我们所说的数据类属性，数据属性实际上都是被field的对象，它代表着一个数据的实体和它的元信息，下面我们了解一下<code>dataclasses.field</code>。</p>
+<h3 id="数据类的基石——dataclasses-field"><a href="#数据类的基石——dataclasses-field" class="headerlink" title="数据类的基石——dataclasses.field"></a>数据类的基石——dataclasses.field</h3><p>先看下field的原型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataclasses.field(*, default=MISSING, default_factory=MISSING, repr=True, hash=None, init=True, compare=True, metadata=None)</span><br></pre></td></tr></table></figure>
+
+<p>通常我们无需直接使用，装饰器会根据我们给出的类型注解自动生成field，但有时候我们也需要定制这一过程，这时<code>dataclasses.field</code>就显得格外有用了。</p>
+<p>default和default_factory参数将会影响默认值的产生，它们的默认值都是None，意思是调用时如果为指定则产生一个为None的值。其中default是field的默认值，而default_factory控制如何产生值，它接收一个无参数或者全是默认参数的<code>callable</code>对象，然后用调用这个对象获得field的初始值，之后再将default（如果值不是MISSING）复制给<code>callable</code>返回的这个对象。</p>
+<p>举个例子，对于list，当复制它时只是复制了一份引用，所以像dataclass里那样直接复制给实例的做法的危险而错误的，为了保证使用list时的安全性，应该这样做：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@dataclass</span><br><span class="line">class C:</span><br><span class="line">    mylist: List[int] = field(default_factory=list)</span><br></pre></td></tr></table></figure>
+
+<p>当初始化<code>C</code>的实例时就会调用<code>list()</code>而不是直接复制一份list的引用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c1 = C()</span><br><span class="line">&gt;&gt;&gt; c1.mylist += [1,2,3]</span><br><span class="line">&gt;&gt;&gt; c1.mylist</span><br><span class="line">[1, 2, 3]</span><br><span class="line">&gt;&gt;&gt; c2 = C()</span><br><span class="line">&gt;&gt;&gt; c2.mylist</span><br><span class="line">[]</span><br></pre></td></tr></table></figure>
+
+<p>数据污染得到了避免。</p>
+<p>init参数如果设置为False，表示不为这个field生成初始化操作，dataclass提供了hook——<code>__post_init__</code>供我们利用这一特性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@dataclass</span><br><span class="line">class C:</span><br><span class="line">    a: int</span><br><span class="line">    b: int</span><br><span class="line">    c: int = field(init=False)</span><br><span class="line"></span><br><span class="line">    def __post_init__(self):</span><br><span class="line">        self.c = self.a + self.b</span><br></pre></td></tr></table></figure>
+
+<p><code>__post_init__</code>在<code>__init__</code>后被调用，我们可以在这里初始化那些需要前置条件的field。</p>
+<p>repr参数表示该field是否被包含进repr的输出，compare和hash参数表示field是否参与比较和计算hash值。metadata不被dataclass自身使用，通常让第三方组件从中获取某些元信息时才使用，所以我们不需要使用这一参数。</p>
+<p>如果指定一个field的类型注解为<code>dataclasses.InitVar</code>，那么这个field将只会在初始化过程中（<code>__init__</code>和<code>__post_init__</code>）可以被使用，当初始化完成后访问该field会返回一个<code>dataclasses.Field</code>对象而不是field原本的值，也就是该field不再是一个可访问的数据对象。举个例子，比如一个由数据库对象，它只需要在初始化的过程中被访问：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@dataclass</span><br><span class="line">class C:</span><br><span class="line">    i: int</span><br><span class="line">    j: int = None</span><br><span class="line">    database: InitVar[DatabaseType] = None</span><br><span class="line"></span><br><span class="line">    def __post_init__(self, database):</span><br><span class="line">        if self.j is None and database is not None:</span><br><span class="line">            self.j = database.lookup(&#x27;j&#x27;)</span><br><span class="line"></span><br><span class="line">c = C(10, database=my_database)</span><br></pre></td></tr></table></figure>
+
+<p>这个例子中会返回<code>c.i</code>和<code>c.j</code>的数据，但是不会返回<code>c.database</code>的。</p>
+<h3 id="一些常用函数"><a href="#一些常用函数" class="headerlink" title="一些常用函数"></a>一些常用函数</h3><p><code>dataclasses</code>模块中提供了一些常用函数供我们处理数据类。</p>
+<p>使用<code>dataclasses.asdict</code>和<code>dataclasses.astuple</code>我们可以把数据类实例中的数据转换成字典或者元组：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from dataclasses import asdict, astuple</span><br><span class="line">&gt;&gt;&gt; asdict(Lang())</span><br><span class="line">&#123;&#x27;name&#x27;: &#x27;python&#x27;, &#x27;strong_type&#x27;: True, &#x27;static_type&#x27;: False, &#x27;age&#x27;: 28&#125;</span><br><span class="line">&gt;&gt;&gt; astuple(Lang())</span><br><span class="line">(&#x27;python&#x27;, True, False, 28)</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>dataclasses.is_dataclass</code>可以判断一个类或实例对象是否是数据类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from dataclasses import is_dataclass</span><br><span class="line">&gt;&gt;&gt; is_dataclass(Lang)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; is_dataclass(Lang())</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<h3 id="dataclass继承"><a href="#dataclass继承" class="headerlink" title="dataclass继承"></a>dataclass继承</h3><p>python3.7引入dataclass的一大原因就在于相比namedtuple，dataclass可以享受继承带来的便利。</p>
+<p><code>dataclass</code>装饰器会检查当前class的所有基类，如果发现一个dataclass，就会把它的字段按顺序添加进当前的class，随后再处理当前class的field。所有生成的方法也将按照这一过程处理，因此如果子类中的field与基类同名，那么子类将会无条件覆盖基类。子类将会根据所有的field重新生成一个构造函数，并在其中初始化基类。</p>
+<p>看个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@dataclass</span><br><span class="line">class Python(Lang):</span><br><span class="line">    tab_size: int = 4</span><br><span class="line">    is_script: bool = True</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; Python()</span><br><span class="line">Python(name=&#x27;python&#x27;, strong_type=True, static_type=False, age=28, tab_size=4, is_script=True)</span><br><span class="line"></span><br><span class="line">@dataclass</span><br><span class="line">class Base:</span><br><span class="line">    x: float = 25.0</span><br><span class="line">    y: int = 0</span><br><span class="line"></span><br><span class="line">@dataclass</span><br><span class="line">class C(Base):</span><br><span class="line">    z: int = 10</span><br><span class="line">    x: int = 15</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; C()</span><br><span class="line">C(x=15, y=0, z=10)</span><br></pre></td></tr></table></figure>
+
+<p><code>Lang</code>的field被<code>Python</code>继承了，而<code>C</code>中的<code>x</code>则覆盖了<code>Base</code>中的定义。</p>
+<p>没错，数据类的继承就是这么简单。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>合理使用dataclass将会大大减轻开发中的负担，将我们从大量的重复劳动中解放出来，这既是dataclass的魅力，不过魅力的背后也总是有陷阱相伴，最后我想提几点注意事项：</p>
+<ul>
+<li>dataclass通常情况下是unhashable的，因为默认生成的<code>__hash__</code>是<code>None</code>，所以不能用来做字典的key，如果有这种需求，那么应该指定你的数据类为frozen dataclass</li>
+<li>小心当你定义了和<code>dataclass</code>生成的同名方法时会引发的问题</li>
+<li>当使用可变类型（如list）时，应该考虑使用<code>field</code>的<code>default_factory</code></li>
+<li>数据类的属性都是公开的，如果你有属性只需要初始化时使用而不需要在其他时候被访问，请使用<code>dataclasses.InitVar</code></li>
+</ul>
+<p>只要避开这些陷阱，dataclass一定能成为提高生产力的利器。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.idesperado.com">Jane</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.idesperado.com/post/5dd32833.html">http://www.idesperado.com/post/5dd32833.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.idesperado.com" target="_blank">desperado</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/extra_imgs/town.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/f19d1117.html" title="python3类型注释"><img class="cover" src="/extra_imgs/town.jpg" onerror="onerror=null;src='/img/unfind.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">python3类型注释</div></div></a></div><div class="next-post pull-right"><a href="/post/7408a64e.html" title="Python的Mixin概念"><img class="cover" src="/extra_imgs/town.jpg" onerror="onerror=null;src='/img/unfind.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python的Mixin概念</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img2.baidu.com/it/u=4274118481,3879373441&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=400&amp;h=400" onerror="this.onerror=null;this.src='/img/unfind.jpg'" alt="avatar"/></div><div class="author-info__name">Jane</div><div class="author-info__description">We think too much and feel too little. More than machinery we need humanity!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Zhang-Jane"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Zhang-Jane" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luckingshine@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python3-7-dataclass%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97"><span class="toc-number">1.</span> <span class="toc-text">Python3.7 dataclass使用指南</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#dataclass%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">dataclass简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dataclass%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text">dataclass的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AAdataclass"><span class="toc-number">1.2.1.</span> <span class="toc-text">定义一个dataclass</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5dataclass%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text">深入dataclass装饰器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E7%9A%84%E5%9F%BA%E7%9F%B3%E2%80%94%E2%80%94dataclasses-field"><span class="toc-number">1.2.3.</span> <span class="toc-text">数据类的基石——dataclasses.field</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.4.</span> <span class="toc-text">一些常用函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dataclass%E7%BB%A7%E6%89%BF"><span class="toc-number">1.2.5.</span> <span class="toc-text">dataclass继承</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/80db8027.html" title="go语言基础">go语言基础</a><time datetime="2023-02-05T07:50:08.000Z" title="发表于 2023-02-05 15:50:08">2023-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/897196e0.html" title="日常使用的工具">日常使用的工具</a><time datetime="2023-02-05T07:39:33.000Z" title="发表于 2023-02-05 15:39:33">2023-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/b3a6abb4.html" title="线程和进程">线程和进程</a><time datetime="2023-01-26T13:57:12.000Z" title="发表于 2023-01-26 21:57:12">2023-01-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/bbdeeae3.html" title="IDA手册">IDA手册</a><time datetime="2023-01-24T14:51:47.000Z" title="发表于 2023-01-24 22:51:47">2023-01-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/3ad834c9.html" title="zookeeper">zookeeper</a><time datetime="2022-12-25T15:25:46.000Z" title="发表于 2022-12-25 23:25:46">2022-12-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/extra_imgs/town.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Jane</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="43049" data-server="netease" data-type="album" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

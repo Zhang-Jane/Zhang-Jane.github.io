@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>ip代理池的搭建 | desperado</title><meta name="author" content="Jane"><meta name="copyright" content="Jane"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ip搭建各种IP地址的获取及接入方式vps VPS（Virtual Private Server 虚拟专用服务器）技术，将一台服务器分割成多个虚拟专享服务器的优质服务。实现VPS的技术分为容器技术，和虚拟化技术 [1]  。在容器或虚拟机中，每个VPS都可选配独立公网IP地址、独立操作系统、实现不同"><link rel="shortcut icon" href="/img/hamburger.ico"><link rel="canonical" href="http://www.idesperado.com/post/e5aebd10.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ip代理池的搭建',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-05 16:48:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom: 80px}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img2.baidu.com/it/u=4274118481,3879373441&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=400&amp;h=400" onerror="onerror=null;src='/img/unfind.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/program/nav.html"><i class="fa-fw fas fa-list"></i><span> pdf笔记</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heartbeat"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 听音乐</span></a></li><li><a class="site-page child" href="/concert/"><i class="fa-fw fas fa-video"></i><span> 演唱会</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/extra_imgs/town.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">desperado</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/program/nav.html"><i class="fa-fw fas fa-list"></i><span> pdf笔记</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heartbeat"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 听音乐</span></a></li><li><a class="site-page child" href="/concert/"><i class="fa-fw fas fa-video"></i><span> 演唱会</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ip代理池的搭建</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-27T06:15:15.000Z" title="发表于 2020-10-27 14:15:15">2020-10-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-05T08:48:50.236Z" title="更新于 2023-02-05 16:48:50">2023-02-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ip%E4%BB%A3%E7%90%86%E6%B1%A0/">ip代理池</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ip代理池的搭建"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="ip搭建"><a href="#ip搭建" class="headerlink" title="ip搭建"></a>ip搭建</h1><h3 id="各种IP地址的获取及接入方式"><a href="#各种IP地址的获取及接入方式" class="headerlink" title="各种IP地址的获取及接入方式"></a><strong>各种IP地址的获取及接入方式</strong></h3><h4 id="vps"><a href="#vps" class="headerlink" title="vps"></a>vps</h4><ul>
+<li>VPS（Virtual Private Server 虚拟专用服务器）技术，将一台服务器分割成多个虚拟专享服务器的优质服务。实现VPS的技术分为容器技术，和虚拟化技术 [1]  。在容器或虚拟机中，每个VPS都可选配独立公网IP地址、独立操作系统、实现不同VPS间磁盘空间、内存、CPU资源、进程和系统配置的隔离，为用户和应用程序模拟出“独占”使用计算资源的体验。VPS可以像独立服务器一样，重装操作系统，安装程序，单独重启服务器。VPS为使用者提供了管理配置的自由，可用于企业虚拟化，也可以用于IDC资源租用</li>
+</ul>
+<h4 id="PPPoE-家庭宽带"><a href="#PPPoE-家庭宽带" class="headerlink" title="PPPoE (家庭宽带)"></a><strong>PPPoE (家庭宽带)</strong></h4><ul>
+<li><p>PPP协议也叫点对点协议（英语：Point-to-Point Protocol，PPP），是一个历史悠久的协议，定义于1992年，备忘录编号RFC 1331。</p>
+<p>它的另外一个名字更为我们所熟知——宽带拨号。 当前我们所用的宽带连接技术，无论ADSL还是光纤接入，在数据链路层上，都使用PPP技术。我们在运营商办理宽带时，如果采用ADSL接入， 运营商会为我们提供一个ADSL Modem，如果使用光纤接入， 运营商为我们提供一个光猫，也叫ONU。 ONU 与 ADSL Modem 为我们建立了与ISP通信的物理层，我们会发现，直接将光猫或ADSL Modem上面的以太网口接入电脑是不行的， 这是因为由于运营商需要AAA，也就是 验证、授权和记账（Authentication、Authorization、Accounting ）。 在我们看来，我们需要“拨号” 才能上网。 “拨号”，就是建立了一个PPP连接。 PPP协议提供了认证的能力， 这也就是为什么我们在“拨号”的时候，可以输入 用户名、密码。 而运营商可以通过用户名和密码来对我们进行认证的原因。</p>
+<p>在建立了PPP连接之后， 在操作系统看来， PPP连接表现为一个网卡，当然这个网卡并不是物理上的网卡，而是一个虚拟的逻辑网卡， 与这个逻辑的网卡进行通信，PPP协议的驱动程序会自动为我们完成PPP协议的封包和拆包工作， 在我们看来，除了由于PPP协议的8个字节开销，导致MTU比正常的要小一些之外, 这个网卡和一般的物理网卡工作起来并没有什么区别。</p>
+<p>一般来说，在PPP连接建立之后， 远端的ISP设备， 称为BAS(接入服务器)，会为PPP链接的客户端赋予一个IP地址. 这个IP地址在几年前一般都是公网IP地址， 现在有很多是NAT过的IP地址. 它们来源于BAS服务器上配置的地址池，通常IP地址池的划分是于区县级的，也有部分城市经过改造，可能是市级，甚至是省级的。</p>
+<p>PPP拨号在爬虫对抗中是很可靠的IP来源，因为它与用户的IP段重合，如果服务提供商贸然封杀IP，会导致严重的误杀， 当然局限性也很大，如果想获取一个地区IP地址，就需要在这个地区架设机房。所需要的时间精力比较大。</p>
+</li>
+</ul>
+<h3 id="获取ip的渠道"><a href="#获取ip的渠道" class="headerlink" title="获取ip的渠道"></a>获取ip的渠道</h3><h5 id="1-ip的选择"><a href="#1-ip的选择" class="headerlink" title="1.ip的选择"></a>1.ip的选择</h5><p>很多ip代理商，代理种类也很多（私密代理，高匿名代理，隧道代理，独享代理，开放代理），价格也不一样。这种最常见，但是质量可能不太高，有很多公司会把一些代理ip公司提供的ip拉入黑名单。</p>
+<p>一些ip可以通过<a target="_blank" rel="noopener" href="https://www.ipip.net/">https://www.ipip.net/</a> 来查看ip可用性</p>
+<h5 id="2-通过vps主机拨号换ip"><a href="#2-通过vps主机拨号换ip" class="headerlink" title="2.通过vps主机拨号换ip"></a>2.通过vps主机拨号换ip</h5><p>通过adsl拨号，切换ip，拨号可能会受vps影响，拨号可能失败，或者等待时间长。</p>
+<p>这种方式比之前会比较麻烦，但是这种适合大规模的抓取，直接搭建一个搭建ip库。</p>
+<p>通过把vps服务器配置成代理服务器（有的可能不支持）</p>
+<p>程序  -&gt; 代理服务（使用代理软件（tinyproxy或者squid），然后每次拨号切换ip） -&gt; 互联网</p>
+<p><strong>2.1. 使用TinyProxy</strong></p>
+<p>Tinyproxy 是一个轻量级的开源 web 代理守护进程，其设计目标是快而小。它适用于需要完整 HTTP 代理特性，但系统资源又不足以运行大型代理的场景，比如嵌入式部署。</p>
+<p>Tinyproxy 对小规模网络非常有用，这样的场合下大型代理会使系统资源紧张，或有安全风险。Tinyproxy 的一个关键特性是其缓冲连接的理念。从效果上看， Tinyproxy 对服务器的响应进行了高速缓冲，然后按照客户端能够处理的最高速度进行响应。该特性极大的降低了网络延滞带来的问题。</p>
+<p>思路：</p>
+<p>安装tinyproxy，然后启动代理服务，通过程序可以访问绑定的ip。但是这里有一个缺陷。vps是通过拨号改变ip的，ip一旦改变，程序就不知道了。</p>
+<p>解决：</p>
+<ol>
+<li>这时候需要在新增一个ip管理的一个服务，来收集各个vps主机上的ip信息，然后聚合一起放入一个队列或者数据库。</li>
+<li>通过绑定域名（买一个主域名，然后每个vps配置一个子域名），在通过dns解析服务（阿里或者腾讯的dns服务），解析各个vps的ip，各个vps通过官方的接口更新ip。这样每个域名地址访问一个对应的vps，最后通过各个域名对应的变化的ip，来构建ip池。</li>
+</ol>
+<p><strong>2.2. 使用Squid</strong></p>
+<p>Squid是Web的缓存代理，支持HTTP，HTTPS，FTP等。通过缓存和重用经常请求的网页，它减少了带宽并缩短了响应时间</p>
+<p>cache_peer的配置：</p>
+<p>通过squid.conf配置文件中的cache_peer选项来配置代理服务器阵列，通过其他的选项来控制选择代理伙伴的方法。Cache_peer的使用格式如下：</p>
+<p>cache_peer hostname type http_port icp_port option</p>
+<p>共有5个选项可以配置：</p>
+<ol>
+<li><p>hostname：指被请求的同级子代理服务器或父代理服务器。可以用主机名或ip地址表示；</p>
+</li>
+<li><p>type：指明hostname的类型，是同级子代理服务器还是父代理服务器，也即parent（父） 还是 sibling（子）；</p>
+</li>
+<li><p>http_port：hostname的监听端口；</p>
+</li>
+<li><p>icp_port：hostname上的ICP监听端口，对于不支持ICP协议的可指定7；</p>
+</li>
+<li><p>options：可以包含一个或多个关键</p>
+<ol>
+<li>proxy-only：指明从peer得到的数据在本地不进行缓存，缺省地，squid是要缓存这部分数据的；</li>
+<li>weight&#x3D;n：用于你有多个peer的情况，这时如果多于一个以上的peer拥有你请求的数据时，squid通过计算每个peer的ICP响应时间来 决定其weight的值，然后squid向其中拥有最大weight的peer发出ICP请求。也即weight值越大，其优先级越高。当然你也可以手工 指定其weight值；</li>
+<li>no-query：不向该peer发送ICP请求。如果该peer不可用时，可以使用该选项；</li>
+<li>Default：有点象路由表中的缺省路由，该peer将被用作最后的尝试手段。当你只有一个父代理服务器并且其不支持ICP协议时，可以使用default和no-query选项让所有请求都发送到该父代理服务器；</li>
+<li>login&#x3D;user:password：当你的父代理服务器要求用户认证时可以使用该选项来进行认证。</li>
+<li>round-robin：负载均衡，设置了之后会在配置的二级代理之间进行切换选取</li>
+<li>weighted-round-robin：有权重的负载均衡，同时会根据二级代理的往返时间来改变选取权重，越快的选取概率越高。</li>
+<li>more <a target="_blank" rel="noopener" href="http://www.squid-cache.org/Doc/config/cache_peer/">http://www.squid-cache.org/Doc/config/cache_peer/</a></li>
+</ol>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cache_peer hostname type http-port icp-port [options]</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cache_peer 58.22.22.124 parent 2053 0 no-query proxy-only weighted-round-robin login=germey:Yuy3z92hwRmJe2X6fs3BH6aWnt7xePoL</span><br></pre></td></tr></table></figure>
+
+<p>如果有非常多的代理池，那么可以根据这个格式来写入一个 conf 文件里面，一个代理一个，Squid 引用这个文件即可</p>
+<p>这个 conf 文件可以保存为 peers.conf，然后在 Squid 的配置文件 squid.conf 里面引入即可，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include /etc/squid/peers.conf</span><br></pre></td></tr></table></figure>
+
+<p>这样，Squid 的 cache peers 会被设置为有权重的负载均衡模式，当有请求来的时候，Squid 会随机选一个 cache peer 转发，同时 Squid 还会检测每一个 cache peer 的有效性，我们也不用再单独实现检测逻辑了，省去了一大麻烦。</p>
+<p>嗯，利用上面的方法，我就能维护一个隧道代理了，这样一来，我就可以完成：</p>
+<p>•爬虫的代理直接设置为该 Squid 的 host 和 port 即可。</p>
+<p>•获取到的代理直接写入 peers.conf 配置文件里面，不用再去额外检测代理有效性，Squid 会自动检测。</p>
+<p>•代理池的维护和取用和转发由 Squid 的 cache_peer 机制自动实现，我们不用再去关心随机选取的问题了。</p>
+<p> Squid 高匿代理的关键配置：</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/Python3WebSpider/ProxyTunnel">https://github.com/Python3WebSpider/ProxyTunnel</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">request_header_access Via deny all</span><br><span class="line">request_header_access X-Forwarded-For deny all</span><br></pre></td></tr></table></figure>
+
+<p><strong>优化方案</strong></p>
+<p>难道我有几万个 IP，每次更新都要写入 Squid 文件吗？写入之后要重启吧，Squid 重启的时候这个代理不就没法用了吗？</p>
+<p>这个问题，一个更好的解决方案是二级代理使用 ADSL 拨号代理服务器，peers.conf 里面配置这些 ADSL 拨号代理，这样 IP 的切换由 ADSL 拨号代理控制，本机 Squid 不用再动 peers.conf 配置文件，也不用重启了，同时还能检测拨号代理的有效性，实现永久可用。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.idesperado.com">Jane</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.idesperado.com/post/e5aebd10.html">http://www.idesperado.com/post/e5aebd10.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.idesperado.com" target="_blank">desperado</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ip%E4%BB%A3%E7%90%86%E6%B1%A0/">ip代理池</a></div><div class="post_share"><div class="social-share" data-image="/extra_imgs/town.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/f7e69fc7.html" title="java的反射"><img class="cover" src="/extra_imgs/town.jpg" onerror="onerror=null;src='/img/unfind.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">java的反射</div></div></a></div><div class="next-post pull-right"><a href="/post/544a10a3.html" title="常见的混淆反爬措施"><img class="cover" src="/extra_imgs/town.jpg" onerror="onerror=null;src='/img/unfind.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">常见的混淆反爬措施</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img2.baidu.com/it/u=4274118481,3879373441&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=400&amp;h=400" onerror="this.onerror=null;this.src='/img/unfind.jpg'" alt="avatar"/></div><div class="author-info__name">Jane</div><div class="author-info__description">We think too much and feel too little. More than machinery we need humanity!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Zhang-Jane"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Zhang-Jane" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luckingshine@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ip%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">ip搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E7%A7%8DIP%E5%9C%B0%E5%9D%80%E7%9A%84%E8%8E%B7%E5%8F%96%E5%8F%8A%E6%8E%A5%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="toc-number">1.0.1.</span> <span class="toc-text">各种IP地址的获取及接入方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#vps"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">vps</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PPPoE-%E5%AE%B6%E5%BA%AD%E5%AE%BD%E5%B8%A6"><span class="toc-number">1.0.1.2.</span> <span class="toc-text">PPPoE (家庭宽带)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96ip%E7%9A%84%E6%B8%A0%E9%81%93"><span class="toc-number">1.0.2.</span> <span class="toc-text">获取ip的渠道</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-ip%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">1.0.2.0.1.</span> <span class="toc-text">1.ip的选择</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E9%80%9A%E8%BF%87vps%E4%B8%BB%E6%9C%BA%E6%8B%A8%E5%8F%B7%E6%8D%A2ip"><span class="toc-number">1.0.2.0.2.</span> <span class="toc-text">2.通过vps主机拨号换ip</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/80db8027.html" title="go语言基础">go语言基础</a><time datetime="2023-02-05T07:50:08.000Z" title="发表于 2023-02-05 15:50:08">2023-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/897196e0.html" title="日常使用的工具">日常使用的工具</a><time datetime="2023-02-05T07:39:33.000Z" title="发表于 2023-02-05 15:39:33">2023-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/b3a6abb4.html" title="线程和进程">线程和进程</a><time datetime="2023-01-26T13:57:12.000Z" title="发表于 2023-01-26 21:57:12">2023-01-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/bbdeeae3.html" title="IDA手册">IDA手册</a><time datetime="2023-01-24T14:51:47.000Z" title="发表于 2023-01-24 22:51:47">2023-01-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/3ad834c9.html" title="zookeeper">zookeeper</a><time datetime="2022-12-25T15:25:46.000Z" title="发表于 2022-12-25 23:25:46">2022-12-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/extra_imgs/town.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Jane</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="43049" data-server="netease" data-type="album" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

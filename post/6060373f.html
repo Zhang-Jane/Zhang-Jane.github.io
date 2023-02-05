@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>git的子模块 | desperado</title><meta name="author" content="Jane"><meta name="copyright" content="Jane"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="git submodulehttps:&amp;#x2F;&amp;#x2F;git-scm.com&amp;#x2F;book&amp;#x2F;en&amp;#x2F;v2&amp;#x2F;Git-Tools-Submodules 为什么要用submodules？经常发生的情况是，在处理一个项目时，您需要使用其中的另一个项目。也许它是第三方开发的库，或者您正在单独开发并在多个父项目中使用。这些场景中"><link rel="shortcut icon" href="/img/hamburger.ico"><link rel="canonical" href="http://www.idesperado.com/post/6060373f.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'git的子模块',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-05 16:48:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom: 80px}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img2.baidu.com/it/u=4274118481,3879373441&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=400&amp;h=400" onerror="onerror=null;src='/img/unfind.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/program/nav.html"><i class="fa-fw fas fa-list"></i><span> pdf笔记</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heartbeat"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 听音乐</span></a></li><li><a class="site-page child" href="/concert/"><i class="fa-fw fas fa-video"></i><span> 演唱会</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/extra_imgs/town.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">desperado</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/program/nav.html"><i class="fa-fw fas fa-list"></i><span> pdf笔记</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heartbeat"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 听音乐</span></a></li><li><a class="site-page child" href="/concert/"><i class="fa-fw fas fa-video"></i><span> 演唱会</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">git的子模块</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-14T11:31:03.000Z" title="发表于 2022-12-14 19:31:03">2022-12-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-05T08:48:50.223Z" title="更新于 2023-02-05 16:48:50">2023-02-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/git/">git</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="git的子模块"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="git-submodule"><a href="#git-submodule" class="headerlink" title="git submodule"></a>git submodule</h1><p><a target="_blank" rel="noopener" href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">https://git-scm.com/book/en/v2/Git-Tools-Submodules</a></p>
+<p><strong>为什么要用submodules？</strong><br>经常发生的情况是，在处理一个项目时，您需要使用其中的另一个项目。也许它是第三方开发的库，或者您正在单独开发并在多个父项目中使用。这些场景中出现了一个常见问题：您希望能够将这两个项目视为独立的项目，但仍然能够在另一个项目中使用一个项目。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">mkdir</span> <span class="built_in">test</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="built_in">test</span></span><br><span class="line">$ git init</span><br><span class="line">$ git submodule add https://github.com/my-user/my-submodule.git &lt;指定目录&gt;</span><br></pre></td></tr></table></figure>
+
+<p>加上 –recursive 拉取嵌套的子模块（子模块本身又有子模块）</p>
+<p><code>git submodule update --init --recursive</code></p>
+<p>在clone时加上 –recurse-submodules选项自动拉取子模块</p>
+<p><code>git clone --recurse-submodules &lt;main-project-repo-url&gt;</code></p>
+<p><code>git submodule update --remote [submodule-path] </code>(不用切目录进行手动更新)</p>
+<p><code>git submodule foreach git pull</code> 遍历更新所有子库</p>
+<p>删除子版本库</p>
+<ul>
+<li><code>git rm --cache mymodule</code></li>
+<li>将submodule从工作区中删除</li>
+<li>最后将.gitmodules目录删除</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li><p>当产生内容变化，在主模块目录输入git status会显示子模块目录有更改，不会显示具体的内容，而且主目录无法对submodule操作</p>
+</li>
+<li><p>主模块在git add文件时是不会添加子模块目录下的内容，而是直接add子模块目录</p>
+</li>
+<li><p>当我们在主目录拉取代码的时候，子模块默认不会被拉取</p>
+</li>
+<li><p>主目录和子模块并不是完全没有关联，他们之间的变动都会在各自的status中显示</p>
+</li>
+</ul>
+<h1 id="git-subtree"><a href="#git-subtree" class="headerlink" title="git subtree"></a>git subtree</h1><p><code> git remote add subtree-origin git@github.com:xxxx/git_subtree_child.git</code><br><code> git remote show </code></p>
+<p><code> git subtree add --prefix=subtree subtree-origin master --squash</code> #其中的–prefix&#x3D;subtree可以写成：–p subtree 或 –prefix subtree<br> 该命令表示将远程地址为subtree-origin的，子版本库上master分支的，文件克隆到subtree目录下</p>
+<p>–squash是可选参数，它的含义是合并，压缩的意思。</p>
+<p>如果不增加这个参数，则会把远程的子库中指定的分支（这里是master）中的提交一个一个地拉取到本地再去创建一个合并提交；<br>如果增加了这个参数，会将远程子库指定分支上的多次提交合并压缩成一次提交再拉取到本地，这样拉取到本地的，远程子库中的，指定分支上的，历史提交记录就没有了。</p>
+<p>父库中通过如下指令更新依赖的子库内容：</p>
+<p><code>git subtree pull --prefix=subtree subtree-origin master --squash</code></p>
+<h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><ol>
+<li>git subtree把子仓库当作整个仓库的一个子目录来处理，而git submodule则把子仓库作为一个独立的仓库来处理。</li>
+<li>当使用git subtree时，子仓库的所有文件都会被添加到父仓库中，并且可以像普通文件一样被管理和维护。相反，使用git submodule时，子仓库只会在父仓库中以一个特殊的条目出现，并且必须单独管理和维护。</li>
+<li>git subtree允许把子仓库的内容合并到父仓库中，并且可以在父仓库中直接对子仓库的内容进行修改和提交，而git submodule则不允许这样做。相反，git submodule只能在父仓库中记录子仓库的提交历史，并且必须在子仓库中进行更改并提交。这意味着，使用git subtree可以更方便地管理父仓库和子仓库之间的关系，并且可以更灵活地组织和维护代码。</li>
+</ol>
+<h1 id="查缺补漏"><a href="#查缺补漏" class="headerlink" title="查缺补漏"></a>查缺补漏</h1><p>因为submodule的特性，在push主模块的时候，子模块默认不会推送所以：</p>
+<ul>
+<li>如果想要在 push 主仓库时同时推送子仓库，你可以使用 <code>git push --recurse-submodules=on-demand</code> 选项，如果有任意一个子模块有更新，就会 push 到远程仓库。</li>
+<li>如果你想要强制 push 所有的子仓库，不管它们是否有更新，那么可以使用<code> git push --recurse-submodules=on-demand --force</code> 选项<br>上面的可能不好使，这和git版本有关，详细可以参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5814319/git-submodule-push">https://stackoverflow.com/questions/5814319/git-submodule-push</a></li>
+</ul>
+<p><strong>注意：</strong><br>主模块和子模块在同一个git目录下面管理，如果不在一个目录会出现俩个不同git，而且新的.git目录再管理另外一个submodule</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--recurse-submodules[=&lt;pathspec&gt;]</span><br><span class="line">                        initialize submodules <span class="keyword">in</span> the <span class="built_in">clone</span></span><br><span class="line">--recursive[=&lt;pathspec&gt;]</span><br><span class="line">                        <span class="built_in">alias</span> of --recurse-submodules</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.idesperado.com">Jane</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.idesperado.com/post/6060373f.html">http://www.idesperado.com/post/6060373f.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.idesperado.com" target="_blank">desperado</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/git/">git</a></div><div class="post_share"><div class="social-share" data-image="/extra_imgs/town.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/16146bf6.html" title="git工作流模式"><img class="cover" src="/extra_imgs/town.jpg" onerror="onerror=null;src='/img/unfind.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">git工作流模式</div></div></a></div><div class="next-post pull-right"><a href="/post/4db545c4.html" title="NDK和JNI"><img class="cover" src="/extra_imgs/town.jpg" onerror="onerror=null;src='/img/unfind.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">NDK和JNI</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/16146bf6.html" title="git工作流模式"><img class="cover" src="/extra_imgs/town.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-14</div><div class="title">git工作流模式</div></div></a></div><div><a href="/post/d9283bc6.html" title="git笔记"><img class="cover" src="/extra_imgs/town.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-15</div><div class="title">git笔记</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img2.baidu.com/it/u=4274118481,3879373441&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=400&amp;h=400" onerror="this.onerror=null;this.src='/img/unfind.jpg'" alt="avatar"/></div><div class="author-info__name">Jane</div><div class="author-info__description">We think too much and feel too little. More than machinery we need humanity!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Zhang-Jane"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Zhang-Jane" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luckingshine@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git-submodule"><span class="toc-number">1.</span> <span class="toc-text">git submodule</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git-subtree"><span class="toc-number">2.</span> <span class="toc-text">git subtree</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8C%BA%E5%88%AB"><span class="toc-number">3.</span> <span class="toc-text">区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">查缺补漏</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/80db8027.html" title="go语言基础">go语言基础</a><time datetime="2023-02-05T07:50:08.000Z" title="发表于 2023-02-05 15:50:08">2023-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/897196e0.html" title="日常使用的工具">日常使用的工具</a><time datetime="2023-02-05T07:39:33.000Z" title="发表于 2023-02-05 15:39:33">2023-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/b3a6abb4.html" title="线程和进程">线程和进程</a><time datetime="2023-01-26T13:57:12.000Z" title="发表于 2023-01-26 21:57:12">2023-01-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/bbdeeae3.html" title="IDA手册">IDA手册</a><time datetime="2023-01-24T14:51:47.000Z" title="发表于 2023-01-24 22:51:47">2023-01-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/3ad834c9.html" title="zookeeper">zookeeper</a><time datetime="2022-12-25T15:25:46.000Z" title="发表于 2022-12-25 23:25:46">2022-12-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/extra_imgs/town.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Jane</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="43049" data-server="netease" data-type="album" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

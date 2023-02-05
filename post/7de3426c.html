@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>vim命令 | desperado</title><meta name="author" content="Jane"><meta name="copyright" content="Jane"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="help:h {TEXT} 123456:h motion  # 第一章我们讲过了motion，可以试着自己看看:h buffer  # buffer是vim处理文件缓存的方式:h tab     # tab和浏览器、vscode的tab一样:h window  # 窗口的概念 和窗口相关的是spl"><link rel="shortcut icon" href="/img/hamburger.ico"><link rel="canonical" href="http://www.idesperado.com/post/7de3426c.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'vim命令',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-05 16:48:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom: 80px}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img2.baidu.com/it/u=4274118481,3879373441&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=400&amp;h=400" onerror="onerror=null;src='/img/unfind.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/program/nav.html"><i class="fa-fw fas fa-list"></i><span> pdf笔记</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heartbeat"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 听音乐</span></a></li><li><a class="site-page child" href="/concert/"><i class="fa-fw fas fa-video"></i><span> 演唱会</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/extra_imgs/town.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">desperado</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/program/nav.html"><i class="fa-fw fas fa-list"></i><span> pdf笔记</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heartbeat"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 听音乐</span></a></li><li><a class="site-page child" href="/concert/"><i class="fa-fw fas fa-video"></i><span> 演唱会</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">vim命令</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-16T14:16:05.000Z" title="发表于 2022-12-16 22:16:05">2022-12-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-05T08:48:50.301Z" title="更新于 2023-02-05 16:48:50">2023-02-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="vim命令"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="help"><a href="#help" class="headerlink" title="help"></a>help</h2><p><strong>:h {TEXT}</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">:h motion  <span class="comment"># 第一章我们讲过了motion，可以试着自己看看</span></span><br><span class="line">:h buffer  <span class="comment"># buffer是vim处理文件缓存的方式</span></span><br><span class="line">:h tab     <span class="comment"># tab和浏览器、vscode的tab一样</span></span><br><span class="line">:h window  <span class="comment"># 窗口的概念 和窗口相关的是split，窗口分割</span></span><br><span class="line">:h         <span class="comment"># 当然可以打开整个帮助手册</span></span><br><span class="line">:h z       <span class="comment"># z命令帮助</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>1.转到文件结尾<br>G<br>2.或转到第9行<br>9G<br>3.删除所有内容(先用G转到文件尾) ，使用<code>:</code><br>:1,.d<br>或者删除第9行到第200行的内容(先用200G转到第200行) ，使用<br>:9,.d<br>4.删除光标所在处字符<br>x<br>5.删除光标所在前字符（大写 X ）<br>X<br>6.删除到下一个单词开头<br>dw<br>7.删除到本单词末尾<br>de<br>8.删除到本单词末尾包括标点在内<br>dE<br>9.删除到前一个单词<br>db<br>10.删除到前一个单词包括标点在内<br>dB<br>11.删除一整行<br>dd<br>12.删除光标位置到本行结尾<br>D d$<br>13.删除光标位置到本行开头<br>d0<br>说明：这是在vim中 ，“.”当前行 ，“1,.”表示从第一行到当前行 ，“d”删除，3dd代表删除三行。<br>J<br>将光标所在的行与下一行的数据结合成一行<br><code>.</code><br>重复上一次的操作<br>9b 光标向前移动9个单词<br><code>8&lt;C-d&gt;</code> 翻页操作8次<br>:w     保存文件 字面意思 write<br>:w!    强制保存文件<br>:wa    保存所有文件，针对你打开buffer过多的情况<br>:q     退出<br>:q!    强行退出<br>:wq    保存并退出<br>:qa    退出所有buffer </p>
+<h3 id="多文本编辑"><a href="#多文本编辑" class="headerlink" title="多文本编辑"></a>多文本编辑</h3><p><code>:n</code><br>编辑下一个文件<br><code>:N</code><br>编辑上一个文件<br><code>:files</code><br>列出当前这个vim打开的所有文件</p>
+<h3 id="多窗口"><a href="#多窗口" class="headerlink" title="多窗口"></a>多窗口</h3><p>:sp [filname]	打开一个新的窗口，如果没有filename，会默认打开一个当前文本的窗口，同步显示。有则会同时显示fileame和origin两个文本。<br>:new+窗口名(保存后就是文件名)<br>:vsplit+窗口名，也可以简写为：vsp+窗口名，<br>Ctrl + w + h：向左移动窗口<br>Ctrl + w + j： 向下移动窗口<br>Ctrl + w + j： 向上移动窗口<br>Ctrl + w + l： 向右移动窗口<br>:tabc 关闭当前窗口<br>:tabo 关闭所有窗口</p>
+<h3 id="字符移动"><a href="#字符移动" class="headerlink" title="字符移动"></a>字符移动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">k            上移                k</span><br><span class="line">h            左移            h        l</span><br><span class="line">l            右移                j</span><br><span class="line">j            下移</span><br></pre></td></tr></table></figure>
+
+<p>你也可以使用键盘上的方向键来移动，但这么做h j k l的存在就失去了意义</p>
+<p>之所以使用h j k l来控制方向，其主要目的是让你的手不离开键盘中心，从而提高效率</p>
+<p><strong>tips</strong>：在命令前加上数字代表命令执行次数，如：5k，表示上移5行</p>
+<h4 id="单词移动"><a href="#单词移动" class="headerlink" title="单词移动"></a>单词移动</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">W w            移动到下一个单词开头</span><br><span class="line">E e            移动到下一个单词结尾</span><br><span class="line">B b            倒退到上一个单词开头</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，E会忽略标点符号，如：I‘m，e会当成两个单词，E则不会<br>同样，在命令前加上数字代表执行次数，如：2w，表示往下移动2个单词</p>
+<h4 id="整行移动"><a href="#整行移动" class="headerlink" title="整行移动"></a>整行移动</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0            移动到行首</span><br><span class="line">$            移动到行末</span><br><span class="line">+            移动到下一行开头</span><br><span class="line">-            移动到上一行开头</span><br></pre></td></tr></table></figure>
+
+<p>这里需要注意的是+ -和上面的j k有什么不同之处<br>j k也是移动到上一行和下一行，但它们移动的是光标所在的位置<br>+ -不管你的光标在何处，总是移动到下一行或上一行的行首</p>
+<p><strong>滚屏</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+f            往前滚动一整屏</span><br><span class="line">Ctrl+b            往后滚动一整屏</span><br><span class="line">Ctrl+d            往前滚动半屏</span><br><span class="line">Ctrl+u            往后滚动半屏</span><br><span class="line"></span><br><span class="line">Ctrl+e            往后滚动一行        </span><br><span class="line">Ctrl+y            往前滚动一行</span><br></pre></td></tr></table></figure>
+
+<p>看似比较多，但是可以根据键盘的位置来进行记忆，并且下面两个也不常用</p>
+<p>上面的滚屏都有一个共同点，就是会改变光标的位置，且屏幕也在改变</p>
+<p>如果想让光标维持在原来的位置实现滚屏请看下面</p>
+<p><strong>用z调整光标</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">z&lt;Enter&gt;        将光标所在行移动到屏幕顶端</span><br><span class="line">z.              将光标所在行移动到屏幕中间</span><br><span class="line">z-              将光标所在行移动到屏幕低端</span><br></pre></td></tr></table></figure>
+
+<p><code>tips：980z&lt;Enter&gt;可以将第980行移动到屏幕顶端</code></p>
+<p>好吧，有时候你其实不想滚屏，你只想在当前屏幕中移动</p>
+<p>请往下看</p>
+<p><strong>在屏幕中移动</strong><br>H            移动到屏幕顶端的行<br>M            移动到屏幕中央的行<br>L            移动到屏幕底端的行<br>nH           移动到屏幕顶端往下的第n行<br>nL           移动到屏幕顶端往上的第n行</p>
+<p>据我猜测这三个字母应该是HIgh、Middle和Low的缩写，其实挺好记的<br>多练习几遍就行了，需要注意的是：这里只是光标的位置变化，和上面两种不同<br>tips：你可以用+ -和j k实现同样的位置变化，只不过要操作多次而已</p>
+<p><strong>在当前行移动</strong><br>^            移动到当前行的第一个非空格处<br>n|           移动到当前行的第n列</p>
+<p>这里的^与上面的0通常情况下表示的位置是一样的<br>而n|，个人感觉还没有h l方便，慢慢的数出行数还不如直接按着h l 左右移</p>
+<p><strong>根据文本块移动</strong></p>
+<p>所谓的文本块也就是句子、段落、小节等</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">（            移动到当前句子开头</span><br><span class="line">）            移动到下一个句子开头</span><br><span class="line">&#123;            移动到当前这一段开头   </span><br><span class="line">&#125;            移动到下一段开头</span><br><span class="line">[[           移动到当前这一节的开头</span><br><span class="line">]]           移动到下一节的开头</span><br></pre></td></tr></table></figure>
+<p>其中，VIM以? . !等符号来标记一个句子<br>空白行来标记一个段落<br>用节宏来标记一个节（节宏是什么我还没搞清楚）</p>
+<p>根据行号来移动<br>Ctrl+g            显示当前行信息<br>nG                转至第n行<br>G                 转至文本末尾<br>gg　　　移至文本开头</p>
+<p>如果你不知道当前是多少行的话就可以用Ctrl+g来查看<br>如果想转到第800行，可以用800G<br>其实z命令也可以做到，并且把光标移动到第一行</p>
+<h2 id="剪切板和寄存器"><a href="#剪切板和寄存器" class="headerlink" title="剪切板和寄存器"></a>剪切板和寄存器</h2><h3 id="无名寄存器-“”"><a href="#无名寄存器-“”" class="headerlink" title="无名寄存器(“”)"></a>无名寄存器(“”)</h3><p>两个双引号，Vim中叫做无名寄存器。x,s,d,c,y等操作，如果不指定寄存器，都是将临时内容放到这个寄存器中，也就是相当于一个默认寄存器。<br>可以通过 <font color="#ff0000">:reg </font>来查看当前寄存器的值，操作一下，然后查寄存器内容，就明白了。<br>例如：<br>复制当前行(yy)，并粘贴p。<br>这里y命令会将当前行内容放入寄存器””，按p时，会到寄存器””中取内容。</p>
+<h3 id="复制专用寄存器-“0"><a href="#复制专用寄存器-“0" class="headerlink" title="复制专用寄存器(“0)"></a>复制专用寄存器(“0)</h3><p>通过y命令复制的内容，会保存到寄存器0中。<br>寄存器的使用是通过”后面跟寄存器名字。<br>例如：<br>复制当前行(yy)，<br>又做了几次删除单词操作(dw)<br>但是只想粘贴刚才复制的行，那么就不能用无名寄存器””去粘贴了，不能直接p进行粘贴，需要用”0p，指定使用寄存器0，因为”0里只存放y命令存入的内容。</p>
+<h3 id="删除专用寄存器-“1-“9"><a href="#删除专用寄存器-“1-“9" class="headerlink" title="删除专用寄存器(“1-“9)"></a>删除专用寄存器(“1-“9)</h3><p>通过d或c命令，删掉的内容，会保存打”1-“9这9个寄存器中。<br>最新删除的内容，会在”1中，其他顺延。<br>例如：<br>删除当前行(yy)<br>删除当前行(yy)<br>想复制第一次删除的行，”2p</p>
+<h3 id="命名寄存器-“a-“z"><a href="#命名寄存器-“a-“z" class="headerlink" title="命名寄存器(“a-“z)"></a>命名寄存器(“a-“z)</h3><p>可以将重要内容放到命名寄存器”a-“z中，一共26个。<br>例如：<br>把当前行放入寄存器”j里，”jyy<br>复制寄存器”j的内容， “jp</p>
+<h3 id="黑洞寄存器-“d"><a href="#黑洞寄存器-“d" class="headerlink" title="黑洞寄存器(“d)"></a>黑洞寄存器(“d)</h3><p>放到这个寄存器的内容，将不会放到任何其他寄存器中，相当于彻底删除内容。<br>例如：<br>彻底删除当前行，不放入任何寄存器，”dd</p>
+<h3 id="系统剪贴板-“"><a href="#系统剪贴板-“" class="headerlink" title="系统剪贴板(“+)"></a>系统剪贴板(“+)</h3><p>通过”+寄存器可以把内容复制到系统剪贴板，也可以从系统剪贴板粘贴内容但Vim中。<br>例如：<br>复制当前行到系统剪贴板中，”+yy<br>复制系统剪贴板到vim中，”+p</p>
+<h2 id="高阶"><a href="#高阶" class="headerlink" title="高阶"></a>高阶</h2><h3 id="各种操作的含义"><a href="#各种操作的含义" class="headerlink" title="各种操作的含义"></a>各种操作的含义</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">c       change 修改</span><br><span class="line">d       delete 删除</span><br><span class="line">y       yank   复制到寄存器</span><br><span class="line">p        put  粘贴</span><br><span class="line">&lt;       块移动，左移动</span><br><span class="line">&gt;       块移动，右移动</span><br></pre></td></tr></table></figure>
+<h3 id="命令行结果输出到buffer"><a href="#命令行结果输出到buffer" class="headerlink" title="命令行结果输出到buffer"></a>命令行结果输出到buffer</h3><p><code>enew|pu=execute(&#39;命令&#39;)</code></p>
+<ul>
+<li>pu  is put the text from register after line(default curent line)</li>
+</ul>
+<h3 id="vim-text-object"><a href="#vim-text-object" class="headerlink" title="vim text object"></a>vim text object</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[number]&lt;command&gt;[text object or motion]</span><br></pre></td></tr></table></figure>
+<p>其中：<strong>number</strong>是指命令作用在几个文本对象之上。比如3个单词；<strong>command</strong>是指执行的具体命令。比如删除或复制；<strong>text object or motion</strong>是指具体的文本对象。比如单词、句子或段落。</p>
+<h3 id="文本对象的类型"><a href="#文本对象的类型" class="headerlink" title="文本对象的类型"></a>文本对象的类型</h3><ul>
+<li>iw …inner word(<strong>不</strong>包括周围的空格)</li>
+<li>aw …a word(含在周围的空格)</li>
+<li>iW …inner WORD(字串（以空格分隔）)</li>
+<li>aW …a WORD</li>
+<li>is …inner sentence</li>
+<li>as …a sentence</li>
+<li>ip …inner paragraph</li>
+<li>ap …a paragraph</li>
+<li>it …inner tag</li>
+<li>at …a tag</li>
+<li>i( or i) …inner block</li>
+<li>a( or a) …a block</li>
+<li>i&lt; or i&gt; …inner block</li>
+<li>a&lt; or a&gt; …a block</li>
+<li>i{ or i} …inner block</li>
+<li>a{ or a} …a block</li>
+<li>i[ or i] …inner block</li>
+<li>a[ or a] …a block</li>
+<li>i” …inner block</li>
+<li>a” …a block</li>
+<li>i&#96; …inner block</li>
+<li>a&#96; …a blocko<br>复制</li>
+<li><code>yy</code> 或 <code>Y</code> 复制当前行。</li>
+<li><code>yw</code> 用来复制往后一个词，<code>y3w</code> 复制往后三个词。</li>
+<li><code>yiw</code> 复制当前词。</li>
+<li><code>y$</code> 复制到行尾，<code>y^</code> 复制到行首。</li>
+<li><code>yf.</code> 复制直到下一个 <code>.</code> 字符。</li>
+<li><code>ggyG</code> 或 <code>:%y</code> 复制整个文件。</li>
+</ul>
+<p>修改</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">diw     delete <span class="keyword">in</span> word     删除一个单词</span><br><span class="line">di<span class="string">&quot;     delete in &quot;</span>        删除<span class="string">&quot;word&quot;</span>中的word</span><br><span class="line">daw     delete around word 删除一个单词和包裹</span><br><span class="line">cb      change back        向前删除到单词头部，并进入插入模式，即修改</span><br><span class="line">cis     change <span class="keyword">in</span> sentence 修改句子</span><br><span class="line">ci&lt;     change <span class="keyword">in</span> &lt;        修改&lt;word&gt;中的word</span><br><span class="line">ca&lt;     change around &lt;    修改&lt;word&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="surround-vim"><a href="#surround-vim" class="headerlink" title="surround.vim"></a>surround.vim</h3><p>ys(add)<br>ds(delete)<br>cs(change)<br>It’s easiest to explain with examples. Press <code>cs&quot;&#39;</code> inside</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;Hello world!&quot;</span><br></pre></td></tr></table></figure>
+
+<p>to change it to</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;Hello world!&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>Now press <code>cs&#39;&lt;q&gt;</code> to change it to</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;q&gt;Hello world!&lt;/q&gt;</span><br></pre></td></tr></table></figure>
+
+<p>To go full circle, press <code>cst&quot;</code> to get</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;Hello world!&quot;</span><br></pre></td></tr></table></figure>
+
+<p>To remove the delimiters entirely, press <code>ds&quot;</code>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello world!</span><br></pre></td></tr></table></figure>
+
+<p>Now with the cursor on “Hello”, press <code>ysiw]</code> (<code>iw</code> is a text object).</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Hello] world!</span><br></pre></td></tr></table></figure>
+
+<p>Let’s make that braces and add some space (use <code>&#125;</code> instead of <code>&#123;</code> for no space): <code>cs]&#123;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; Hello &#125; world!</span><br></pre></td></tr></table></figure>
+
+<p>Now wrap the entire line in parentheses with <code>yssb</code> or <code>yss)</code>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&#123; Hello &#125; world!)</span><br></pre></td></tr></table></figure>
+
+<p>Revert to the original text: <code>ds&#123;ds)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello world!</span><br></pre></td></tr></table></figure>
+
+<p>Emphasize hello: <code>ysiw&lt;em&gt;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;em&gt;Hello&lt;/em&gt; world!</span><br></pre></td></tr></table></figure>
+<h3 id="标签和跳转"><a href="#标签和跳转" class="headerlink" title="标签和跳转"></a>标签和跳转</h3><p>mark:<br>m + [0-9 a-z A-Z]<br>&#96;跳转标记的字符，’跳转标记的行<br>jump:<br>ctrl  + O<br>ctrl  + I<br>hop:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim.api.nvim_set_keymap(<span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;&lt;leader&gt;&lt;leader&gt;w&#x27;</span>, <span class="string">&#x27;&lt;cmd&gt;HopWord&lt;cr&gt;&#x27;</span>, &#123;&#125;)</span><br><span class="line">vim.api.nvim_set_keymap(<span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;&lt;leader&gt;&lt;leader&gt;j&#x27;</span>, <span class="string">&#x27;&lt;cmd&gt;HopLine&lt;cr&gt;&#x27;</span>, &#123;&#125;)</span><br><span class="line">vim.api.nvim_set_keymap(<span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;&lt;leader&gt;&lt;leader&gt;k&#x27;</span>, <span class="string">&#x27;&lt;cmd&gt;HopLine&lt;cr&gt;&#x27;</span>, &#123;&#125;)</span><br><span class="line">vim.api.nvim_set_keymap(<span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;&lt;leader&gt;&lt;leader&gt;s&#x27;</span>, <span class="string">&#x27;&lt;cmd&gt;HopChar1&lt;cr&gt;&#x27;</span>, &#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h2><p>替换<br>语法</p>
+<p>:[range] s&#x2F;{old-pattern}&#x2F;{new-pattern}&#x2F;[flags]<br>1<br>range确定范围，不写默认为当前行。<br>%         # 表示整个文件内容<br>.         # 表示当前行<br>$         # 表示最后一行<br>m,n       # 表示从第m行到第n行<br>,n        # 表示从当前行到第n行<br>n,        # 表示从第n行到当前行<br>n         # 指定行<br>+n        # 表示当前行之后的n行</p>
+<p>old-pattern为要被替换的字符串，new-pattern为替换后的新字符串。替换操作与搜索操作使用同样的模式串系统。</p>
+<p>flags为替换标志位，默认为指定范围内的行的第一次匹配的位置，帮助文档:h s_flags，常用标志如下：</p>
+<p>g：global，表示在指定范围内执行全局操作,替换所有匹配项<br>c：confirm，可以确认或拒绝修改<br>n：number，报告匹配到的次数，不替换，可用来查询匹配次数<br>i:执行不区分大小写的替换<br>I:执行区分大小写的替换<br>e:防止替换失败时显示错误消息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:%s/^/#/g # 行前插入 `#` 替换或者gg&lt;Ctrl-v&gt;I#&lt;Esc&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="宏录制"><a href="#宏录制" class="headerlink" title="宏录制"></a>宏录制</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">录制语法 q&#123;register&#125;&#123;commands&#125;q</span><br><span class="line">q - 开始录制</span><br><span class="line">&#123;register&#125; - 表示寄存器名称 (a-z)</span><br><span class="line">&#123;commands&#125; - 一组操作命令(一系列的键盘按键)</span><br><span class="line">q - 是停止录制, 最后把 &#123;commands&#125; 以文本形式存到前面的寄存器里中</span><br><span class="line"></span><br><span class="line">宏执行</span><br><span class="line">语法 `@&#123;register&#125;`</span><br><span class="line">`@@` 可以重复最近一次的 `@&#123;0-9a-z<span class="string">&quot;:*&#125;` 命令</span></span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.idesperado.com">Jane</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.idesperado.com/post/7de3426c.html">http://www.idesperado.com/post/7de3426c.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.idesperado.com" target="_blank">desperado</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/vim/">vim</a></div><div class="post_share"><div class="social-share" data-image="/extra_imgs/town.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/598151c0.html" title="cookie,token,session,jwt你们是不是在讨论同一件事"><img class="cover" src="/extra_imgs/town.jpg" onerror="onerror=null;src='/img/unfind.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">cookie,token,session,jwt你们是不是在讨论同一件事</div></div></a></div><div class="next-post pull-right"><a href="/post/62ff1591.html" title="windows命令"><img class="cover" src="/extra_imgs/town.jpg" onerror="onerror=null;src='/img/unfind.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">windows命令</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/73fb024.html" title="Vimium操作命令"><img class="cover" src="/extra_imgs/town.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-20</div><div class="title">Vimium操作命令</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img2.baidu.com/it/u=4274118481,3879373441&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=400&amp;h=400" onerror="this.onerror=null;this.src='/img/unfind.jpg'" alt="avatar"/></div><div class="author-info__name">Jane</div><div class="author-info__description">We think too much and feel too little. More than machinery we need humanity!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">94</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Zhang-Jane"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Zhang-Jane" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:luckingshine@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#help"><span class="toc-number">1.</span> <span class="toc-text">help</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-number">2.</span> <span class="toc-text">基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91"><span class="toc-number">2.1.</span> <span class="toc-text">多文本编辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%AA%97%E5%8F%A3"><span class="toc-number">2.2.</span> <span class="toc-text">多窗口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E7%A7%BB%E5%8A%A8"><span class="toc-number">2.3.</span> <span class="toc-text">字符移动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E8%AF%8D%E7%A7%BB%E5%8A%A8"><span class="toc-number">2.3.1.</span> <span class="toc-text">单词移动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E8%A1%8C%E7%A7%BB%E5%8A%A8"><span class="toc-number">2.3.2.</span> <span class="toc-text">整行移动</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%AA%E5%88%87%E6%9D%BF%E5%92%8C%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">剪切板和寄存器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E5%90%8D%E5%AF%84%E5%AD%98%E5%99%A8-%E2%80%9C%E2%80%9D"><span class="toc-number">3.1.</span> <span class="toc-text">无名寄存器(“”)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E4%B8%93%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8-%E2%80%9C0"><span class="toc-number">3.2.</span> <span class="toc-text">复制专用寄存器(“0)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E4%B8%93%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8-%E2%80%9C1-%E2%80%9C9"><span class="toc-number">3.3.</span> <span class="toc-text">删除专用寄存器(“1-“9)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E5%AF%84%E5%AD%98%E5%99%A8-%E2%80%9Ca-%E2%80%9Cz"><span class="toc-number">3.4.</span> <span class="toc-text">命名寄存器(“a-“z)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%91%E6%B4%9E%E5%AF%84%E5%AD%98%E5%99%A8-%E2%80%9Cd"><span class="toc-number">3.5.</span> <span class="toc-text">黑洞寄存器(“d)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%89%AA%E8%B4%B4%E6%9D%BF-%E2%80%9C"><span class="toc-number">3.6.</span> <span class="toc-text">系统剪贴板(“+)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E9%98%B6"><span class="toc-number">4.</span> <span class="toc-text">高阶</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E6%93%8D%E4%BD%9C%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-number">4.1.</span> <span class="toc-text">各种操作的含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%BB%93%E6%9E%9C%E8%BE%93%E5%87%BA%E5%88%B0buffer"><span class="toc-number">4.2.</span> <span class="toc-text">命令行结果输出到buffer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vim-text-object"><span class="toc-number">4.3.</span> <span class="toc-text">vim text object</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.4.</span> <span class="toc-text">文本对象的类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#surround-vim"><span class="toc-number">4.5.</span> <span class="toc-text">surround.vim</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E5%92%8C%E8%B7%B3%E8%BD%AC"><span class="toc-number">4.6.</span> <span class="toc-text">标签和跳转</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2"><span class="toc-number">5.</span> <span class="toc-text">替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8F%E5%BD%95%E5%88%B6"><span class="toc-number">6.</span> <span class="toc-text">宏录制</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/80db8027.html" title="go语言基础">go语言基础</a><time datetime="2023-02-05T07:50:08.000Z" title="发表于 2023-02-05 15:50:08">2023-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/897196e0.html" title="日常使用的工具">日常使用的工具</a><time datetime="2023-02-05T07:39:33.000Z" title="发表于 2023-02-05 15:39:33">2023-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/b3a6abb4.html" title="线程和进程">线程和进程</a><time datetime="2023-01-26T13:57:12.000Z" title="发表于 2023-01-26 21:57:12">2023-01-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/bbdeeae3.html" title="IDA手册">IDA手册</a><time datetime="2023-01-24T14:51:47.000Z" title="发表于 2023-01-24 22:51:47">2023-01-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/3ad834c9.html" title="zookeeper">zookeeper</a><time datetime="2022-12-25T15:25:46.000Z" title="发表于 2022-12-25 23:25:46">2022-12-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/extra_imgs/town.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Jane</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="43049" data-server="netease" data-type="album" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
