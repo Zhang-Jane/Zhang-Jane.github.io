@@ -4,8 +4,18 @@ tags: vim
 abbrlink: 7de3426c
 date: 2022-12-16 22:16:05
 ---
-## 基础
+## help
+**:h {TEXT}**
+```bash
+:h motion  # 第一章我们讲过了motion，可以试着自己看看
+:h buffer  # buffer是vim处理文件缓存的方式
+:h tab     # tab和浏览器、vscode的tab一样
+:h window  # 窗口的概念 和窗口相关的是split，窗口分割
+:h         # 当然可以打开整个帮助手册
+:h z       # z命令帮助
+```
 
+## 基础
 1.转到文件结尾
 G 
 2.或转到第9行
@@ -35,8 +45,37 @@ D d$
 13.删除光标位置到本行开头
 d0
 说明：这是在vim中 ，“.”当前行 ，“1,.”表示从第一行到当前行 ，“d”删除，3dd代表删除三行。
-
-## 字符移动
+J
+将光标所在的行与下一行的数据结合成一行
+`.`
+重复上一次的操作
+9b 光标向前移动9个单词 
+`8<C-d>` 翻页操作8次
+:w     保存文件 字面意思 write
+:w!    强制保存文件
+:wa    保存所有文件，针对你打开buffer过多的情况
+:q     退出
+:q!    强行退出
+:wq    保存并退出
+:qa    退出所有buffer 
+### 多文本编辑
+`:n`
+编辑下一个文件
+`:N`
+编辑上一个文件
+`:files`
+列出当前这个vim打开的所有文件
+### 多窗口
+:sp [filname]	打开一个新的窗口，如果没有filename，会默认打开一个当前文本的窗口，同步显示。有则会同时显示fileame和origin两个文本。
+:new+窗口名(保存后就是文件名)
+:vsplit+窗口名，也可以简写为：vsp+窗口名，
+Ctrl + w + h：向左移动窗口
+Ctrl + w + j： 向下移动窗口
+Ctrl + w + j： 向上移动窗口
+Ctrl + w + l： 向右移动窗口
+:tabc 关闭当前窗口
+:tabo 关闭所有窗口
+### 字符移动
 
 ```
 k            上移                k
@@ -51,7 +90,7 @@ j            下移
 
 **tips**：在命令前加上数字代表命令执行次数，如：5k，表示上移5行
 
-### 单词移动
+ #### 单词移动
 
 ```
 W w            移动到下一个单词开头
@@ -62,7 +101,7 @@ B b            倒退到上一个单词开头
 需要注意的是，E会忽略标点符号，如：I‘m，e会当成两个单词，E则不会
 同样，在命令前加上数字代表执行次数，如：2w，表示往下移动2个单词
 
-### 整行移动
+#### 整行移动
 
 ```
 0            移动到行首
@@ -101,7 +140,7 @@ z.              将光标所在行移动到屏幕中间
 z-              将光标所在行移动到屏幕低端
 ```
 
-tips：980z<Enter>可以将第980行移动到屏幕顶端
+`tips：980z<Enter>可以将第980行移动到屏幕顶端`
 
 好吧，有时候你其实不想滚屏，你只想在当前屏幕中移动
 
@@ -129,13 +168,14 @@ n|           移动到当前行的第n列
 
 所谓的文本块也就是句子、段落、小节等
 
+```
 （            移动到当前句子开头
 ）            移动到下一个句子开头
 {            移动到当前这一段开头   
 }            移动到下一段开头
 [[           移动到当前这一节的开头
 ]]           移动到下一节的开头
-
+```
 其中，VIM以? . !等符号来标记一个句子
 空白行来标记一个段落
 用节宏来标记一个节（节宏是什么我还没搞清楚）
@@ -144,20 +184,17 @@ n|           移动到当前行的第n列
 Ctrl+g            显示当前行信息
 nG                转至第n行
 G                 转至文本末尾
-gg　　　　　　　　   移至文本开头
+gg　　　移至文本开头
 
 如果你不知道当前是多少行的话就可以用Ctrl+g来查看
 如果想转到第800行，可以用800G
 其实z命令也可以做到，并且把光标移动到第一行
-
 ## 剪切板和寄存器
-
 ### 无名寄存器("")
-
 两个双引号，Vim中叫做无名寄存器。x,s,d,c,y等操作，如果不指定寄存器，都是将临时内容放到这个寄存器中，也就是相当于一个默认寄存器。  
-可以通过 :reg 来查看当前寄存器的值，操作一下，然后查寄存器内容，就明白了。  
+可以通过 <font color="#ff0000">:reg </font>来查看当前寄存器的值，操作一下，然后查寄存器内容，就明白了。  
 例如：  
-复制当前行(yy)，并粘贴§。  
+复制当前行(yy)，并粘贴p。  
 这里y命令会将当前行内容放入寄存器""，按p时，会到寄存器""中取内容。
 
 ### 复制专用寄存器("0)
@@ -185,11 +222,11 @@ gg　　　　　　　　   移至文本开头
 把当前行放入寄存器"j里，"jyy  
 复制寄存器"j的内容， "jp
 
-### 黑洞寄存器("_d)
+### 黑洞寄存器("d)
 
 放到这个寄存器的内容，将不会放到任何其他寄存器中，相当于彻底删除内容。  
 例如：  
-彻底删除当前行，不放入任何寄存器，"_dd
+彻底删除当前行，不放入任何寄存器，"dd
 
 ### 系统剪贴板("+)
 
@@ -199,55 +236,70 @@ gg　　　　　　　　   移至文本开头
 复制系统剪贴板到vim中，"+p
 
 ## 高阶
-
+### 各种操作的含义
+```bash
+c       change 修改
+d       delete 删除
+y       yank   复制到寄存器
+p        put  粘贴
+<       块移动，左移动
+>       块移动，右移动
+```
 ### 命令行结果输出到buffer
-
 `enew|pu=execute('命令')`
-
 - pu  is put the text from register after line(default curent line)
 
 ### vim text object
-
 ```cmd
 [number]<command>[text object or motion]
 ```
-
 其中：**number**是指命令作用在几个文本对象之上。比如3个单词；**command**是指执行的具体命令。比如删除或复制；**text object or motion**是指具体的文本对象。比如单词、句子或段落。
 
 ### 文本对象的类型
 
-- iw …inner word(**不**包括周围的空格)
-- aw …a word(含在周围的空格)
-- iW …inner WORD(字串（以空格分隔）)
-- aW …a WORD
-- is …inner sentence
-- as …a sentence
-- ip …inner paragraph
-- ap …a paragraph
-- it …inner tag
-- at …a tag
-- i( or i) …inner block
-- a( or a) …a block
-- i< or i> …inner block
-- a< or a> …a block
-- i{ or i} …inner block
-- a{ or a} …a block
-- i[ or i] …inner block
-- a[ or a] …a block
-- i" …inner block
-- a" …a block
-- i` …inner block
-- a` …a blocko
-  复制
-- `yy` 或 `Y` 复制当前行。
-- `yw` 用来复制往后一个词，`y3w` 复制往后三个词。
-- `yiw` 复制当前词。
-- `y$` 复制到行尾，`y^` 复制到行首。
-- `yf.` 复制直到下一个 `.` 字符。
-- `ggyG` 或 `:%y` 复制整个文件。
+-   iw …inner word(**不**包括周围的空格)
+-   aw …a word(含在周围的空格)
+-   iW …inner WORD(字串（以空格分隔）)
+-   aW …a WORD
+-   is …inner sentence
+-   as …a sentence
+-   ip …inner paragraph
+-   ap …a paragraph
+-   it …inner tag
+-   at …a tag
+-   i( or i) …inner block
+-   a( or a) …a block
+-   i< or i> …inner block
+-   a< or a> …a block
+-   i{ or i} …inner block
+-   a{ or a} …a block
+-   i[ or i] …inner block
+-   a[ or a] …a block
+-   i" …inner block
+-   a" …a block
+-   i` …inner block
+-   a` …a blocko
+复制
+-   `yy` 或 `Y` 复制当前行。
+-   `yw` 用来复制往后一个词，`y3w` 复制往后三个词。
+-   `yiw` 复制当前词。
+-   `y$` 复制到行尾，`y^` 复制到行首。
+-   `yf.` 复制直到下一个 `.` 字符。
+-   `ggyG` 或 `:%y` 复制整个文件。
+
+修改
+```bash
+diw     delete in word     删除一个单词
+di"     delete in "        删除"word"中的word
+daw     delete around word 删除一个单词和包裹
+cb      change back        向前删除到单词头部，并进入插入模式，即修改
+cis     change in sentence 修改句子
+ci<     change in <        修改<word>中的word
+ca<     change around <    修改<word>
+```
+
 
 ### surround.vim
-
 ys(add)
 ds(delete)
 cs(change)
@@ -310,9 +362,7 @@ Emphasize hello: `ysiw<em>`
 ```
 <em>Hello</em> world!
 ```
-
 ### 标签和跳转
-
 mark: 
 m + [0-9 a-z A-Z]
 `跳转标记的字符，'跳转标记的行
@@ -320,7 +370,6 @@ jump:
 ctrl  + O
 ctrl  + I
 hop:
-
 ```lua
 vim.api.nvim_set_keymap('n', '<leader><leader>w', '<cmd>HopWord<cr>', {})
 vim.api.nvim_set_keymap('n', '<leader><leader>j', '<cmd>HopLine<cr>', {})
@@ -329,7 +378,6 @@ vim.api.nvim_set_keymap('n', '<leader><leader>s', '<cmd>HopChar1<cr>', {})
 ```
 
 ## 替换
-
 替换
 语法
 
@@ -355,3 +403,20 @@ n：number，报告匹配到的次数，不替换，可用来查询匹配次数
 i:执行不区分大小写的替换
 I:执行区分大小写的替换
 e:防止替换失败时显示错误消息
+
+```
+:%s/^/#/g # 行前插入 `#` 替换或者gg<Ctrl-v>I#<Esc>
+```
+
+## 宏录制
+```bash
+录制语法 q{register}{commands}q
+q - 开始录制
+{register} - 表示寄存器名称 (a-z)
+{commands} - 一组操作命令(一系列的键盘按键)
+q - 是停止录制, 最后把 {commands} 以文本形式存到前面的寄存器里中
+
+宏执行
+语法 `@{register}`
+`@@` 可以重复最近一次的 `@{0-9a-z":*}` 命令
+```
