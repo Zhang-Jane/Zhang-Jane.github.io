@@ -26,7 +26,29 @@ Twisted supports all major system event loops -- `select` (all platforms), `poll
 ### 2.核心模块：
 
 #### 2.1 reactor模式
+https://twisted.org/documents/12.1.0/core/howto/reactor-basics.html
 ![twsited-reactor](../images/Twisted/twsited-reactor.png)
+```python
+def time_until_next_timed_event():
+    # timed_events is the list of events scheduled with reactor.callLater
+    now = time.time()
+    timed_events.sort(key=lambda event: event.desired_time)
+    soonest_event = timed_events[0]
+    return soonest_event.desired_time - now
+
+
+while not loop.stopped:
+    # Each of these possible events are functions that the reactor might call on your objects: dataReceived, buildProtocol, resumeProducing
+    timeout = time_until_next_timed_event()
+    # events is simply a list of an abstract Event class, which has a process method that each specific type of event needs to fill out.
+    events = wait_for_events(timeout)
+    # wait_for_events, stopped blocking. However, we don't know how many timed events we might need to execute based on how long it was "asleep" for. We might have slept for the full timeout if nothign was going on, but if lots of connections were active we might have slept for effectively no time at all. So we check the current time ("now()"), and we add to the list of events we need to process, every timed event with a desired_time that is at, or before, the present time.
+    events += timed_events_until(now())
+    for event in events:
+        # event.process here might mean calling socket.recv() and then yourProtocol.dataReceived with the result
+        event.process()
+
+```
 1. 我们的代码与Twisted代码运行在同一个线程中。
 2. 当我们的代码运行时，Twisted代码是处于暂停状态的。
 3. 同样，当Twisted代码处于运行状态时，我们的代码处于暂停状态。
