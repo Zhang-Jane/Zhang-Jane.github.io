@@ -159,7 +159,7 @@
 <li>（幽灵依赖 Phantom dependencies）package.json 中未定义的依赖，但项目中依然可以正确地被引用到。</li>
 <li>（不确定性 Non-Determinism）同样的 package.json 文件，install 依赖后可能不会得到同样的 node_modules 目录结构。</li>
 <li>如果有 package.json 变更，本地需要删除 node_modules 重新 install，否则可能会导致生产环境与开发环境 node_modules 结构不同，代码无法正常运行。</li>
-<li>依赖分身 Doppelgangers。比如模块 C 和 E 都依赖 <a href="mailto:&#66;&#x40;&#50;&#x2e;&#48;">&#66;&#x40;&#50;&#x2e;&#48;</a>，但其实引用的不是同一个 B，假设 B 在导出之前做了一些缓存或者副作用，那么使用者的项目就会因此而出错。</li>
+<li>依赖分身 Doppelgangers。比如模块 C 和 E 都依赖 <a href="mailto:&#x42;&#x40;&#50;&#x2e;&#x30;">&#x42;&#x40;&#50;&#x2e;&#x30;</a>，但其实引用的不是同一个 B，假设 B 在导出之前做了一些缓存或者副作用，那么使用者的项目就会因此而出错。</li>
 </ol>
 <h2 id="yarn"><a href="#yarn" class="headerlink" title="yarn"></a>yarn</h2><p>解决npm的缺点：</p>
 <ol>
@@ -167,7 +167,7 @@
 </ol>
 <p>缺点：</p>
 <ol>
-<li>扁平化的 node_modules 结构（子依赖会尽量平铺安装在主依赖项所在的目录中）<br>node_modules<br>├── <a href="mailto:&#65;&#x40;&#x31;&#x2e;&#48;&#46;&#x30;">&#65;&#x40;&#x31;&#x2e;&#48;&#46;&#x30;</a><br>├── <a href="mailto:&#x42;&#64;&#49;&#46;&#x30;&#x2e;&#48;">&#x42;&#64;&#49;&#46;&#x30;&#x2e;&#48;</a><br>└── <a href="mailto:&#x43;&#x40;&#x31;&#46;&#x30;&#x2e;&#48;">&#x43;&#x40;&#x31;&#46;&#x30;&#x2e;&#48;</a><br> └── node_modules<br> └── <a href="mailto:&#x42;&#64;&#x32;&#x2e;&#48;&#x2e;&#x30;">&#x42;&#64;&#x32;&#x2e;&#48;&#x2e;&#x30;</a></li>
+<li>扁平化的 node_modules 结构（子依赖会尽量平铺安装在主依赖项所在的目录中）<br>node_modules<br>├── <a href="mailto:&#65;&#x40;&#x31;&#x2e;&#x30;&#x2e;&#x30;">&#65;&#x40;&#x31;&#x2e;&#x30;&#x2e;&#x30;</a><br>├── <a href="mailto:&#x42;&#x40;&#x31;&#46;&#x30;&#46;&#48;">&#x42;&#x40;&#x31;&#46;&#x30;&#46;&#48;</a><br>└── <a href="mailto:&#67;&#64;&#x31;&#x2e;&#x30;&#46;&#x30;">&#67;&#64;&#x31;&#x2e;&#x30;&#46;&#x30;</a><br> └── node_modules<br> └── <a href="mailto:&#66;&#64;&#x32;&#46;&#48;&#46;&#x30;">&#66;&#64;&#x32;&#46;&#48;&#46;&#x30;</a></li>
 <li>没有解决幽灵依赖和依赖分身问题。</li>
 </ol>
 <h2 id="pnpm（performant-npm）"><a href="#pnpm（performant-npm）" class="headerlink" title="pnpm（performant npm）"></a>pnpm（performant npm）</h2><p>优点：<br>幽灵依赖问题：只有直接依赖会平铺在 node_modules 下，子依赖不会被提升，不会产生幽灵依赖。<br>依赖分身问题：相同的依赖只会在全局 store 中安装一次。项目中的都是源文件的副本，几乎不占用任何空间，没有了依赖分身。</p>
