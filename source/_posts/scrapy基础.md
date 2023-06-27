@@ -45,7 +45,7 @@ tutorial/spiders/: 放置spider代码的目录.
 ```
 
 ## 运行爬虫：
-
+\Lib\site-packages\scrapy
 ```bash
     scrapy crawl 爬虫的项目名称
 ```
@@ -301,8 +301,6 @@ ITEM_PIPELINES = {　　 'scrapy_redis.pipelines.RedisPipeline': 100 ,}
 ```
 REDIS_HOST = '127.0.0.1' REDIS_PORT = 6379
 ```
-
-
 
 
 
