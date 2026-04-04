@@ -10,7 +10,7 @@ cover: >-
   https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1340301466,160012850&fm=26&gp=0.jpg
 abbrlink: 6a366505
 date: 2020-10-11 16:44:04
-updated: 2026-04-05
+updated: 2026-04-04
 ---
 
 > 本文初稿写于 2020 年，当时使用 Travis CI。现改为在 **GitHub Actions** 中完成构建与部署；与 Travis 相比，令牌与仓库设置都在 GitHub 内完成即可。
@@ -33,14 +33,14 @@ updated: 2026-04-05
 
 在 **GitHub Actions** 里把 Hexo 发布到 Pages，常见有两种做法，**仓库 Settings → Pages 里只能二选一作为发布源**，不要混用。
 
-| 对比项 | 方式一：Pages 官方 Actions 部署 | 方式二：`hexo-deployer-git` 推送到分支 |
-| --- | --- | --- |
-| **原理** | `hexo generate` 生成 `public`，用 `upload-pages-artifact` + `deploy-pages` 交给 GitHub Pages | CI 里执行 `hexo deploy`，把静态文件 **git push**（常为 **force-push**）到指定分支（如 `master`） |
-| **Pages 设置** | **Source → GitHub Actions** | **Source → Deploy from a branch**（选择该分支，多为 `/ (root)`） |
-| **`_config.yml` 的 `deploy`** | CI **不依赖**；可仅保留给本机手动 `hexo deploy` | **必须**配置 `type: git` 与 `repo`、`branch` |
-| **令牌** | 使用 `pages: write` + `id-token: write`，**无需**把 token 写进 `_config.yml` | 需在 CI 中用 `sed` 把占位符换成 `GITHUB_TOKEN` 或 [PAT](https://github.com/settings/tokens)，URL 须为 `https://x-access-token:…@github.com/...` |
-| **分支保护** | **不推**业务分支，一般**不受**「禁止 force-push」影响 | `master` 等若禁止强制推送，易报 `GH006` / `Cannot force-push` |
-| **适用场景** | **推荐**：含受保护 `master`、希望与官方 Pages 流程一致 | 习惯「静态站就是一个分支目录」、且分支规则允许部署账号 force-push |
+| 对比项                        | 方式一：Pages 官方 Actions 部署                                                              | 方式二：`hexo-deployer-git` 推送到分支                                                                                                          |
+| ----------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| **原理**                      | `hexo generate` 生成 `public`，用 `upload-pages-artifact` + `deploy-pages` 交给 GitHub Pages | CI 里执行 `hexo deploy`，把静态文件 **git push**（常为 **force-push**）到指定分支（如 `master`）                                                |
+| **Pages 设置**                | **Source → GitHub Actions**                                                                  | **Source → Deploy from a branch**（选择该分支，多为 `/ (root)`）                                                                                |
+| **`_config.yml` 的 `deploy`** | CI **不依赖**；可仅保留给本机手动 `hexo deploy`                                              | **必须**配置 `type: git` 与 `repo`、`branch`                                                                                                    |
+| **令牌**                      | 使用 `pages: write` + `id-token: write`，**无需**把 token 写进 `_config.yml`                 | 需在 CI 中用 `sed` 把占位符换成 `GITHUB_TOKEN` 或 [PAT](https://github.com/settings/tokens)，URL 须为 `https://x-access-token:…@github.com/...` |
+| **分支保护**                  | **不推**业务分支，一般**不受**「禁止 force-push」影响                                        | `master` 等若禁止强制推送，易报 `GH006` / `Cannot force-push`                                                                                   |
+| **适用场景**                  | **推荐**：含受保护 `master`、希望与官方 Pages 流程一致                                       | 习惯「静态站就是一个分支目录」、且分支规则允许部署账号 force-push                                                                               |
 
 下面分别说明配置要点与示例工作流。
 
@@ -52,8 +52,8 @@ updated: 2026-04-05
 
 ### Pages 与权限
 
-1. **Settings → Actions → General**：允许 Actions。  
-2. **Settings → Pages → Build and deployment → Source**：选 **GitHub Actions**（不要选「从分支部署」的 `master`，除非你真的改用方式二）。  
+1. **Settings → Actions → General**：允许 Actions。
+2. **Settings → Pages → Build and deployment → Source**：选 **GitHub Actions**（不要选「从分支部署」的 `master`，除非你真的改用方式二）。
 3. 工作流需声明：
 
 ```yaml
@@ -122,9 +122,9 @@ jobs:
 
 ### 必要条件与常见坑
 
-- **`deploy.repo`** 请使用 **`https://x-access-token:占位符@github.com/用户名/仓库.git`**，在步骤里把占位符替换为 `GITHUB_TOKEN` 或 PAT；不要用 `https://令牌@github.com/...` 仅把令牌当用户名，否则 CI 无 TTY 时可能出现 `could not read Password`。  
-- 工作流需 **`permissions: contents: write`**，以便向仓库推送。  
-- 部署器往往 **force-push** 目标分支：若该分支 **受保护且禁止强制推送**，会失败（`GH006`），需放宽规则或改回 **方式一**。  
+- **`deploy.repo`** 请使用 **`https://x-access-token:占位符@github.com/用户名/仓库.git`**，在步骤里把占位符替换为 `GITHUB_TOKEN` 或 PAT；不要用 `https://令牌@github.com/...` 仅把令牌当用户名，否则 CI 无 TTY 时可能出现 `could not read Password`。
+- 工作流需 **`permissions: contents: write`**，以便向仓库推送。
+- 部署器往往 **force-push** 目标分支：若该分支 **受保护且禁止强制推送**，会失败（`GH006`），需放宽规则或改回 **方式一**。
 - 可在 `hexo deploy` 步骤设置 **`GIT_TERMINAL_PROMPT: "0"`**，避免 Git 卡住等待密码输入。
 
 ### `_config.yml` 中 `deploy` 示例
@@ -192,7 +192,7 @@ jobs:
 
 ---
 
-*以下为 2020 年原文档与 Travis CI 相关说明，仅作存档。*
+_以下为 2020 年原文档与 Travis CI 相关说明，仅作存档。_
 
 <details>
 <summary>旧版：Travis CI + Hexo（已弃用）</summary>
