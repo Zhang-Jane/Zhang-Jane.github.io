@@ -10,10 +10,10 @@ cover: >-
   https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1340301466,160012850&fm=26&gp=0.jpg
 abbrlink: 6a366505
 date: 2020-10-11 16:44:04
-updated: 2026-04-04
+updated: 2026-04-05
 ---
 
-> 本文初稿写于 2020 年，当时使用 Travis CI。Travis 免费策略与使用方式已有较大变化，现改为 **GitHub Actions** 与仓库同源集成，无需单独注册第三方 CI，也无需在 Travis 后台配置 `github_token`（部署时使用仓库内置的 `GITHUB_TOKEN` 即可）。
+> 本文初稿写于 2020 年，当时使用 Travis CI。现改为在 **GitHub Actions** 中完成构建与部署；与 Travis 相比，令牌与仓库设置都在 GitHub 内完成即可。
 
 ## GitHub Actions 简介
 
@@ -21,34 +21,129 @@ updated: 2026-04-04
 
 ### 持续集成
 
-持续集成（Continuous integration，CI）指团队成员频繁把改动合并进主干，每次合并都通过自动化构建（安装依赖、生成站点、可选测试）尽早发现问题。博客场景下即：**在源分支推送后自动生成静态文件并发布到 GitHub Pages**。
+持续集成（Continuous integration，CI）指团队成员频繁把改动合并进主干，每次合并都通过自动化构建尽早发现问题。博客场景下即：**在源分支推送后自动生成静态文件并发布到 GitHub Pages**。
 
-### 基本思路
+### 创建分支与通用注意
 
-1. 博客**源码**放在一个分支（例如 `blog-source`），**生成后的网页**推到用于 Pages 的分支（用户页仓库常见为 `master`）。
-2. 在仓库 `.github/workflows/` 下增加工作流 YAML：声明触发条件、Node 版本、`npm ci`、`hexo clean && hexo generate && hexo deploy`。
-3. `hexo-deployer-git` 通过 HTTPS 把 `public` 推送到远端；认证使用 Actions 自带的 `secrets.GITHUB_TOKEN`，在步骤里用 `sed` 把 `_config.yml` 里的占位符替换成该令牌即可（无需再申请 Personal Access Token，除非你对 `master` 开了分支保护等特殊情况）。
+建立一个分支（例如 `blog-source`），把 Hexo 源文件放在该分支下；不要提交 `node_modules`、`public`（依赖以 `package.json` / `package-lock.json` 为准在 CI 里 `npm ci`）。**日常写博客请只往该源分支推送。** 子目录里不要误带嵌套的 `.git`（例如以前手动克隆主题时），否则可能导致部分文件无法随仓库上传。
 
-## Hexo + GitHub Actions
+---
 
-### 创建分支
+## 两种部署方式概览
 
-建立一个分支（例如 `blog-source`），把 Hexo 源文件放在该分支下，并删除本地的 `node_modules`、`public`（不要提交进 Git；依赖以 `package.json` / `package-lock.json` 为准在 CI 里 `npm ci`）。
+在 **GitHub Actions** 里把 Hexo 发布到 Pages，常见有两种做法，**仓库 Settings → Pages 里只能二选一作为发布源**，不要混用。
 
-### 注意
+| 对比项 | 方式一：Pages 官方 Actions 部署 | 方式二：`hexo-deployer-git` 推送到分支 |
+| --- | --- | --- |
+| **原理** | `hexo generate` 生成 `public`，用 `upload-pages-artifact` + `deploy-pages` 交给 GitHub Pages | CI 里执行 `hexo deploy`，把静态文件 **git push**（常为 **force-push**）到指定分支（如 `master`） |
+| **Pages 设置** | **Source → GitHub Actions** | **Source → Deploy from a branch**（选择该分支，多为 `/ (root)`） |
+| **`_config.yml` 的 `deploy`** | CI **不依赖**；可仅保留给本机手动 `hexo deploy` | **必须**配置 `type: git` 与 `repo`、`branch` |
+| **令牌** | 使用 `pages: write` + `id-token: write`，**无需**把 token 写进 `_config.yml` | 需在 CI 中用 `sed` 把占位符换成 `GITHUB_TOKEN` 或 [PAT](https://github.com/settings/tokens)，URL 须为 `https://x-access-token:…@github.com/...` |
+| **分支保护** | **不推**业务分支，一般**不受**「禁止 force-push」影响 | `master` 等若禁止强制推送，易报 `GH006` / `Cannot force-push` |
+| **适用场景** | **推荐**：含受保护 `master`、希望与官方 Pages 流程一致 | 习惯「静态站就是一个分支目录」、且分支规则允许部署账号 force-push |
 
-**以后日常写博客请只往该源分支推送。** 提交前注意子目录里不要误带嵌套的 `.git`（例如以前手动克隆主题时），否则可能导致部分文件无法随仓库上传，页面异常。
+下面分别说明配置要点与示例工作流。
 
-### 工作流示例
+---
 
-仓库中实际文件为 `.github/workflows/deploy.yml`，核心如下（与线上一致时可对照修改）：
+## 方式一：GitHub Pages 官方 Actions 部署（推荐）
+
+**思路**：只在工作流里执行 `hexo generate`（例如 `npm run build`），将 **`public`** 作为产物上传，再用 **`actions/deploy-pages`** 发布。**不要**在 CI 里执行 `hexo deploy`（git 部署器）。
+
+### Pages 与权限
+
+1. **Settings → Actions → General**：允许 Actions。  
+2. **Settings → Pages → Build and deployment → Source**：选 **GitHub Actions**（不要选「从分支部署」的 `master`，除非你真的改用方式二）。  
+3. 工作流需声明：
+
+```yaml
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+```
+
+### 工作流示例（与本仓库 `.github/workflows/deploy.yml` 一致）
 
 {% raw %}
 
 ```yaml
-# blog-source 推送时：安装依赖、生成站点、推送到 master（GitHub Pages）
-
 name: Deploy Hexo
+
+on:
+  push:
+    branches:
+      - blog-source
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm run clean && npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+{% endraw %}
+
+---
+
+## 方式二：`hexo-deployer-git` 推送到分支（如 `master`）
+
+**思路**：在 CI 中安装依赖后，用 **`sed`** 把 `_config.yml` 里仓库地址的占位符换成令牌，再执行 **`hexo deploy`**，由 `hexo-deployer-git` 将生成结果推送到 **`deploy.branch`**（常见为 **`master`**）。  
+**Pages** 侧应选择 **Deploy from a branch**，并选中该分支。
+
+### 必要条件与常见坑
+
+- **`deploy.repo`** 请使用 **`https://x-access-token:占位符@github.com/用户名/仓库.git`**，在步骤里把占位符替换为 `GITHUB_TOKEN` 或 PAT；不要用 `https://令牌@github.com/...` 仅把令牌当用户名，否则 CI 无 TTY 时可能出现 `could not read Password`。  
+- 工作流需 **`permissions: contents: write`**，以便向仓库推送。  
+- 部署器往往 **force-push** 目标分支：若该分支 **受保护且禁止强制推送**，会失败（`GH006`），需放宽规则或改回 **方式一**。  
+- 可在 `hexo deploy` 步骤设置 **`GIT_TERMINAL_PROMPT: "0"`**，避免 Git 卡住等待密码输入。
+
+### `_config.yml` 中 `deploy` 示例
+
+```yaml
+deploy:
+  type: git
+  repo: https://x-access-token:github_token@github.com/<你的用户名>/<仓库名>.git
+  branch: master
+```
+
+其中 **`github_token` 为占位符**，由下面工作流中的 `sed` 在运行时替换为真实令牌（勿把真实令牌提交进仓库）。
+
+### 工作流示例（单 Job，与方式一勿同时作为唯一发布源）
+
+{% raw %}
+
+```yaml
+name: Deploy Hexo (git push)
 
 on:
   push:
@@ -59,36 +154,23 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: hexo-deploy-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Configure Git for hexo-deployer-git
-        run: |
+      - run: npm ci
+      - run: |
           git config --global user.name "你的 Git 用户名"
           git config --global user.email "你的邮箱"
-
       - name: Inject token into _config.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: sed -i "s/github_token/${GITHUB_TOKEN}/g" _config.yml
-
       - name: Generate and deploy
         env:
           GIT_TERMINAL_PROMPT: "0"
@@ -100,35 +182,17 @@ jobs:
 
 {% endraw %}
 
-说明：
-
-- `permissions: contents: write`：允许工作流向本仓库推送（`hexo deploy` 需要）。
-- `Inject token` 一步把 `_config.yml` 里占位字符串 `github_token` 换成 `GITHUB_TOKEN`；`deploy.repo` 须为 `https://x-access-token:github_token@github.com/...`，与 Git 在 CI 中的非交互认证方式一致。
-
-首次启用：在 GitHub 仓库 **Settings → Actions → General** 中允许 Actions；**Settings → Pages** 中把站点源设为用于托管静态文件的分支（用户页 `username.github.io` 常见为 **`master` 分支根目录**）。
-
-### `_config.yml` 中的 deploy
-
-```yaml
-# Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  type: git
-  repo: https://x-access-token:github_token@github.com/<你的用户名>/<仓库名>.git
-  branch: master
-```
-
-其中 **`github_token` 为占位符**，由工作流里的 `sed` 在部署前替换为 `GITHUB_TOKEN`。请使用 **`https://x-access-token:…@github.com/...`** 这种写法（不要用 `https://令牌@github.com/...` 只把令牌当用户名），否则在 GitHub Actions 等非交互环境里 Git 可能仍提示输入密码，并出现 `could not read Password … No such device or address`。
-
-若仓库对 `master` 启用了**分支保护**，默认 `GITHUB_TOKEN` 可能无法推送，需在分支规则中允许 GitHub Actions，或改用 [Personal Access Token](https://github.com/settings/tokens) 存为仓库 Secret（例如 `HEXO_DEPLOY_TOKEN`），并在工作流里把 `sed` 与 `env` 改为使用该 Secret。
-
-## 提交分支
-
-写好 Markdown 后，将改动 **push 到 `blog-source`**（或你在工作流里写的分支名），GitHub Actions 会自动执行生成与部署；可在仓库 **Actions** 页查看每次运行日志。
+若使用 **PAT**，在仓库 **Settings → Secrets and variables → Actions** 中新增 secret（例如 `HEXO_DEPLOY_TOKEN`），将 `env` 与 `sed` 改为使用该 secret，并确保令牌具备 **repo** 等推送权限。
 
 ---
 
-*以下为 2020 年原文档标题与 Travis CI 相关说明，已过时，仅作存档。*
+## 提交分支与查看日志
+
+写好 Markdown 后，将改动 **push 到 `blog-source`**（或你在工作流里写的分支名），在仓库 **Actions** 页查看每次运行日志。
+
+---
+
+*以下为 2020 年原文档与 Travis CI 相关说明，仅作存档。*
 
 <details>
 <summary>旧版：Travis CI + Hexo（已弃用）</summary>

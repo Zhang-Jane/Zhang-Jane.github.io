@@ -1,5 +1,5 @@
-# blog-source 推送时：安装依赖、生成站点、推送到 master（GitHub Pages）
-# 仓库需在 Settings → Pages 中将 Source 指向 master 分支（用户页 Zhang-Jane.github.io 常用方式）
+# 生成 public 后通过 GitHub Pages 官方 Action 发布，不向 master 做 git push（避免受保护分支禁止 force-push）
+# 仓库 Settings → Pages → Build and deployment → Source 请选择「GitHub Actions」（勿再用 branch/master）
 
 name: Deploy Hexo
 
@@ -10,14 +10,16 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: hexo-deploy-${{ github.ref }}
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,20 +34,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Configure Git for hexo-deployer-git
-        run: |
-          git config --global user.name "Zhang-Jane"
-          git config --global user.email "luckingshine@gmail.com"
-
-      - name: Inject token into _config.yml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: sed -i "s/github_token/${GITHUB_TOKEN}/g" _config.yml
-
-      - name: Generate and deploy
-        env:
-          GIT_TERMINAL_PROMPT: "0"
+      - name: Generate site
         run: |
           npm run clean
           npm run build
-          npm run deploy
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
