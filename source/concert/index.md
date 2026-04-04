@@ -4,7 +4,6 @@ date: 2020-10-16 10:00:00
 type: "concert"
 ---
 
-
 <div class="gallery-group-main">
 {% galleryGroup '活出生命Live演唱会-2004' '张学友' '/concert/videos/活出生命Live演唱会' 活出生命Live演唱会.png %}
 {% galleryGroup 'SoulPowerLive-2003' '陶喆' '/concert/videos/SoulPowerLive' SoulPowerLive.png %}
@@ -14,4 +13,5 @@ type: "concert"
 {% galleryGroup 'Beyond生命接触演唱会-香港红磡体育馆-1991' 'Beyond' '/concert/videos/Beyond生命接触演唱会'  Beyond生命接触演唱会.png%}
 {% galleryGroup '张国荣告别乐坛演唱会-1989' '张国荣' '/concert/videos/张国荣告别乐坛演唱会'  张国荣告别乐坛演唱会.png%}
 {% galleryGroup '纵贯线全球巡回演唱会-2009' '纵贯线' '/concert/videos/纵贯线全球巡回演唱会'  纵贯线全球巡回演唱会.png%}
+{% galleryGroup '方大同Live香港演唱会-2011' '方大同' '/concert/videos/方大同Live香港演唱会'  方大同Live香港演唱会.png%}
 </div>
