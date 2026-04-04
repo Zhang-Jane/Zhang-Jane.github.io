@@ -39,16 +39,18 @@ aside:
     button:
       link: https://github.com/Zhang-Jane
 
-favicon: /img/hamburger.ico
+favicon: /images/hamburger.ico
 
 avatar:
-  img: https://img2.baidu.com/it/u=4274118481,3879373441&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400
+  img: /images/avatar.jpg
   effect: false
 
 disable_top_img: false
 
-# 首页大封面（原配置）
-index_img: https://pic2.zhimg.com/v2-24ae9869e03dee51d4ebe9cc6a824264_r.jpg?source=1940ef5c
+# 首页大封面 / 页脚背景（资源见 source/images/，构建后为 /images/...）
+index_img: /images/index-cover.jpg
+
+footer_img: /images/index-cover.jpg
 
 # 未单独设置 top_img 的页面是否使用默认图；false 表示不强制统一默认图
 default_top_img: false
@@ -60,11 +62,13 @@ cover:
   index_enable: false
   aside_enable: false
   archives_enable: false
-  default_cover: /extra_imgs/town.jpg
+  default_cover: /images/default-post-cover.jpg
 
+# 友情链接页里，某个友链头像 URL 失效时，换成这张图；侧栏头像加载失败时也会用（主题里 flink 和头像兜底共用这一张）。
+# 文章封面、上一篇/下一篇封面、侧栏最新文章等文章相关封面加载失败时，换成这张图。
 error_img:
-  flink: /img/unfind.jpg
-  post_page: /img/unfind.jpg
+  flink: /images/unfind-link-avatar.webp
+  post_page: /images/unfind-post-cover.jpg
 
 search:
   use: local_search
