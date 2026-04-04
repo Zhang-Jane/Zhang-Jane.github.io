@@ -1,6 +1,11 @@
 # 站点级主题覆盖（恢复升级前自定义的导航与顶图；其余沿用主题默认）
 # 文档：https://butterfly.js.org/
 
+# 首页文章卡片：同时显示发布日期与最后更新（与根目录 index_generator.order_by: -updated 配合）
+post_meta:
+  page:
+    date_type: both
+
 nav:
   logo:
   display_title: true
