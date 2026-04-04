@@ -110,8 +110,8 @@ theme: butterfly
 deploy:
   type: git
   # repo: https://github.com/Zhang-Jane/Zhang-Jane.github.io.git
-  # 占位符 github_token 由 GitHub Actions（.github/workflows/deploy.yml）注入为 GITHUB_TOKEN
-  repo: https://github_token@github.com/Zhang-Jane/Zhang-Jane.github.io.git
+  # 占位符 github_token 由 CI 注入为 GITHUB_TOKEN；须用 x-access-token: 形式，否则 Git 在无 TTY 下会提示密码
+  repo: https://x-access-token:github_token@github.com/Zhang-Jane/Zhang-Jane.github.io.git
   branch: master
 
 aplayer:

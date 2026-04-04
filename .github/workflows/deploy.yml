@@ -35,7 +35,7 @@ jobs:
       - name: Configure Git for hexo-deployer-git
         run: |
           git config --global user.name "Zhang-Jane"
-          git config --global user.email "2855512028@qq.com"
+          git config --global user.email "luckingshine@gmail.com"
 
       - name: Inject token into _config.yml
         env:
@@ -43,6 +43,8 @@ jobs:
         run: sed -i "s/github_token/${GITHUB_TOKEN}/g" _config.yml
 
       - name: Generate and deploy
+        env:
+          GIT_TERMINAL_PROMPT: "0"
         run: |
           npm run clean
           npm run build

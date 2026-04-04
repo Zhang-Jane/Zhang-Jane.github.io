@@ -90,6 +90,8 @@ jobs:
         run: sed -i "s/github_token/${GITHUB_TOKEN}/g" _config.yml
 
       - name: Generate and deploy
+        env:
+          GIT_TERMINAL_PROMPT: "0"
         run: |
           npm run clean
           npm run build
@@ -101,7 +103,7 @@ jobs:
 说明：
 
 - `permissions: contents: write`：允许工作流向本仓库推送（`hexo deploy` 需要）。
-- `Inject token` 一步把 `_config.yml` 里占位字符串 `github_token` 换成运行时环境变量中的令牌，与下面 `deploy.repo` 写法配套。
+- `Inject token` 一步把 `_config.yml` 里占位字符串 `github_token` 换成 `GITHUB_TOKEN`；`deploy.repo` 须为 `https://x-access-token:github_token@github.com/...`，与 Git 在 CI 中的非交互认证方式一致。
 
 首次启用：在 GitHub 仓库 **Settings → Actions → General** 中允许 Actions；**Settings → Pages** 中把站点源设为用于托管静态文件的分支（用户页 `username.github.io` 常见为 **`master` 分支根目录**）。
 
@@ -112,11 +114,11 @@ jobs:
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github_token@github.com/<你的用户名>/<仓库名>.git
+  repo: https://x-access-token:github_token@github.com/<你的用户名>/<仓库名>.git
   branch: master
 ```
 
-其中 **`github_token` 为占位符**，由上述工作流中的 `sed` 在部署前替换为 `GITHUB_TOKEN`，从而在 CI 环境里用 HTTPS 完成推送；本地不要写真实令牌。
+其中 **`github_token` 为占位符**，由工作流里的 `sed` 在部署前替换为 `GITHUB_TOKEN`。请使用 **`https://x-access-token:…@github.com/...`** 这种写法（不要用 `https://令牌@github.com/...` 只把令牌当用户名），否则在 GitHub Actions 等非交互环境里 Git 可能仍提示输入密码，并出现 `could not read Password … No such device or address`。
 
 若仓库对 `master` 启用了**分支保护**，默认 `GITHUB_TOKEN` 可能无法推送，需在分支规则中允许 GitHub Actions，或改用 [Personal Access Token](https://github.com/settings/tokens) 存为仓库 Secret（例如 `HEXO_DEPLOY_TOKEN`），并在工作流里把 `sed` 与 `env` 改为使用该 Secret。
 
