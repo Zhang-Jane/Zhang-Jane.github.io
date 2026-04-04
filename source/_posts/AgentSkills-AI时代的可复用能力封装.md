@@ -123,9 +123,8 @@ Prompt 当然有用，但它更像一次性口头指令；Skill 更像长期维�
 
 如果你想快速观察社区实践，这几个入口最省时间：
 
-- 合集：`awesome-agent-skills`、`github/awesome-copilot`
-- 官方/示例：`anthropics/skills`
-- 讨论型案例：`colleague-skill`、`anti-distill`
+- 合集：[awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)、[github/awesome-copilot](https://github.com/github/awesome-copilot)
+- 官方/示例：[anthropics/skills](https://github.com/anthropics/skills)
 
 安装方式通常有两类：
 
@@ -171,3 +170,10 @@ Agent Skills 本质上不是“新名词”，而是一个很务实的工程动�
 
 当你把流程、标准和边界沉淀下来，AI 的稳定性会显著提高；而且这些沉淀本身也是你的长期资产。  
 如果你正准备开始，不妨从一个最小 Skill 做起，先让一个高频流程跑稳，再逐步扩展到整套工作流。
+
+**额外推荐Skills**
+
+- [热门Skills库](https://skills.sh/)
+- [Agent Skills Marketplace](https://skillsmp.com/)
+- [Skills Store](https://skillstore.io/)
+- [minimax开源Skills地址](https://github.com/MiniMax-AI/skills/blob/main/README_zh.md)
