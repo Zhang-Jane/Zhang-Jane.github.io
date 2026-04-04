@@ -21,11 +21,12 @@ Server 层负责建立连接、分析和执行 SQL。MySQL 大多数的核心功
 `show processlist;`查看 MySQL 服务被多少个客户端连接了
 
 mysql的最大连接时间：
-`show variables like 'max_connections';`
+`show variables like 'wait_timeout';`
 MySQL 定义了空闲连接的最大空闲时长，由 wait_timeout 参数控制的，默认值是 8 小时（28880秒），如果空闲连接超过了这个时间，连接器就会自动将它断开。
 
 MySQL的最大连接数:
 `show variables like 'max_connections';`
+
 ## 查询缓存
 查询缓存的失效非常频繁，只要有对一个表的更新，这个表上所有的查询缓存都会被清空。
 MySQL 8.0 去除查询缓存功能的文章：https://mysqlserverteam.com/mysql-8-0-retiring-support-for-the-query-cache/

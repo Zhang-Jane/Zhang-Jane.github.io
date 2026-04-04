@@ -1,6 +1,6 @@
 # 指定构建环境是Node.js，当前版本是稳定版
 language: node_js
-node_js: 16.15.0
+node_js: 20
 
 # env:
 #  global:
@@ -11,11 +11,10 @@ branches:
   only:
     - blog-source
 
-设置缓存文件
+# 设置缓存文件
 cache:
   directories:
     - node_modules
-    - themes/butterfly
 
 # #在构建之前安装hexo环境
 # before_install:
