@@ -1,0 +1,49 @@
+# blog-source 推送时：安装依赖、生成站点、推送到 master（GitHub Pages）
+# 仓库需在 Settings → Pages 中将 Source 指向 master 分支（用户页 Zhang-Jane.github.io 常用方式）
+
+name: Deploy Hexo
+
+on:
+  push:
+    branches:
+      - blog-source
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hexo-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure Git for hexo-deployer-git
+        run: |
+          git config --global user.name "Zhang-Jane"
+          git config --global user.email "2855512028@qq.com"
+
+      - name: Inject token into _config.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: sed -i "s/github_token/${GITHUB_TOKEN}/g" _config.yml
+
+      - name: Generate and deploy
+        run: |
+          npm run clean
+          npm run build
+          npm run deploy
