@@ -1,6 +1,22 @@
 # 站点级主题覆盖（恢复升级前自定义的导航与顶图；其余沿用主题默认）
 # 文档：https://butterfly.js.org/
 
+# -----------------------------------------------------------------------------
+#SEO / 分析（站点：https://zhang-jane.github.io/）
+#-----------------------------------------------------------------------------
+#Google Analytics 4：在 GA 后台创建数据流后，将 Measurement ID（G-xxxxxxxx）填入下行并取消注释
+google_analytics: G-9WFL5PWW7D
+
+#Google Search Console：资源添加后选择「HTML 标签」验证，将 meta 的 content 填入下行并取消注释
+site_verification:
+  - name: google-site-verification
+    content: "8kKaMQqjVAJnBMS4fe0cyu7LbKaOYIaUudXL1inLmGo"
+
+# 结构化数据 JSON-LD（BlogPosting / 首页 WebSite）；需根目录 _config.yml 中 url 正确
+structured_data:
+  enable: true
+  alternate_name: []
+
 # 首页文章卡片：同时显示发布日期与最后更新（与根目录 index_generator.order_by: -updated 配合）
 post_meta:
   page:
@@ -44,7 +60,7 @@ aside:
     button:
       link: https://github.com/Zhang-Jane
 
-favicon: /images/hamburger.ico
+favicon: /images/favicon.ico
 
 avatar:
   img: /images/avatar.jpg

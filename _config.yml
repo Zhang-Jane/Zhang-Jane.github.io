@@ -10,9 +10,9 @@ keywords: 努力，奋斗
 author: Jane
 language: zh-CN
 timezone: ""
-# URL
-## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-# url: http://www.idesperado.com
+# URL（与线上访问一致，供 canonical / Open Graph / sitemap 使用）
+## GitHub Pages：https://zhang-jane.github.io/
+url: https://zhang-jane.github.io
 root: /
 # permalink: :year/:month/:day/:title/
 permalink: post/:abbrlink.html
@@ -99,6 +99,14 @@ pagination_dir: page
 include:
 exclude:
 ignore:
+
+# Sitemap（hexo-generator-sitemap）
+# 生成 public/sitemap.xml，提交至 Google Search Console
+sitemap:
+  path: sitemap.xml
+  rel: false
+  tags: true
+  categories: true
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
