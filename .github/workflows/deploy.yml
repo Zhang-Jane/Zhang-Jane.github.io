@@ -1,5 +1,9 @@
 # 生成 public 后通过 GitHub Pages 官方 Action 发布，不向 master 做 git push（避免受保护分支禁止 force-push）
 # 仓库 Settings → Pages → Build and deployment → Source 请选择「GitHub Actions」（勿再用 branch/master）
+#
+# 若提示「Branch blog-source is not allowed to deploy to github-pages」：
+# Settings → Environments → github-pages → Deployment branches → 勾选 All branches，
+# 或在「Selected branches」里添加 blog-source（组织仓库需管理员操作）。
 
 name: Deploy Hexo
 
