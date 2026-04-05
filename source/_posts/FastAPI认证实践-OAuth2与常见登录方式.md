@@ -11,14 +11,23 @@ tags:
   - WebAuthn
 categories: Python
 description: >-
-  在 FastAPI 里分清认证与授权，梳理 API Key、HTTP Basic、Bearer/JWT、OAuth2、SSO（SAML/OIDC
-  与企业 IdP）与 Cookie 会话的常见用法；补充 MFA（TOTP）、扫码登录、Passkeys（WebAuthn）思路；说明密码哈希、令牌校验与 Depends
-  组合思路，并给出接入第三方与企业 IdP 时的快车道选型。可与站内《FastAPI 学习笔记》及 Cookie/Token 辨析文对照阅读。
+  在 FastAPI 中分清认证与授权：API Key、Basic、Bearer/JWT、OAuth2、OIDC 与 SSO；补充 MFA、扫码与 Passkeys；说明 Depends 组合与企业 IdP 快车道。可与 ASGI 学习笔记、Cookie 辨析、Python 依赖笔记、全栈选型文对照。
 abbrlink: 283c0af4
 date: 2026-04-04 20:00:00
+updated: 2026-04-05
 ---
 
 上一篇 [FastAPI 学习笔记：从 ASGI 到异步 API 的生态梳理](https://zhang-jane.github.io/post/5057eef4.html) 把协议栈和迷你案例跑通之后，很自然会遇到下一层问题：**用户是谁、能不能访问这条接口、凭证存哪**。这篇把「常见登录与认证」放在一张表里对照，再单独说清楚 **OAuth2**、**SSO（单点登录）** 在工程里各自指什么；仍以官方文档为锚，代码只写到能指导你拆模块的程度。
+
+与 **浏览器里 Cookie、Token、Session** 的载体辨析，可配合 [cookie、token、session、JWT 你们是不是在讨论同一件事](https://zhang-jane.github.io/post/598151c0.html)。
+
+**Python 侧依赖锁定与 CI 可复现**见 [2026 年 Python 包管理与依赖选择](https://zhang-jane.github.io/post/6da79668.html)。**全栈里接口层与身份对接**可与 [全栈开发技术选型](https://zhang-jane.github.io/post/64818318.html) 对照；**前端包管理与锁文件**可与 [前端包管理机制笔记](https://zhang-jane.github.io/post/bacdc374.html) 对照——运行时不同，**「声明依赖 + 锁文件 + CI 装包」** 仍是同一条习惯。
+
+**读完你能带走：**
+
+- **401 / 403**、**认证与授权** 在接口设计里怎么区分最省事。  
+- **Bearer、JWT、OAuth2、OIDC、SSO** 各解决哪一段，避免把「OAuth2 密码流教程代码」直接当生产方案。  
+- **fastapi-sso / fastapi-users / 企业 IdP** 三条快车道的适用边界与通用底线（HTTPS、state、密钥不进仓库）。
 
 ## 认证与授权：先分清两件事
 
@@ -41,7 +50,7 @@ HTTP 状态码里，**401 Unauthorized** 多表示未认证或凭证无效；**4
 
 没有「银弹」：**对内 API** 往往 API Key 或 mTLS 就够；**对用户的 Web 应用**常见 Cookie Session 或 OIDC；**企业统一身份与多应用**常见 **SSO**；**移动端 / SPA** 常见 OAuth2/OIDC 拿到 access token（多配合 **HTTPS** 与短生命周期、刷新令牌）。
 
-若你想先把 **Cookie / Session / Token / JWT** 的载体关系捋清，可先读站内 [cookie、token、session、JWT 你们是不是在讨论同一件事](https://zhang-jane.github.io/post/598151c0.html)（与浏览器「带不带 Cookie」、`SameSite` 等配合 [Cookie 与 Session](#cookie-session) 一节），再回来看 [Bearer 与 JWT](#bearer-jwt)。需要 **多因素认证、扫码登录、通行密钥** 的实现要点时，跳转到 [扩展：MFA、扫码登录与 Passkeys](#extended-mfa-passkeys)。
+文首已链到 **Cookie / Token / Session** 辨析文；若已读过，可从 [Bearer 与 JWT](#bearer-jwt) 往下，并结合 [#cookie-session](#cookie-session)。**MFA、扫码登录、通行密钥** 的展开见 [扩展：MFA、扫码登录与 Passkeys](#extended-mfa-passkeys)。
 
 ## HTTP Basic：简单但有代价
 
@@ -396,6 +405,11 @@ async def verify_login(request: Request) -> dict[str, str]:
 
 `rp_id` 必须与你的站点域名一致，生产环境仅在 **HTTPS** 下使用；本地开发可用 `localhost` 等特殊规则，以 [WebAuthn 规范与浏览器实现](https://www.w3.org/TR/webauthn-2/) 为准。
 
-## 结尾
+## 核心要点
 
-这篇谈的是**同一条业务链上的不同层**：**OAuth2** 是授权框架与多种换票方式的总称；**SSO** 是多应用共享同一套组织身份的体验，背后往往是 **OIDC 或 SAML** 与 IdP/SP 分工；日常说的 **JWT** 多是 access token 的一种载体；**API Key / Basic / Cookie** 各适合不同信任边界。文末 [MFA / 扫码 / Passkeys](#extended-mfa-passkeys) 补充的是另一类「强认证」形态，与 OAuth2 主线并行、常组合使用。把存储、签发与 `Depends` 组合好，才能把「注册 / 登录 / 持令牌访问」做成可维护的实现；接企业 SSO 时则更多是把 IdP 确认过的身份**映射到本地账户或会话**，而不是重复造一套密码体系。
+- **概念分层**：OAuth2 是**授权**框架（多种 grant 换 access token）；OIDC 在 OAuth2 之上补**身份**（`id_token` 等）；SSO 是**体验与架构**（多应用信任同一 IdP）；JWT 多是 token **载体**，不是协议本身。  
+- **信任边界**：服务间/API Key 与 mTLS；用户 Web 常见 Cookie Session 或 OIDC；移动端/SPA 常见 Bearer + 短寿命 token；企业场景常见 SAML/OIDC 与外部 IdP。  
+- **实现抓手**：`OAuth2PasswordBearer` 常只负责**从请求里取 Bearer**；真正验用户仍在你的 `Depends`；企业 SSO 多为**授权码 + 回调**，用成熟库（如 Authlib）或网关终止 SAML 再进应用。  
+- **快车道**：仅社交登录可评估 **fastapi-sso**；要用户表 + 多 OAuth 看 **fastapi-users**；复杂企业目录用 **Auth0 / Keycloak / WorkOS** 等并按文档验 token。  
+- **底线**：HTTPS、`state`/`nonce`、回调 URL 与控制台一致、**密钥与 client_secret 不进仓库**、日志对 token **脱敏**；MFA / 扫码 / Passkeys 见 [扩展一节](#extended-mfa-passkeys)。  
+- **与上篇衔接**：迷你 API 里的 API Key 只是演示；换成 JWT/OIDC 时仍保持 **路由 → 依赖取凭证 → 业务** 的分层，并与 [ASGI 学习笔记](https://zhang-jane.github.io/post/5057eef4.html) 中的 lifespan、中间件策略一致。

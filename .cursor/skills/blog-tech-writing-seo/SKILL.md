@@ -1,7 +1,7 @@
 ---
 name: blog-tech-writing-seo
 description: >-
-  Hexo（Butterfly）技术博客 Skill：主文件仅含硬性规则与最小模板；详细写作语气、Frontmatter 字段、AI 协作与自检见 references/writing.md；配图见
+  Hexo（Butterfly）技术博客 Skill：主文件仅含硬性规则与最小模板；详细写作语气、技术事实/通俗与术语注解、1–3 个实战案例、文末简要总结（核心要点）、Frontmatter 字段、AI 协作与自检见 references/writing.md；配图见
   references/images.md；E-E-A-T、On-Page、站点与专题 SEO 见 references/seo.md。适用于撰写/编辑 source/_posts/*.md、技术笔记与 SEO 相关任务。
 ---
 
@@ -15,7 +15,7 @@ description: >-
 
 | 主题                                                                  | 文档                                           |
 | --------------------------------------------------------------------- | ---------------------------------------------- |
-| 语气、段落、钩子、引用、Frontmatter 字段、abbrlink、AI 协作、成文自检 | [references/writing.md](references/writing.md) |
+| 语气、事实/通俗/术语/案例/结尾总结、Frontmatter 字段、abbrlink、AI 协作、成文自检 | [references/writing.md](references/writing.md) |
 | E-E-A-T、On-Page、站点 SEO、专题集群、搜索意图、Meta、结构化数据      | [references/seo.md](references/seo.md)         |
 | 配图路径、`alt`、张数、实拍/授权（不含 AI 生图流程）                  | [references/images.md](references/images.md)   |
 
