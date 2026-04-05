@@ -1,5 +1,8 @@
 ---
 title: Agent Skills：AI 时代的可复用能力封装
+description: Agent Skills：AI 时代的可复用能力封装。- Agent Skills 可以理解成「给 AI 的项目说明书 + 工具包」：核心是一个 SKILL.md，可按需配 scripts/、templates/、references/。适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2026-04-04T10:00:00.000Z
+updated: 2026-04-04T17:00:00.000Z
 tags:
   - Agent Skills
   - Anthropic
@@ -8,13 +11,10 @@ tags:
   - Claude
   - 知识管理
 categories: AI
-description: >-
-  用通俗说法讲清 Agent Skills：它是什么、能帮你省什么心，和 GitHub 上另一套也叫「Skills」的免费课有什么不同。顺带聊聊怎么在仓库里放
-  SKILL.md、哪些工具能用，以及社区里把工作经验做成「可带走技能包」的例子。不要求你已是大厂架构师，只要对 AI 辅助写代码、整理流程有点兴趣。
 abbrlink: cd4fa45f
-date: 2026-04-04 10:00:00
-updated: 2026-04-04 17:00:00
+
 ---
+
 
 > - Agent Skills 可以理解成「给 AI 的项目说明书 + 工具包」：核心是一个 `SKILL.md`，可按需配 `scripts/`、`templates/`、`references/`。
 > - 它解决的不是“AI 会不会写代码”，而是“AI 能不能稳定按你的规则做事”。

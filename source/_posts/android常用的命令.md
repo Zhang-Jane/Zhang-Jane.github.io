@@ -1,9 +1,13 @@
 ---
-title: android常用的命令
+title: Android常用的命令：命令分类
+description: Android常用的命令：命令分类。命令分类 把在adb shell中的执行的命令成为shell命令，在外面执行的叫非shell命令 非shell命令 查看当前正在运行app的activity信息 bash adb shel…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-05-15T22:55:46.000Z
+tags: null
 abbrlink: 5974b575
-date: 2021-05-15 22:55:46
-tags:
+
 ---
+
+
 ## 命令分类
 
 把在adb shell中的执行的命令成为shell命令，在外面执行的叫非shell命令

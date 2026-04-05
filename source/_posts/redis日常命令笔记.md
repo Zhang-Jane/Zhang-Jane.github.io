@@ -1,10 +1,13 @@
 ---
-title: redis日常命令笔记
+title: Redis日常命令笔记：Redis命令
+description: Redis日常命令笔记：Redis命令。redis命令 命令使用推荐 参阅：https://developer.aliyun.com/article/531067 cc1 1.【推荐】 O(N)命令关注N的数量 例如hgetal…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-05-11T17:47:15.000Z
 tags: redis
 categories: redis
 abbrlink: f3bc1db9
-date: 2021-05-11 17:47:15
+
 ---
+
 
 ## redis命令
 

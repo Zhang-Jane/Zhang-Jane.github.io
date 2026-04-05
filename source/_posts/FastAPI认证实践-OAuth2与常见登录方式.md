@@ -1,5 +1,8 @@
 ---
 title: FastAPI 登录与认证：OAuth2、SSO 与常见方式
+description: FastAPI 登录与认证：OAuth2、SSO 与常见方式。上一篇 [FastAPI 学习笔记：从 ASGI 到异步 API 的生态梳理](https://zhang-jane.github.io/post/5057eef4.html) 把协议栈和…适合日常查阅、复习对照与工程检索。
+date: 2026-04-04T20:00:00.000Z
+updated: 2026-04-05T00:00:00.000Z
 tags:
   - FastAPI
   - Python
@@ -10,12 +13,10 @@ tags:
   - MFA
   - WebAuthn
 categories: Python
-description: >-
-  在 FastAPI 中分清认证与授权：API Key、Basic、Bearer/JWT、OAuth2、OIDC 与 SSO；补充 MFA、扫码与 Passkeys；说明 Depends 组合与企业 IdP 快车道。可与 ASGI 学习笔记、Cookie 辨析、Python 依赖笔记、全栈选型文对照。
 abbrlink: 283c0af4
-date: 2026-04-04 20:00:00
-updated: 2026-04-05
+
 ---
+
 
 上一篇 [FastAPI 学习笔记：从 ASGI 到异步 API 的生态梳理](https://zhang-jane.github.io/post/5057eef4.html) 把协议栈和迷你案例跑通之后，很自然会遇到下一层问题：**用户是谁、能不能访问这条接口、凭证存哪**。这篇把「常见登录与认证」放在一张表里对照，再单独说清楚 **OAuth2**、**SSO（单点登录）** 在工程里各自指什么；仍以官方文档为锚，代码只写到能指导你拆模块的程度。
 

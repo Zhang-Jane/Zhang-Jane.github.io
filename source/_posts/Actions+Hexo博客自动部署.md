@@ -1,17 +1,18 @@
 ---
 title: GitHub Actions + Hexo 博客自动部署
+description: GitHub Actions + Hexo 博客自动部署：本文初稿写于 2020 年，当时使用 Travis CI。现改为在 GitHub Actions 中完成构建与部署；与 Travis 相比，令牌与仓库设置都在 GitHub 内完成即可。适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-11T16:44:04.000Z
+updated: 2026-04-04T00:00:00.000Z
 tags:
   - GitHub Actions
   - Hexo
 categories: hexo
-top_img: >-
-  http://static.simpledesktops.com/uploads/desktops/2020/07/18/Artboard_1.png
-cover: >-
-  https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1340301466,160012850&fm=26&gp=0.jpg
+top_img: http://static.simpledesktops.com/uploads/desktops/2020/07/18/Artboard_1.png
+cover: https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1340301466,160012850&fm=26&gp=0.jpg
 abbrlink: 6a366505
-date: 2020-10-11 16:44:04
-updated: 2026-04-04
+
 ---
+
 
 > 本文初稿写于 2020 年，当时使用 Travis CI。现改为在 **GitHub Actions** 中完成构建与部署；与 Travis 相比，令牌与仓库设置都在 GitHub 内完成即可。
 

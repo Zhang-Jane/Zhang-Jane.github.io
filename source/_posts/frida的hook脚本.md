@@ -1,10 +1,13 @@
 ---
-title: frida的hook脚本
+title: Frida的hook脚本：Hook RegisterNatives
+description: Frida的hook脚本：Hook RegisterNatives。Hook RegisterNatives 命令 frida -U --no-pause -f package name -l xx.js `javascript var ishook li…适合日常查阅、复习对照与工程检索。
+date: 2020-12-05T15:55:55.000Z
 tags: frida
 categories: frida
-abbrlink: '93535598'
-date: 2020-12-05 15:55:55
+abbrlink: "93535598"
+
 ---
+
 
 ## Hook RegisterNatives
 ### 命令

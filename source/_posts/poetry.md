@@ -1,9 +1,12 @@
 ---
-title: poetry
+title: Poetry：操作步骤
+description: Poetry：操作步骤。poetry 常用命令 init 用于初始化项目，在项目目录下生成pyproject.toml文件，需要注意：执行这个命令时，会要求你输入pyproject.toml配置文件中的常用选项。…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。便于按需检索与落地对照。
+date: 2021-05-11T17:37:44.000Z
 tags: python开发环境
 abbrlink: ca5259af
-date: 2021-05-11 17:37:44
+
 ---
+
 
 # [poetry](https://python-poetry.org/)
 

@@ -1,9 +1,12 @@
 ---
-title: python的pydantic库
+title: Python的pydantic库：基本的类型
+description: Python的pydantic库：基本的类型。官方文档以及定义 https://pydantic-docs.helpmanual.io/ Data validation and settings management using py…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-04-21T16:54:45.000Z
+tags: null
 abbrlink: c9e744c1
-date: 2021-04-21 16:54:45
-tags:
+
 ---
+
 
 # 官方文档以及定义
 https://pydantic-docs.helpmanual.io/

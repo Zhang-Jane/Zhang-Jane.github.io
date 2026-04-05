@@ -1,10 +1,14 @@
 ---
-title: mysql日常命令笔记
+title: MySQL日常命令笔记：查看日志和配置文件位置
+description: MySQL日常命令笔记：查看日志和配置文件位置。mysql的sql语句 查看日志和配置文件位置 配置文件 root@8cebc228cfea:/ mysql --verbose --help grep -A 1 'Default opt…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-05-11T17:49:21.000Z
 tags: mysql
 categories: mysql
 abbrlink: c718fbdb
-date: 2021-05-11 17:49:21
+
 ---
+
+
 # mysql的sql语句
 
 ## 查看日志和配置文件位置

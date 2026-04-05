@@ -1,10 +1,14 @@
 ---
-title: git工作流模式
-abbrlink: 16146bf6
-date: 2022-12-14 20:53:34
+title: git工作流模式：集中式工作流
+description: git工作流模式：集中式工作流。集中式工作流 开发者直接在本地 master 分支开发代码，开发完成后 push 到远端仓库 master 分支。 功能分支工作流 开发者基于 master 分支创建一个新分支，在新分支进…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2022-12-14T20:53:34.000Z
 tags: git
 categories: git
+abbrlink: 16146bf6
+
 ---
+
+
 ## 集中式工作流
 开发者直接在本地 master 分支开发代码，开发完成后 push 到远端仓库 master 分支。
 ## 功能分支工作流

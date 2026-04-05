@@ -1,5 +1,7 @@
 ---
 title: 2026 年 Python 包管理与依赖选择：从「依赖乱象」到 pyproject、pylock 与 uv
+description: 2026 年 Python 包管理与依赖选择：从「依赖乱象」到 pyp…。2024 年前后，英文技术圈里常把 Python 依赖生态戏称为 dumpster fire（垃圾桶大火）。Niels Cautaerts 在 [Python dependency man…适合日常查阅、复习对照与工程检索。
+date: 2026-04-04T20:00:00.000Z
 tags:
   - Python
   - uv
@@ -8,13 +10,10 @@ tags:
   - 依赖管理
   - 软件供应链
 categories: Python
-description: >-
-  结合 PEP 518/621/735/751、PyPA 规范与两篇英文长文（依赖分层图解、工具文氏图），梳理 2026 年 Python
-  依赖管理：声明与锁定、dependency-groups、pylock.toml；多维度对比 uv/Poetry/PDM/pip-tools/Pixi（速度、日常命令、迁移、CI）；含
-  GitHub Actions 与安全审计，可与全栈选型、FastAPI 笔记对照阅读。
 abbrlink: 6da79668
-date: 2026-04-04 20:00:00
+
 ---
+
 
 2024 年前后，英文技术圈里常把 Python 依赖生态戏称为 **dumpster fire**（垃圾桶大火）。Niels Cautaerts 在 [Python dependency management is a dumpster fire](https://nielscautaerts.xyz/python-dependency-management-is-a-dumpster-fire.html) 里用「露营篝火失控」的叙事把问题讲透：脚本长成项目、别人机器上复现不了、一次 innocuous 的升级整锅端掉——默认工作流容易「随手 `pip install`」、锁文件与构建元数据各说各话，**传递依赖**又像开盲盒。到了 2026 年，**规范面**（`pyproject.toml`、依赖分组、标准化锁文件）和 **工具面**（以 Rust 实现的高性能解析/安装器）已经能把「可重现」从口号变成日常操作。我按「原则 → 工具地图 → 工作流 → 选型」整理这篇笔记，并穿插两篇写得极好的英文原文里的**分层与分类图**（已下载到本站、保留署名），方便和站内其它 Python 与工程化文章对照：[全栈开发技术选型](https://zhang-jane.github.io/post/64818318.html)、[FastAPI 学习笔记](https://zhang-jane.github.io/post/5057eef4.html)、[GitHub Actions 部署](https://zhang-jane.github.io/post/6a366505.html)。
 

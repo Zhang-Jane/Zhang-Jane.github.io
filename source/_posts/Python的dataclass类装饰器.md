@@ -1,9 +1,12 @@
 ---
 title: Python的dataclass类装饰器
+description: Python的dataclass类装饰器：Python3.7 dataclass使用指南 ------ 本文将带你走进python3.7的新特性dataclass，通过本文你将学会dataclass的使用并避免踏入某些陷阱。 - …适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-04-20T17:32:33.000Z
+tags: null
 abbrlink: 5dd32833
-date: 2021-04-20 17:32:33
-tags:
+
 ---
+
 
 # [Python3.7 dataclass使用指南](https://www.cnblogs.com/apocelipes/p/10284346.html)
 

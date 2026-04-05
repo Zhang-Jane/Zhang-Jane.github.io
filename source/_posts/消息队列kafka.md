@@ -1,9 +1,13 @@
 ---
-title: 消息队列kafka
+title: 消息队列Kafka：1.什么是Kafka：
+description: 消息队列Kafka：1.什么是Kafka：。认识KafKa 1.什么是KafKa： kafka是一种高吞吐量的分布式发布订阅消息消息队列，有如下特性： - 通过O(1)的磁盘数据结构提供消息的持久化，这种结构对于即使数以TB的消息存…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2022-12-25T23:21:24.000Z
+tags: null
 abbrlink: 2e2628ab
-date: 2022-12-25 23:21:24
-tags:
+
 ---
+
+
 # 认识KafKa
 
 ## 1.什么是KafKa：

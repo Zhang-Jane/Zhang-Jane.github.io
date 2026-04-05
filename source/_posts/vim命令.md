@@ -1,9 +1,13 @@
 ---
-title: vim命令
+title: vim命令：help
+description: vim命令：help。help :h {TEXT} bash :h motion 第一章我们讲过了motion，可以试着自己看看 :h buffer buffer是vim处理文件缓存的方式 :h tab tab…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。便于按需检索与落地对照。
+date: 2022-12-16T22:16:05.000Z
 tags: vim
 abbrlink: 7de3426c
-date: 2022-12-16 22:16:05
+
 ---
+
+
 ## help
 **:h {TEXT}**
 ```bash

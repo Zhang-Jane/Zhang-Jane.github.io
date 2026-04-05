@@ -1,10 +1,14 @@
 ---
-title: flask的request对象和数据渲染
+title: Flask的request对象和数据渲染
+description: Flask的request对象和数据渲染：request对象的属性 from flask import request - path：base url - full path：url - host：url root - host …适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-23T12:30:22.000Z
 tags: flask
 categories: flask
 abbrlink: 508ae6b3
-date: 2020-10-23 12:30:22
+
 ---
+
+
 ## request对象的属性
 
 `from flask import request`

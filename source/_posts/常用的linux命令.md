@@ -1,10 +1,13 @@
 ---
-title: 常用的linux命令
+title: 常用的Linux命令：帮助命令tldr
+description: 常用的Linux命令：帮助命令tldr。常用的linux命令 帮助命令tldr du du -sh ./ grep "G" sort du -h --max-depth=1 -I du -ah wget wget： -c 断点续…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-05-11T17:29:37.000Z
 tags: linux命令
 categories: linux
 abbrlink: 4074d3b3
-date: 2021-05-11 17:29:37
+
 ---
+
 
 # 常用的linux命令
 

@@ -1,10 +1,13 @@
 ---
-title: scrapy的运行方式
+title: Scrapy的运行方式：scrapy不同的运行方式
+description: Scrapy的运行方式：scrapy不同的运行方式。scrapy不同的运行方式 CrawlerProcess python custom settings = {} 项目的配置文件 projectsettings = getproject …适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-11-08T12:41:57.000Z
 tags: scrapy
 categories: scrapy
 abbrlink: bf2ca3c2
-date: 2020-11-08 12:41:57
+
 ---
+
 
 ## scrapy不同的运行方式
 ### CrawlerProcess

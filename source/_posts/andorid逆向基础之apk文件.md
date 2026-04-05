@@ -1,10 +1,13 @@
 ---
-title: andorid逆向基础之apk文件
+title: Android逆向基础之apk文件：apk文件目录结构
+description: Android逆向基础之apk文件：apk文件目录结构。apk文件认识 APK文件其实是zip格式，但后缀名被修改为apk。我们修改ZIP后缀名方式可以看到内部的文件结构，或者用压缩工具直接解压 apk文件目录结构 - AndroidManif…适合日常查阅、复习对照与工程检索。
+date: 2021-05-15T22:41:58.000Z
 tags: andorid逆向
 categories: andorid逆向
 abbrlink: ee5c2350
-date: 2021-05-15 22:41:58
+
 ---
+
 
 # apk文件认识
 

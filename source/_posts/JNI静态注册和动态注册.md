@@ -1,10 +1,14 @@
 ---
-title: JNI静态注册和动态注册
+title: JNI静态注册和动态注册：JNI是什么？
+description: JNI静态注册和动态注册：JNI是什么？。JNI是什么？ JNI是Java Native Interface的缩写，中文名为JAVA本地调用。它允许Java代码和其他语言写的代码进行交互。JNI一开始是为了本地已编译语言，尤其是C…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-05-15T22:53:43.000Z
 tags: andorid逆向
 categories: andorid逆向
 abbrlink: a26b886b
-date: 2021-05-15 22:53:43
+
 ---
+
+
 ## JNI是什么？
 
  JNI是Java Native Interface的缩写，中文名为JAVA本地调用。它允许Java代码和其他语言写的代码进行交互。JNI一开始是为了本地已编译语言，尤其是C和C++而设计的，但是它并不妨碍你使用其他语言，只要调用约定受支持就可以了。Java是支持调用C/C++代码的，不过不能直接调用，因此需要一个中间层来进行转换、翻译，这就是JNI(Java Native Interface)的意思，JNI的作用就是粘合Java代码和C++代码。

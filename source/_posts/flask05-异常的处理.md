@@ -1,10 +1,14 @@
 ---
-title: flask的异常处理
+title: Flask的异常处理：abort函数和自定义错误信息
+description: Flask的异常处理：abort函数和自定义错误信息。abort函数和自定义错误信息 abort()函数可以传递两种方式 1. 一种是传递状态码信息，例如：abort(404) ,前端就会报出已经默认好的404错误信息 2. 另外一种方式是传…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-20T14:00:12.000Z
 tags: flask
 categories: flask
 abbrlink: ca5a7c64
-date: 2020-10-20 14:00:12
+
 ---
+
+
 ## abort函数和自定义错误信息
 
 ### abort()函数可以传递两种方式

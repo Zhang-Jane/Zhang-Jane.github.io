@@ -1,10 +1,14 @@
 ---
-title: git笔记
+title: git笔记：提交格式：
+description: git笔记：提交格式：。常用的git命令 - git mv filefrom fileto（重命名文件，删除原来的文件，添加新文件到暂存区） - git switch 命令专门用于切换分支，可以用来替代 chec…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。便于按需检索与落地对照。
+date: 2021-01-15T23:46:26.000Z
 tags: git
 categories: git
 abbrlink: d9283bc6
-date: 2021-01-15 23:46:26
+
 ---
+
+
 # 常用的git命令
 - git mv file_from file_to（重命名文件，删除原来的文件，添加新文件到暂存区）
 - git switch 命令专门用于切换分支，可以用来替代 checkout 的部分用途。

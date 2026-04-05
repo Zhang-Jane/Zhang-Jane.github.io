@@ -1,10 +1,14 @@
 ---
-title: flask的请求下上文和钩子
+title: Flask的请求上下文和钩子：请求钩子
+description: Flask的请求上下文和钩子：请求钩子。请求钩子 - beforefirstrequest - 在处理第一个请求前执行 - before request - 在每次请求前执行 - 如果在某修饰的函数中返回了一个响应，视图函数将不…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-19T13:00:12.000Z
 tags: flask
 categories: flask
 abbrlink: 734466bf
-date: 2020-10-19 13:00:12
+
 ---
+
+
 ## 请求钩子
 
 - before_first_request

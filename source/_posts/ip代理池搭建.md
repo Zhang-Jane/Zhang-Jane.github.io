@@ -1,10 +1,14 @@
 ---
-title: ip代理池的搭建
+title: ip代理池的搭建：学习笔记与要点整理
+description: ip代理池的搭建：学习笔记与要点整理。ip搭建 各种IP地址的获取及接入方式 vps - VPS（Virtual Private Server 虚拟专用服务器）技术，将一台服务器分割成多个虚拟专享服务器的优质服务。实现VPS的…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-27T14:15:15.000Z
 tags: ip代理池
 categories: ip代理池
 abbrlink: e5aebd10
-date: 2020-10-27 14:15:15
+
 ---
+
+
 # ip搭建
 
 ### **各种IP地址的获取及接入方式**

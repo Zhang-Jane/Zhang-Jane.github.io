@@ -1,5 +1,8 @@
 ---
 title: FastAPI 学习笔记：从 ASGI 到异步 API 的生态梳理
+description: FastAPI 学习笔记：从 ASGI 到异步 API 的生态梳理。如果你打算用 Python 写现代 HTTP API，多半会碰到 [FastAPI](https://fastapi.tiangolo.com/zh/)：类型注解驱动、自动生成交互式文档、…适合日常查阅、复习对照与工程检索。
+date: 2026-04-04T18:30:00.000Z
+updated: 2026-04-05T00:00:00.000Z
 tags:
   - FastAPI
   - Python
@@ -9,12 +12,10 @@ tags:
   - Tortoise ORM
   - Web开发
 categories: Python
-description: >-
-  从 ASGI 到 FastAPI：串起 Starlette、Pydantic、OpenAPI 与 JSON Schema；ORM 与 Tortoise+lifespan、路由与依赖注入；附单文件案例与 Uvicorn/Gunicorn 部署。可与本站认证长文、Python 依赖笔记、Actions 部署对照。
 abbrlink: 5057eef4
-date: 2026-04-04 18:30:00
-updated: 2026-04-05
+
 ---
+
 
 如果你打算用 Python 写现代 HTTP API，多半会碰到 [FastAPI](https://fastapi.tiangolo.com/zh/)：类型注解驱动、自动生成交互式文档、性能口碑也不错。但文档里常出现 Starlette、Pydantic、ASGI 等名词——**它们各自解决什么问题、和 FastAPI 怎么叠在一起**，初学者容易晕。这篇笔记按「协议 → 服务器 → 框架 → 业务层」的顺序，把主线捋直，并记下我整理时的常用结论与链接，方便以后回看。
 

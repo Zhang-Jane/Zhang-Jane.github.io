@@ -91,6 +91,11 @@ error_img:
   flink: /images/unfind-link-avatar.webp
   post_page: /images/unfind-post-cover.jpg
 
+# Mermaid：需在正文用 ```mermaid 时配合 scripts/mermaid-fence-to-tag.js（见该文件说明）
+mermaid:
+  enable: true
+  code_write: false
+
 search:
   use: local_search
   placeholder:

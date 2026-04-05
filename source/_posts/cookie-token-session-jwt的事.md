@@ -1,9 +1,13 @@
 ---
-title: 'cookie,token,session,jwt你们是不是在讨论同一件事'
-abbrlink: 598151c0
-date: 2022-12-21 15:49:09
+title: cookie,token,session,jwt你们是不是在讨论同一件事
+description: cookie,token,session,jwt你们是不是在讨论同一件事：注意 - cookie只是一个载体，可以承载各种认证内容，这是http协议请求头携带的一种规定形式。 - token是一个很广泛的概念，他既可以做用户身份认证，也可以做安全机制的认证，简单…适合日常查阅、复习对照与工程检索。
+date: 2022-12-21T15:49:09.000Z
 tags: cookie
+abbrlink: 598151c0
+
 ---
+
+
 # 注意
 
 - cookie只是一个载体，可以承载各种认证内容，这是http协议请求头携带的一种规定形式。

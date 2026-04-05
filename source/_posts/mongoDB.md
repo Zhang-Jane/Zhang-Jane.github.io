@@ -1,9 +1,13 @@
 ---
-title: mongoDB
+title: MongoDB：python操作mongo对应的方法
+description: MongoDB：python操作mongo对应的方法。mongo数据库的简介 mongoDB是一个基于分布式文件存储的数据库。它是非关系型数据库 mongo的特点 它的特点是高性能、易部署、易使用，存储数据非常方便。主要功能特性有： 1.面向…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2022-12-25T17:19:24.000Z
+tags: null
 abbrlink: 41106fe2
-date: 2022-12-25 17:19:24
-tags:
+
 ---
+
+
 # mongo数据库的简介
 
 mongoDB是一个基于分布式文件存储的数据库。它是非关系型数据库

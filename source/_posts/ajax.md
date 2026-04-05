@@ -1,9 +1,13 @@
 ---
-title: ajax
-abbrlink: c5a6a264
-date: 2022-12-16 20:20:53
+title: Ajax：请求数据
+description: Ajax：请求数据。请求数据 如果要在网页中请求服务器上的数据资源，则需要用到 XMLHttpRequest 对象。 XMLHttpRequest（简称 xhr）是浏览器提供的 js 成员，通过它，可以请求服…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。便于按需检索与落地对照。
+date: 2022-12-16T20:20:53.000Z
 categories: 前端
+abbrlink: c5a6a264
+
 ---
+
+
 ## 请求数据
 
 如果要在网页中请求服务器上的数据资源，则需要用到 XMLHttpRequest 对象。

@@ -1,9 +1,13 @@
 ---
-title: scrapy的执行细节
+title: Scrapy的执行细节：第一步运行命令
+description: "Scrapy的执行细节：第一步运行命令。第一步运行命令 scrapy crawl xx: 执行到：\\Lib\\site-packages\\scrapy\\cmdline.py 调用def execute(argv=None, set…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。"
+date: 2023-03-04T14:33:07.000Z
+tags: null
 abbrlink: b9ddc6be
-date: 2023-03-04 14:33:07
-tags:
+
 ---
+
+
 ## 第一步运行命令
 scrapy crawl xx:
 执行到：\Lib\site-packages\scrapy\cmdline.py

@@ -1,9 +1,13 @@
 ---
-title: Vimium操作命令
-abbrlink: 73fb024
-date: 2021-04-20 15:52:33
+title: Vimium操作命令：操作网页
+description: Vimium操作命令：操作网页。v(visual mode)， 需要着重讲一下 text 先用 / 定位，找到想要选择的字符 再按 v ,进入模式 然后使用 j：向下一行 k：向上一行 h：向左一个字符或标点（数字+h，…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-04-20T15:52:33.000Z
 tags: vim
+abbrlink: 73fb024
+
 ---
+
+
 # v(visual mode)， 需要着重讲一下
 
 ```text

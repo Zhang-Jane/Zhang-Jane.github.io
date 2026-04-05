@@ -1,9 +1,12 @@
 ---
-title: chrome-console调试
-abbrlink: 9fa69692
-date: 2022-12-16 19:56:40
+title: Chrome DevTools Console调试
+description: Chrome DevTools Console调试：console - console.log()打印内容的通用方法console.error()打印一条错误信息console.warn()打印一个警告信息 - console.info()…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2022-12-16T19:56:40.000Z
 tags: chrome
+abbrlink: 9fa69692
+
 ---
+
 
 ## console
 

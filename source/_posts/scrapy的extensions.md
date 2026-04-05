@@ -1,10 +1,14 @@
 ---
-title: scrapy的extensions
+title: Scrapy的extensions：EXTENSIONS
+description: Scrapy的extensions：EXTENSIONS。EXTENSIONS EXTENSIONS BASE 注意：关于scrapy爬虫extensions 执行顺序的问题 - 查看默认的爬虫中间件scrapy settings --get E…适合日常查阅、复习对照与工程检索。
+date: 2021-02-16T13:29:48.000Z
 tags: scrapy的extensions
 categories: scrapy
 abbrlink: cd590e67
-date: 2021-02-16 13:29:48
+
 ---
+
+
 ## EXTENSIONS
 
 EXTENSIONS_BASE

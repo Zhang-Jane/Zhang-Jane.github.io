@@ -1,10 +1,13 @@
 ---
-title: mysql数据库
+title: MySQL数据库：用户相关操作
+description: MySQL数据库：用户相关操作。安装mysql https://www.runoob.com/../images/mysql/mysql-install.html mysql的存储引擎 查看引擎语句 show engin…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-05-11T18:04:16.000Z
 tags: mysql
 categories: mysql
 abbrlink: 82bdb349
-date: 2021-05-11 18:04:16
+
 ---
+
 
 # 安装mysql
 

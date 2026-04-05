@@ -1,10 +1,14 @@
 ---
-title: mysql进阶
-abbrlink: '20311105'
-date: 2022-12-25 19:13:35
+title: MySQL进阶：MySQL基本架构图
+description: MySQL进阶：MySQL基本架构图。mysql进阶 参考：小林coding，mysql实战45讲，mysql技术内幕，Google Search mysql基本架构图 img mysql架构 Server 层负责建立连接、分…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2022-12-25T19:13:35.000Z
 tags: mysql
 categories: mysql
+abbrlink: "20311105"
+
 ---
+
+
 # mysql进阶
 参考：小林coding，mysql实战45讲，mysql技术内幕，Google Search
 ## mysql基本架构图

@@ -1,9 +1,12 @@
 ---
-title: Python的Mixin概念
+title: Python的Mixin概念：什么是mixin
+description: Python的Mixin概念：什么是mixin。什么是mixin https://blog.hszofficial.site/TutorialForPython/%E8%AF%AD%E6%B3%95%E7%AF%87/%E9%9D%A2…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-04-20T17:06:30.000Z
+tags: null
 abbrlink: 7408a64e
-date: 2021-04-20 17:06:30
-tags:
+
 ---
+
 
 ## 什么是mixin
 

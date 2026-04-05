@@ -1,6 +1,7 @@
 ---
-title: "AI 技能大爆发：MCP、Vibe Coding、Agent、OpenClaw 与 Skills（2024–2026 脉络）"
-date: 2026-04-04 12:00:00
+title: AI 技能大爆发：MCP、Vibe Coding、Agent、OpenClaw 与 Skills（2024–2026 脉络）
+description: AI 技能大爆发：MCP、Vibe Coding、Agent、Open…。- MCP：把「接什么工具」从各家自研接口，收敛成可复用的开放协议，Agent 才有稳定的「手脚」。 - Vibe Coding：用自然语言指挥生成与迭代代码，把门槛从「写每一行」挪到「说…适合日常查阅、复习对照与工程检索。
+date: 2026-04-04T12:00:00.000Z
 tags:
   - MCP
   - Vibe Coding
@@ -10,11 +11,10 @@ tags:
   - Model Context Protocol
   - 技术史
 categories: AI
-description: >-
-  从 MCP 工具层标准、Karpathy 的 Vibe Coding、Agent 落地，到 OpenClaw 与 ClawHub 上的 Skills
-  生态，用一条时间线串起 2024–2026 年「AI 不只会聊、还会干活」的演进；每段附可想象的应用场景，并链到协议与延伸阅读。
 abbrlink: e85097cc
+
 ---
+
 
 > - **MCP**：把「接什么工具」从各家自研接口，收敛成可复用的开放协议，Agent 才有稳定的「手脚」。
 > - **Vibe Coding**：用自然语言指挥生成与迭代代码，把门槛从「写每一行」挪到「说清楚要什么」。

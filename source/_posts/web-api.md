@@ -1,10 +1,14 @@
 ---
-title: web-api
+title: Web API：节点操作
+description: Web API：节点操作。什么是Web Api API（Application Programming Interface，应用程序编程接口）是一些预先定义的函数，目的是提供应用程序与开发人员基于某软件或硬件得以访…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。便于按需检索与落地对照。
+date: 2022-12-16T19:58:39.000Z
 tags: JavaScript
 categories: JavaScript
 abbrlink: f74fde1
-date: 2022-12-16 19:58:39
+
 ---
+
+
 # 什么是Web Api
 
 API（Application Programming Interface，应用程序编程接口）是一些预先定义的函数，目的是提供应用程序与开发人员基于某软件或硬件得以访问一组例程的能力，而又无需访问源码，无需理解其内部工作机制细节，只需直接调用使用即可。

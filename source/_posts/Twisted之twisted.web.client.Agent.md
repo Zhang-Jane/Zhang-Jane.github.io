@@ -1,10 +1,14 @@
 ---
-title: Twisted之twisted.web.client.Agent
+title: Twisted之twisted.Web.client.Agent
+description: Twisted之twisted.Web.client.Agent：文档 https://twistedmatrix.com/documents/current/api/twisted.web.client.html Agent的用法 Agent is a…适合日常查阅、复习对照与工程检索。
+date: 2020-11-12T22:18:22.000Z
 tags: Twisted
 categories: Twisted
 abbrlink: d78ab318
-date: 2020-11-12 22:18:22
+
 ---
+
+
 ## 文档
 https://twistedmatrix.com/documents/current/api/twisted.web.client.html
 ## Agent的用法

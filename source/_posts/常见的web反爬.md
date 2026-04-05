@@ -1,10 +1,14 @@
 ---
-title: 常见的web反爬措施
+title: 常见的Web反爬措施：学习笔记与要点整理
+description: 常见的Web反爬措施：学习笔记与要点整理。1.window.navigator.webdriver 这个只能检测webdriver驱动浏览器的渲染工具，splash就不行（基于webkit） step1：打开淘宝网 python …适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-27T08:25:33.000Z
 tags: 反爬虫
 categories: 反爬虫
 abbrlink: 462f787a
-date: 2020-10-27 08:25:33
+
 ---
+
+
 ### 1.window.navigator.webdriver
 
 这个只能检测webdriver驱动浏览器的渲染工具，splash就不行（基于webkit）

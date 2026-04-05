@@ -1,10 +1,14 @@
 ---
-title: android逆向分析思路
+title: Android逆向分析思路：从AndroidManifest.xml找到程序…
+description: Android逆向分析思路：从AndroidManifest.xml找…。静态分析android程序 从AndroidManifest.xml找到程序的入口分析 每个android程序都有一个主的activity，它是程序启动的第一个activity，然后每个a…适合日常查阅、复习对照与工程检索。
+date: 2021-05-15T23:02:38.000Z
 tags: andorid逆向
 categories: andorid逆向
 abbrlink: 4c73b60a
-date: 2021-05-15 23:02:38
+
 ---
+
+
 # 静态分析android程序
 
 ## 从AndroidManifest.xml找到程序的入口分析

@@ -1,10 +1,14 @@
 ---
-title: windows命令
+title: Windows命令：Windows PowerShell命令
+description: Windows命令：Windows PowerShell命令。windows Windows PowerShell命令 它是一个基于任务的命令行终端，同时也是一个构建在 .NET 上的脚本语言。 在windows系统开发的可以看看windows-po…适合日常查阅、复习对照与工程检索。
+date: 2022-12-16T20:32:18.000Z
 tags: windows命令
 categories: windows
 abbrlink: 62ff1591
-date: 2022-12-16 20:32:18
+
 ---
+
+
 # windows
 
 ## Windows PowerShell命令

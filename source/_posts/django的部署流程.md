@@ -1,10 +1,13 @@
 ---
-title: django的部署流程
+title: Django的部署流程：1. 配置生产环境配置(settings):DE…
+description: "Django的部署流程：1. 配置生产环境配置(settings):D…。django部署流程 1. 配置生产环境配置(settings):DEBUG&Secret相关信息 必须调整的关键配置: - DEBUG -- 在生产环境中设置为False(DEBUG=F…适合日常查阅、复习对照与工程检索。"
+date: 2021-05-11T17:17:33.000Z
 tags: django
 categories: django
 abbrlink: f634517f
-date: 2021-05-11 17:17:33
+
 ---
+
 
 # django部署流程
 

@@ -1,10 +1,14 @@
 ---
-title: frida的安装
+title: Frida的安装：是Python API，但JavaScript调…
+description: Frida的安装：是Python API，但JavaScript调…。1. 概述 Frida是个轻量级别的hook框架 是Python API，但JavaScript调试逻辑 Frida的核心是用C编写的，并将Google的V8引擎注入到目标进程中，在这些进…适合日常查阅、复习对照与工程检索。
+date: 2020-10-25T22:31:33.000Z
 tags: frida
 categories: frida
-abbrlink: 2e576213
-date: 2020-10-25 22:31:33
+abbrlink: .inf
+
 ---
+
+
 # 1. 概述
 
 Frida是个轻量级别的hook框架

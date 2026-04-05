@@ -1,10 +1,14 @@
 ---
-title: Twisted之Thread
+title: Twisted之Thread：callFromThread和callInThr…
+description: Twisted之Thread：callFromThread和callI…。callFromThread和callInThread区别 python import time from twisted.internet import reactor from twi…适合日常查阅、复习对照与工程检索。
+date: 2020-11-14T01:03:25.000Z
 tags: Twisted
 categories: Twisted
 abbrlink: 35c415ad
-date: 2020-11-14 01:03:25
+
 ---
+
+
 ## callFromThread和callInThread区别
 ```python
 import time

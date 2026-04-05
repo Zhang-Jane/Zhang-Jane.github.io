@@ -1,10 +1,14 @@
 ---
-title: flask的路由和蓝图
+title: Flask的路由和蓝图：查看所有的路由的路径
+description: Flask的路由和蓝图：查看所有的路由的路径。查看所有的路由的路径 1.flask routes 命令行 text Endpoint Methods Rule ----------- ------- ---------------- …适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-22T18:20:12.000Z
 tags: flask
 categories: flask
 abbrlink: 33812d0c
-date: 2020-10-22 18:20:12
+
 ---
+
+
 ## 查看所有的路由的路径
 
 1.`flask routes` 命令行

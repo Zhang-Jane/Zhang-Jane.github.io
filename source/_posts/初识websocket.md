@@ -1,9 +1,13 @@
 ---
-title: 初识websocket
+title: 初识websocket：websocket的介绍
+description: 初识websocket：websocket的介绍。websocket的介绍 WebSocket是一种在单个TCP连接上进行全双工通讯的协议。WebSocket通信协议于2011年被IETF定为标准RFC 6455，并由RFC7936补充规…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-26T14:48:49.000Z
+tags: null
 abbrlink: 6846cc9a
-date: 2020-10-26 14:48:49
-tags:
+
 ---
+
+
 ## websocket的介绍
 
 > WebSocket是一种在单个TCP连接上进行全双工通讯的协议。WebSocket通信协议于2011年被IETF定为标准RFC 6455，并由RFC7936补充规范。WebSocket API也被W3C定为标准。

@@ -1,9 +1,13 @@
 ---
-title: python调用js代码
+title: Python调用js代码：https://github.com/ZSAIm…
+description: Python调用js代码：https://github.com/ZSA…。1.pyexecjs - 安装pip install PyExecJS - 用法： - import execjs execjs.eval(js代码) 或者 js = js代码 ctx =…适合日常查阅、复习对照与工程检索。
+date: 2020-10-26T13:56:41.000Z
 categories: 爬虫
 abbrlink: 8d64ccf8
-date: 2020-10-26 13:56:41
+
 ---
+
+
 # 1.pyexecjs
 
 - 安装`pip install PyExecJS`

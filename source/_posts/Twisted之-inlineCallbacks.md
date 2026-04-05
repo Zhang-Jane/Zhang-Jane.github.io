@@ -1,9 +1,13 @@
 ---
 title: Twisted之@inlineCallbacks
+description: Twisted之@inlineCallbacks：inlineCallbacks 文档：https://twistedmatrix.com/documents/current/api/twisted.internet.defer.inli…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-11-14T01:13:21.000Z
+tags: null
 abbrlink: 631ce788
-date: 2020-11-14 01:13:21
-tags:
+
 ---
+
+
 ## inlineCallbacks
 文档：https://twistedmatrix.com/documents/current/api/twisted.internet.defer.inlineCallbacks.html
 

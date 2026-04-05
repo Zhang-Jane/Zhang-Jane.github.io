@@ -1,10 +1,14 @@
 ---
 title: Twisted之各种callback
+description: "Twisted之各种callback：callLater（延迟执行，多少秒后执行某任务） python from twisted.internet import reactor def f(s): print('this wi…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。"
+date: 2020-11-13T23:43:52.000Z
 tags: Twisted
 categories: Twisted
 abbrlink: cd11064
-date: 2020-11-13 23:43:52
+
 ---
+
+
 ## callLater（延迟执行，多少秒后执行某任务）
 
 ```python

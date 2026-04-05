@@ -1,9 +1,13 @@
 ---
-title: k8s的学习
+title: Kubernetes的学习：不同的部署方式
+description: Kubernetes的学习：不同的部署方式。K8s的学习 不同的部署方式 image 硬件资源级的虚拟化--Hypervisor 一个hypervisor（又被称为virtual machine monitor，VMM，或virtu…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2023-03-18T21:06:38.000Z
 tags: 容器
 abbrlink: da8849fb
-date: 2023-03-18 21:06:38
+
 ---
+
+
 # K8s的学习
 
 ## 不同的部署方式

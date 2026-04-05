@@ -1,10 +1,14 @@
 ---
-title: scrapy基础
+title: Scrapy基础：[Scrapy](https://doc.scr…
+description: Scrapy基础：[Scrapy](https://doc.scr…。Scrapy 新建一个项目的命令： python scrapy startproject 项目的名称 产生如下的目录： tutorial/ scrapy.cfg tutorial/ ini…适合日常查阅、复习对照与工程检索。
+date: 2020-11-08T18:53:50.000Z
 tags: scrapy
 categories: scrapy
 abbrlink: 1c2afddb
-date: 2020-11-08 18:53:50
+
 ---
+
+
 ## [Scrapy](https://doc.scrapy.org/en/latest/intro/tutorial.html)
 
 ## 新建一个项目的命令：

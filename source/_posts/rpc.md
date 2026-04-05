@@ -1,9 +1,13 @@
 ---
-title: rpc
+title: RPC：REST
+description: RPC：REST。关于RPC和REST还有SOAP 具体看看这个：https://www.iculture.cc/cybersecurity/pig=25911?only author=1 REST RES…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。便于按需检索与落地对照。
+date: 2022-12-22T22:21:47.000Z
+tags: null
 abbrlink: 53b02c38
-date: 2022-12-22 22:21:47
-tags:
+
 ---
+
+
 # 关于RPC和REST还有SOAP
 ![](../images/rpc/rpc-soap-rest.jpeg)
 具体看看这个：https://www.iculture.cc/cybersecurity/pig=25911?only_author=1

@@ -1,12 +1,15 @@
 ---
-title: scrapy的Spider类
+title: Scrapy的Spider类：scrapy的Spider类
+description: Scrapy的Spider类：scrapy的Spider类。scrapy的Spider类 Spider：scrapy.Spider, 是所有 Spider 的基类，它是最基础的爬虫，所有的 spider 都会继承 scrapy.Spider。它提供…适合日常查阅、复习对照与工程检索。
+date: 2020-10-12T22:00:06.000Z
 tags: scrapy
 categories: scrapy
-cover: 'https://blog-1252858782.cos.ap-beijing.myqcloud.com/Scrapy.png'
+top_img: null
+cover: https://blog-1252858782.cos.ap-beijing.myqcloud.com/Scrapy.png
 abbrlink: f3ca6d2
-date: 2020-10-12 22:00:06
-top_img:
+
 ---
+
 
 ## scrapy的Spider类
 

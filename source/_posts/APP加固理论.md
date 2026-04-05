@@ -1,10 +1,14 @@
 ---
-title: APP加固理论
+title: APP加固理论：app加固技术发展
+description: APP加固理论：app加固技术发展。app加固技术发展 摘录：https://mp.weixin.qq.com/s/j35pPdZyeg InS9LcPmnkQ dex保护 代码混淆 - 混淆就是对发布出去的程序进行重新组织…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-05-15T23:17:26.000Z
 tags: andorid逆向
 categories: andorid逆向
 abbrlink: 4e889f61
-date: 2021-05-15 23:17:26
+
 ---
+
+
 ## app加固技术发展
 
 摘录：https://mp.weixin.qq.com/s/j35pPdZyeg_InS9LcPmnkQ

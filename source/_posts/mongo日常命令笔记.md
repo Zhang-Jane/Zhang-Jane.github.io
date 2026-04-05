@@ -1,10 +1,13 @@
 ---
-title: mongo日常命令笔记
+title: Mongo日常命令笔记：group and distinct
+description: "Mongo日常命令笔记：group and distinct。mongo命令 group and distinct demo data: db.getCollection('test111').insert([ {\"orderID\" : \"30688…适合日常查阅、复习对照与工程检索。"
+date: 2021-05-11T17:43:34.000Z
 tags: mongodb
 categories: mongodb
 abbrlink: 3898c7fc
-date: 2021-05-11 17:43:34
+
 ---
+
 
 # mongo命令
 

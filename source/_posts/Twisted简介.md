@@ -1,10 +1,14 @@
 ---
-title: Twisted简介
+title: Twisted简介：学习笔记与要点整理
+description: Twisted简介：学习笔记与要点整理。1.介绍 ​ 熟悉scrpay爬虫框架的人，对Twisted应该不太陌生，scrapy底层请求就是基于Twisted框架实现的。 ​ 官方定义： Twisted is an event-b…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-11-12T22:09:37.000Z
 tags: Twisted
 categories: Twisted
 abbrlink: 86a0063b
-date: 2020-11-12 22:09:37
+
 ---
+
+
 ### 1.介绍
 
 ​	熟悉scrpay爬虫框架的人，对Twisted应该不太陌生，scrapy底层请求就是基于Twisted框架实现的。

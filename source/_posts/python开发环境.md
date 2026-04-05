@@ -1,10 +1,14 @@
 ---
-title: python开发环境
+title: Python开发环境：python的环境
+description: Python开发环境：python的环境。python开发环境 python的环境 env The venv module provides support for creating lightweight “virtual en…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-17T20:00:31.000Z
 tags: python开发环境
 categories: python开发环境
-abbrlink: '34964073'
-date: 2020-10-17 20:00:31
+abbrlink: "34964073"
+
 ---
+
+
 # python开发环境
 
 ## python的环境

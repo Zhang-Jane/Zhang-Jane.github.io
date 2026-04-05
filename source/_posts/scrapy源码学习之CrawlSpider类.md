@@ -1,12 +1,15 @@
 ---
-title: scrapy的CrawlSpider类
+title: Scrapy的CrawlSpider类
+description: Scrapy的CrawlSpider类：scrapy的CrawlSpider类 CrawlSpider：scrapy.spiders.CrawlSpider，规则爬虫，提供了一个新的属性 rules，该属性是一个包含一个或多个 …适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-12T22:00:00.000Z
 tags: scrapy
 categories: scrapy
-cover: 'https://blog-1252858782.cos.ap-beijing.myqcloud.com/Scrapy.png'
+top_img: null
+cover: https://blog-1252858782.cos.ap-beijing.myqcloud.com/Scrapy.png
 abbrlink: 6ab2803d
-date: 2020-10-12 22:00:00
-top_img:
+
 ---
+
 
 ## scrapy的CrawlSpider类
 

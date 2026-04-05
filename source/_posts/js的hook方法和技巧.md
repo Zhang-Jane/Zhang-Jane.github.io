@@ -1,10 +1,13 @@
 ---
-title: js的hook方法和技巧
+title: JavaScript hook方法和技巧
+description: JavaScript hook方法和技巧：hook是什么 hook作用就是在你关键代码位置前或者后进行一些处理 如何定位 - 搜索 - 断点调试 - xhr - dom - event - 自定义 - 使用油猴插件脚本进行hook…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-26T21:25:33.000Z
 tags: hook
 categories: hook
 abbrlink: cd83947e
-date: 2020-10-26 21:25:33
+
 ---
+
 
 # hook是什么
 

@@ -1,10 +1,13 @@
 ---
-title: git的子模块
-abbrlink: 6060373f
-date: 2022-12-14 19:31:03
+title: git的子模块：学习笔记与要点整理
+description: git的子模块：学习笔记与要点整理。git submodule https://git-scm.com/book/en/v2/Git-Tools-Submodules 为什么要用submodules？ 经常发生的情况是，在处…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2022-12-14T19:31:03.000Z
 tags: git
 categories: git
+abbrlink: 6060373f
+
 ---
+
 
 # git submodule
 https://git-scm.com/book/en/v2/Git-Tools-Submodules

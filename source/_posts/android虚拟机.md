@@ -1,10 +1,13 @@
 ---
-title: android虚拟机
+title: Android虚拟机：Dalvik
+description: Android虚拟机：Dalvik。Dalvik和ART Dalvik - 虽然android平台使用java语言开发，但是android程序却不是运行在java的虚拟机上。它是由google公司专门为android平台设计…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-05-15T22:49:38.000Z
 tags: andorid逆向
 categories: andorid逆向
 abbrlink: 70eb22c5
-date: 2021-05-15 22:49:38
+
 ---
+
 
 # Dalvik和ART
 

@@ -1,9 +1,13 @@
 ---
-title: mitmdump
+title: mitmproxy / mitmdump
+description: mitmproxy / mitmdump：mitmdump 文档 https://docs.mitmproxy.org/stable/ - 安装pip install mitmproxy - mitmdump -q -s inec…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-01-16T21:18:28.000Z
 tags: mitmdump
 abbrlink: a7db3127
-date: 2021-01-16 21:18:28
+
 ---
+
+
 # mitmdump
 
 ## 文档

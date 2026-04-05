@@ -1,10 +1,14 @@
 ---
 title: 基于frida的objection工具的使用
+description: "基于frida的objection工具的使用：摘录http://strivemario.work/archives/8eec80c3.html 官方仓库: [objection](https://github.com/sensepos…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。"
+date: 2020-10-25T22:31:33.000Z
 tags: frida
 categories: frida
 abbrlink: 2e5769ea
-date: 2020-10-25 22:31:33
+
 ---
+
+
 摘录http://strivemario.work/archives/8eec80c3.html
 
 官方仓库: [objection](https://github.com/sensepost/objection)

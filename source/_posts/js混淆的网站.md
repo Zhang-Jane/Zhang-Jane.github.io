@@ -1,10 +1,14 @@
 ---
-title: 常见的混淆反爬措施
+title: 常见的混淆反爬措施：学习笔记与要点整理
+description: 常见的混淆反爬措施：学习笔记与要点整理。sojson混淆 https://www.sojson.com/jsobfuscator.html 未混淆的代码： js console.log(" hi jack"); 混淆之后的代码：…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-27T09:25:33.000Z
 tags: 反爬虫
 categories: 反爬虫
 abbrlink: 544a10a3
-date: 2020-10-27 09:25:33
+
 ---
+
+
 # sojson混淆
 
 https://www.sojson.com/jsobfuscator.html

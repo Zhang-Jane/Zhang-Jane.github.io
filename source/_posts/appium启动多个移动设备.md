@@ -1,10 +1,14 @@
 ---
-title: appium启动多个移动设备
+title: Appium启动多个移动设备：元素的判断
+description: Appium启动多个移动设备：元素的判断。元素的判断 from selenium.webdriver.support import expected conditions as EC expected condtions提供了16…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-11-22T18:22:18.000Z
 tags: 自动化测试
 categories: 自动化测试
-abbrlink: '47341153'
-date: 2020-11-22 18:22:18
+abbrlink: "47341153"
+
 ---
+
+
 ## 元素的判断
 
 from selenium.webdriver.support import expected_conditions as EC

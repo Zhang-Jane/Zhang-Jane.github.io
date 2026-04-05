@@ -1,10 +1,14 @@
 ---
-title: NDK和JNI
+title: NDK和JNI：学习笔记与要点整理
+description: NDK和JNI：学习笔记与要点整理。NDK与JNI基础 1.由来： ​ Android 平台从一开就已经支持了C/C++了。我们知道Android的SDK（ Software Development Kit ）主要是基于Ja…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-05-15T23:19:25.000Z
 tags: andorid逆向
 categories: andorid逆向
 abbrlink: 4db545c4
-date: 2021-05-15 23:19:25
+
 ---
+
+
 # NDK与JNI基础
 
 1.由来：

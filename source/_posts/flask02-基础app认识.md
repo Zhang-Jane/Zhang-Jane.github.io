@@ -1,10 +1,14 @@
 ---
-title: 认识flask的app
+title: 认识flask的app：flask简介
+description: 认识flask的app：flask简介。flask简介 Flask是使用Python编写的Web微框架。Web框架可以让我们不用关心底层的请求响应处理，更方便高效地编写Web程序。因为Flask核心简单且易于扩展，所以被称作微框…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-18T12:00:12.000Z
 tags: flask
 categories: flask
 abbrlink: 11aed9bf
-date: 2020-10-18 12:00:12
+
 ---
+
+
 ## flask简介
 
 Flask是使用Python编写的Web微框架。Web框架可以让我们不用关心底层的请求响应处理，更方便高效地编写Web程序。因为Flask核心简单且易于扩展，所以被称作微框架（micro framework）。Flask有两个主要依赖，一个是WSGI（Web Server Gateway Interface，Web服务器网关接口）工具集——Werkzeug（http://werkzeug.pocoo.org/），另一个是Jinja2模板引擎（http://jinja.pocoo.org/）。Flask只保留了Web开发的核心功能，其他的功能都由外部扩展来实现，比如数据库集成、表单认证、文件上传等。如果没有合适的扩展，你甚至可以自己动手开发。Flask不会替你做决定，也不会限制你的选择。总之，Flask可以变成任何你想要的东西，一切都由你做主。

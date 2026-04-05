@@ -1,9 +1,13 @@
 ---
-title: mac安装pyenv遇到的问题
+title: macOS 安装pyenv遇到的问题
+description: macOS 安装pyenv遇到的问题：加速pyenv下载 将源码下好放在~/.pyenv/cache目录, pyenv检查有源码就会直接使用cache目录里的源码进行安装. bash $ mkdir -pv ~/.pyenv/…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-11-22T17:05:27.000Z
 tags: pyenv
 abbrlink: 42c0375b
-date: 2020-11-22 17:05:27
+
 ---
+
+
 ## 加速pyenv下载
 
 将源码下好放在~/.pyenv/cache目录, pyenv检查有源码就会直接使用cache目录里的源码进行安装.

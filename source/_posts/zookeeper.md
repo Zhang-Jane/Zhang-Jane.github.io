@@ -1,9 +1,13 @@
 ---
-title: zookeeper
+title: ZooKeeper：概述
+description: ZooKeeper：概述。概述 Zookeeper是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。 工作机制： 是一个基于观察者模式设计的分布式服务管理框架，它负责存储和管理大家都关心的数据，然后…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。便于按需检索与落地对照。
+date: 2022-12-25T23:25:46.000Z
+tags: null
 abbrlink: 3ad834c9
-date: 2022-12-25 23:25:46
-tags:
+
 ---
+
+
 ## 概述
 
 Zookeeper是一个开源的分布式的，为分布式应用提供协调服务的Apache项目。

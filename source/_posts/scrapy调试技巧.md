@@ -1,10 +1,13 @@
 ---
-title: scrapy调试技巧
+title: Scrapy调试技巧：scrapy fetch
+description: Scrapy调试技巧：scrapy fetch。scrapy fetch bash scrapy fetch https://segmentfault.com/a/1190000017087999 scrapy fetch https:…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-02-16T15:16:01.000Z
 tags: scrapy
 categories: scrapy
 abbrlink: d9d98b82
-date: 2021-02-16 15:16:01
+
 ---
+
 
 ## scrapy fetch
 

@@ -1,10 +1,13 @@
 ---
-title: django常用的命令和语句
-abbrlink: b5b80a84
-date: 2021-05-11 16:27:17
+title: Django常用的命令和语句：常见的命令
+description: Django常用的命令和语句：常见的命令。常见的命令 - python manage.py showmigrations，这个命令是显示出Django项目中的所有migrations文件及其状态 [x] 代表已经执行完毕的migr…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2021-05-11T16:27:17.000Z
 tags: django
 categories: django
+abbrlink: b5b80a84
+
 ---
+
 
 ## 常见的命令
 

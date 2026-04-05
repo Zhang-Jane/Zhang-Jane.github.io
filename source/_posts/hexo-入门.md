@@ -1,10 +1,14 @@
 ---
-title: hexo 入门
-abbrlink: 3e57632f
-date: 2020-10-10 12:44:04
+title: Hexo 入门：1.安装环境
+description: Hexo 入门：1.安装环境。查看官方的文档 https://hexo.io/zh-cn/docs/index.html win10系统 1.安装环境 - Node.js (Node.js 版本需不低于 10.13，建…适合日常查阅、复习对照与工程检索。含命令、参数与常见踩坑提示。
+date: 2020-10-10T12:44:04.000Z
 tags: hexo
 categories: hexo
+abbrlink: 3e57632f
+
 ---
+
+
 # 查看官方的文档
 
 https://hexo.io/zh-cn/docs/index.html
