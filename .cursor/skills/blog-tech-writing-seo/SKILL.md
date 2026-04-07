@@ -1,8 +1,7 @@
 ---
 name: blog-tech-writing-seo
 description: >-
-  Hexo（Butterfly）技术博客 Skill：主文件仅含硬性规则与最小模板；详细写作语气、技术事实/通俗与术语注解、1–3 个实战案例、文末简要总结（核心要点）、Frontmatter 字段、AI 协作与自检见 references/writing.md；配图见
-  references/images.md；E-E-A-T、On-Page、站点与专题 SEO 见 references/seo.md。适用于撰写/编辑 source/_posts/*.md、技术笔记与 SEO 相关任务。
+  Hexo（Butterfly）技术博客 Skill：主文件含标题层级、编号引用（文内 sup 锚点 + 文末 ## 引用来源、〔注n〕格式）与最小 Frontmatter；写作风格与“有温度的人话技术文”规范见 references/human-tech-writing.md；配图见 references/images.md；E-E-A-T、On-Page、站点与专题 SEO 见 references/seo.md。适用于撰写/编辑 source/_posts/*.md、技术笔记与 SEO 相关任务。
 ---
 
 # 技术博客写作与 SEO 规范（Zhang-Jane.github.io）
@@ -15,7 +14,7 @@ description: >-
 
 | 主题                                                                  | 文档                                           |
 | --------------------------------------------------------------------- | ---------------------------------------------- |
-| 语气、事实/通俗/术语/案例/结尾总结、Frontmatter 字段、abbrlink、AI 协作、成文自检 | [references/writing.md](references/writing.md) |
+| 有温度的人话技术文规范（语气、结构、节奏、改写、引用来源）              | [references/human-tech-writing.md](references/human-tech-writing.md) |
 | E-E-A-T、On-Page、站点 SEO、专题集群、搜索意图、Meta、结构化数据      | [references/seo.md](references/seo.md)         |
 | 配图路径、`alt`、张数、实拍/授权（不含 AI 生图流程）                  | [references/images.md](references/images.md)   |
 
@@ -35,9 +34,13 @@ description: >-
 | `###`（H3）   | 小节                            | 嵌套时保持连续，**勿跳级**（如 `##` 后直接 `####`）          |
 | `####` 及以下 | 步骤内标题等                    | 少用即可                                                     |
 
+### 正文编号引用格式（硬性规则）
+
+编号引用（文内上标）与文末 `## 引用来源` 的固定格式（`〔注n〕`、`fn-notes{n}`、必须置于全文最末尾）统一见 [references/human-tech-writing.md](references/human-tech-writing.md)。
+
 ## 二、Frontmatter（最小可用示例）
 
-复制后替换占位符；注释可按需删。**字段说明与 abbrlink 规则**见 [references/writing.md](references/writing.md) 中的「Frontmatter 字段说明」。
+复制后替换占位符；注释可按需删。
 
 ```yaml
 ---
@@ -61,7 +64,7 @@ categories: 较宽分类名
 
 **本 Skill 拆分文档**（均以本文件为入口，按需打开子页）：
 
-- [references/writing.md](references/writing.md)
+- [references/human-tech-writing.md](references/human-tech-writing.md)
 - [references/images.md](references/images.md)（思路来源 [wechat_article_skills · image-guidelines](https://github.com/BND-1/wechat_article_skills/blob/main/wechat-tech-writer/references/image-guidelines.md)）
 - [references/seo.md](references/seo.md)
 
