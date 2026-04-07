@@ -67,16 +67,24 @@ prismjs:
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
-# order_by: Posts order. (-date=发布日期, -updated=最后更新时间，需与 updated_option 配合)
+# order_by: Posts order. 支持多字段（如 [-date, -updated]）
 index_generator:
   path: ""
   per_page: 10
-  order_by: -updated
+  order_by: -date
 
 # Category & Tag
 default_category: uncategorized
 category_map:
 tag_map:
+
+# Archive pages use the same rule as index
+archive_generator:
+  per_page: 10
+  yearly: true
+  monthly: true
+  daily: false
+  order_by: -date
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta

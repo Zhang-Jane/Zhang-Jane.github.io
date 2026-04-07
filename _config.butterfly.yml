@@ -17,7 +17,7 @@ structured_data:
   enable: true
   alternate_name: []
 
-# 首页文章卡片：同时显示发布日期与最后更新（与根目录 index_generator.order_by: -updated 配合）
+# 首页文章卡片：同时显示发布日期与最后更新（与根目录多字段 order_by 配合）
 post_meta:
   page:
     date_type: both
