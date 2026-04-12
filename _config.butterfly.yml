@@ -96,6 +96,15 @@ mermaid:
   enable: true
   code_write: false
 
+# 数学公式（MathJax 4）；per_page: false 时仅 front-matter 含 mathjax: true 的文章加载脚本
+math:
+  use: mathjax
+  per_page: true
+  hide_scrollbar: false
+  mathjax:
+    tags: none
+    enableMenu: false
+
 search:
   use: local_search
   placeholder:

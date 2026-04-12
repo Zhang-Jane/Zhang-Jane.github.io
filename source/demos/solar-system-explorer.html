@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D太阳系探索工具</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #000;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #canvas-container {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    #ui-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .pointer-events-auto {
+      pointer-events: auto;
+    }
+
+    /* 隐藏滚动条 */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    .planet-marker:hover .tooltip {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tooltip {
+      transition: all 0.2s ease-in-out;
+    }
+
+    /* 自定义信息面板及侧边栏滚动条 */
+    .custom-scrollbar::-webkit-scrollbar {
+      display: block;
+      width: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(59, 130, 246, 0.5);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 3D 渲染容器 -->
+  <div id="canvas-container"></div>
+
+  <!-- UI 层 -->
+  <div id="ui-layer" class="flex flex-col justify-between p-6">
+    <!-- 顶部信息 -->
+    <div class="flex justify-between items-start relative w-full h-full">
+      <div
+        class="bg-black/60 backdrop-blur-md p-4 rounded-xl border border-white/10 shadow-2xl pointer-events-auto max-w-sm absolute top-0 left-0">
+        <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">太阳系探索
+          (Solar System)</h1>
+        <p class="text-sm text-gray-400 mt-2">拖拽旋转视角，滚轮缩放。<br />点击行星或左侧目录进行 360° 表面聚焦观察。</p>
+      </div>
+
+      <!-- 右上角：物理知识入口按钮 (增加外层容器以便动画隐藏) -->
+      <div id="top-right-controls" class="absolute top-0 right-0 transition-opacity duration-300 pointer-events-auto">
+        <button id="btn-physics"
+          class="bg-indigo-600/80 hover:bg-indigo-500 backdrop-blur-md text-white px-5 py-2.5 rounded-xl font-bold border border-indigo-400/30 transition-all shadow-[0_0_15px_rgba(79,70,229,0.4)] flex items-center gap-2 active:scale-95">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477-4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+            </path>
+          </svg>
+          天体物理课堂
+        </button>
+      </div>
+
+      <!-- 聚焦详情面板 (默认隐藏) -->
+      <div id="info-panel"
+        class="hidden absolute top-0 right-0 bg-black/80 backdrop-blur-xl p-6 rounded-2xl border border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.2)] pointer-events-auto w-80 transform transition-all duration-300 max-h-[80vh] overflow-y-auto custom-scrollbar flex flex-col z-30">
+        <!-- 修复了丢失的头部结构 -->
+        <div class="flex justify-between items-start mb-1">
+          <h2 id="info-name" class="text-3xl font-bold text-white">地球</h2>
+          <button id="btn-close-focus"
+            class="text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-1.5 transition-colors"
+            title="关闭">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <p id="info-type" class="text-sm text-blue-400 font-semibold mb-4 border-b border-white/10 pb-2">类地行星</p>
+
+        <div class="space-y-3 text-sm mb-4">
+          <div class="flex justify-between"><span class="text-gray-400">距离太阳</span><span id="info-dist"
+              class="font-medium text-white text-right">1.00 AU</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">半径</span><span id="info-radius"
+              class="font-medium text-white text-right">6,371 km</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">公转周期</span><span id="info-orbit"
+              class="font-medium text-white text-right">365.2 天</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">自转周期</span><span id="info-rotation"
+              class="font-medium text-white text-right">24 小时</span></div>
+        </div>
+
+        <div class="mt-2 mb-6">
+          <h4 class="text-xs text-blue-400 uppercase tracking-wider mb-2 flex items-center gap-1"><span
+              class="w-1 h-3 bg-blue-500 rounded-full"></span>科普介绍</h4>
+          <p id="info-desc" class="text-sm text-gray-300 leading-relaxed text-justify">此处为科普介绍内容。</p>
+        </div>
+
+        <!-- 优化后的退出按钮 -->
+        <button id="btn-exit-focus"
+          class="mt-auto w-full py-2.5 bg-gray-800 hover:bg-gray-700 text-white rounded-lg font-semibold transition-all shadow-lg active:scale-95 border border-white/10 flex justify-center items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+            </path>
+          </svg>
+          返回全局视野
+        </button>
+      </div>
+    </div>
+
+    <!-- 左侧教学目录侧边栏 -->
+    <div
+      class="absolute left-6 top-32 w-56 max-h-[calc(100vh-16rem)] overflow-y-auto custom-scrollbar pointer-events-auto bg-black/60 backdrop-blur-md rounded-xl border border-white/10 p-4 hidden md:block z-20 shadow-2xl">
+      <h3 class="text-white font-bold mb-3 border-b border-white/20 pb-2 flex items-center justify-between">
+        <span>教学目录</span>
+        <span
+          class="text-[10px] font-normal text-blue-300 bg-blue-900/40 px-1.5 py-0.5 rounded border border-blue-500/30">分类导览</span>
+      </h3>
+      <div id="catalog-list" class="space-y-4 text-sm">
+        <!-- 目录将通过JS动态生成 -->
+      </div>
+    </div>
+
+    <!-- 底部比例图表 -->
+    <div class="bg-black/60 backdrop-blur-md p-6 rounded-xl border border-white/10 pointer-events-auto mt-auto">
+      <h3 class="text-sm font-semibold text-gray-300 mb-4 flex items-center justify-between">
+        <span>太阳系真实距离比例尺 (对数映射)</span>
+        <span class="text-xs text-gray-500">1 AU = 1.496 × 10⁸ km</span>
+      </h3>
+
+      <div
+        class="relative w-full h-1 bg-gradient-to-r from-yellow-500/50 via-blue-500/30 to-blue-900/30 rounded-full mt-8 mb-4">
+        <!-- 太阳标记 -->
+        <div
+          class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 bg-yellow-400 rounded-full shadow-[0_0_10px_#facc15]">
+        </div>
+
+        <!-- 行星标记将通过 JS 动态生成 -->
+        <div id="distance-scale-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 物理知识科普模态框 (默认隐藏) -->
+  <div id="physics-modal"
+    class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-xl items-center justify-center pointer-events-auto p-4 md:p-8 opacity-0 transition-opacity duration-300 flex">
+    <div
+      class="bg-gray-900/90 border border-indigo-500/40 shadow-[0_0_50px_rgba(79,70,229,0.3)] rounded-3xl w-full max-w-5xl h-[85vh] flex flex-col relative overflow-hidden">
+
+      <!-- 模态框头部 -->
+      <div class="p-6 md:px-10 md:py-8 border-b border-white/10 flex justify-between items-center bg-gray-800/50">
+        <div>
+          <h2
+            class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+            天体物理学：星空背后的法则</h2>
+          <p class="text-indigo-300/80 mt-2 text-sm tracking-wider">Astrophysics: The Laws Behind the Stars</p>
+        </div>
+        <button id="btn-close-physics"
+          class="text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition-all">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- 模态框内容区 -->
+      <div class="p-6 md:p-10 overflow-y-auto custom-scrollbar flex-1 space-y-12">
+
+        <!-- Section 1 -->
+        <section class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-400 font-bold border border-blue-500/30">
+              1</div>
+            <h3 class="text-2xl font-semibold text-white">经典力学的曙光：开普勒与牛顿</h3>
+          </div>
+          <p class="text-gray-300 leading-relaxed text-justify">17世纪之前，人类对星空的认知充满了神话与观测经验。直到**约翰内斯·开普勒 (Johannes
+            Kepler)** 通过分析第谷的精确观测数据，提出了行星运动三大定律，彻底摧毁了“完美圆轨道”的旧观念。随后，**艾萨克·牛顿 (Isaac Newton)**
+            将地球上的力学与天体力学统一，指出主宰苹果落地的力与维系行星运转的力是同一种力。</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div class="bg-black/50 p-5 rounded-xl border border-white/5 border-l-4 border-l-blue-500 flex flex-col">
+              <h4 class="text-blue-400 font-bold mb-2">开普勒第三定律 (调和定律)</h4>
+              <p class="text-sm text-gray-400 mb-3">各个行星绕太阳公转周期的平方，与其椭圆轨道的半长轴的立方成正比。</p>
+              <div class="text-center bg-gray-800/80 py-3 rounded-lg font-mono text-lg text-white mb-4">
+                T<sup>2</sup> = <span class="text-blue-300">k</span> &middot; a<sup>3</sup>
+              </div>
+              <!-- 新增公式解释 -->
+              <div class="mt-auto bg-gray-900/60 p-3 rounded-lg text-xs text-gray-300 space-y-2">
+                <p><span class="inline-block w-6 text-white font-mono font-bold">T</span> 行星的公转周期（如地球是1年）</p>
+                <p><span class="inline-block w-6 text-white font-mono font-bold">a</span> 椭圆轨道的半长轴（可理解为到太阳的平均距离）</p>
+                <p><span class="inline-block w-6 text-blue-300 font-mono font-bold">k</span> 常数。所有绕同一中心天体（如太阳）公转的星体，其 k
+                  值都相同。</p>
+              </div>
+            </div>
+            <div class="bg-black/50 p-5 rounded-xl border border-white/5 border-l-4 border-l-green-500 flex flex-col">
+              <h4 class="text-green-400 font-bold mb-2">牛顿万有引力定律 (1687年)</h4>
+              <p class="text-sm text-gray-400 mb-3">宇宙中一切拥有质量的物体之间都存在相互吸引的力。距离越远，引力以平方级衰减。</p>
+              <div class="text-center bg-gray-800/80 py-3 rounded-lg font-mono text-lg text-white mb-4">
+                F = <span class="text-green-300">G</span> &middot; <span
+                  class="text-gray-300 text-sm">(m<sub>1</sub>m<sub>2</sub>) / r<sup>2</sup></span>
+              </div>
+              <!-- 新增公式解释 -->
+              <div class="mt-auto bg-gray-900/60 p-3 rounded-lg text-xs text-gray-300 space-y-2">
+                <p><span class="inline-block w-6 text-white font-mono font-bold">F</span> 两个物体之间的万有引力大小</p>
+                <p><span class="inline-block w-6 text-green-300 font-mono font-bold">G</span> 万有引力常数 (约为
+                  6.674&times;10<sup>-11</sup> N&middot;m&sup2;/kg&sup2;)</p>
+                <p><span class="inline-block w-6 text-white font-mono font-bold">m</span> m<sub>1</sub> 和 m<sub>2</sub>
+                  分别代表两个物体的质量</p>
+                <p><span class="inline-block w-6 text-white font-mono font-bold">r</span> 两个物体质心之间的直线距离</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 rounded-full bg-purple-600/20 flex items-center justify-center text-purple-400 font-bold border border-purple-500/30">
+              2</div>
+            <h3 class="text-2xl font-semibold text-white">时空的重塑：爱因斯坦与相对论</h3>
+          </div>
+          <p class="text-gray-300 leading-relaxed text-justify">1915年，**阿尔伯特·爱因斯坦 (Albert Einstein)** 提出了颠覆性的**广义相对论
+            (General Relativity)**。他指出引力根本不是一种传统的“力”，而是由质量和能量引起的**时空弯曲 (Curvature of
+            Spacetime)**。就如同放在蹦床上的铅球会让蹦床凹陷，从而改变其他小球的运动轨迹。</p>
+          <div class="bg-black/50 p-5 rounded-xl border border-white/5 border-l-4 border-l-purple-500 mt-4">
+            <h4 class="text-purple-400 font-bold mb-2">爱因斯坦引力场方程</h4>
+            <p class="text-sm text-gray-400 mb-3">物理学家约翰·惠勒曾精辟地总结此方程：“物质告诉时空如何弯曲，时空告诉物质如何运动。”它预言了黑洞的存在以及光线在引力场中的偏折。</p>
+            <div class="text-center bg-gray-800/80 py-4 rounded-lg font-mono text-xl text-white tracking-widest mb-4">
+              R<sub>&mu;&nu;</sub> - &frac12;Rg<sub>&mu;&nu;</sub> + &Lambda;g<sub>&mu;&nu;</sub> = <span
+                class="text-purple-300 text-base">(8&pi;G / c<sup>4</sup>)</span> T<sub>&mu;&nu;</sub>
+            </div>
+
+            <!-- 新增：复杂的张量公式拆解与释义 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4 text-xs">
+              <!-- 等号左侧 -->
+              <div class="bg-gray-900/60 p-4 rounded-lg border border-purple-500/20">
+                <h5 class="text-purple-300 font-bold mb-3 border-b border-white/10 pb-1">等号左侧：描述“时空如何弯曲”的几何学</h5>
+                <ul class="space-y-2 text-gray-300">
+                  <li class="flex gap-2"><span class="w-8 font-mono text-white">R<sub>&mu;&nu;</sub></span>
+                    <span><strong>里奇张量</strong>。描述时空体积因潮汐力而发生的形变。</span></li>
+                  <li class="flex gap-2"><span class="w-8 font-mono text-white">R</span>
+                    <span><strong>标量曲率</strong>。时空弯曲程度的一个单一数值指标。</span></li>
+                  <li class="flex gap-2"><span class="w-8 font-mono text-white">g<sub>&mu;&nu;</sub></span>
+                    <span><strong>度规张量</strong>。宇宙中用来测量距离、角度和时间的“底层直尺”。</span></li>
+                  <li class="flex gap-2"><span class="w-8 font-mono text-purple-400">&Lambda;</span>
+                    <span><strong>宇宙学常数</strong>。代表真空本身的能量（暗能量），是导致宇宙加速膨胀的原因。</span></li>
+                </ul>
+              </div>
+              <!-- 等号右侧 -->
+              <div class="bg-gray-900/60 p-4 rounded-lg border border-purple-500/20">
+                <h5 class="text-purple-300 font-bold mb-3 border-b border-white/10 pb-1">等号右侧：描述“物质与能量如何分布”</h5>
+                <ul class="space-y-2 text-gray-300">
+                  <li class="flex gap-2"><span class="w-8 font-mono text-white">T<sub>&mu;&nu;</sub></span>
+                    <span><strong>能量-动量张量</strong>。它包含了空间中所有的质量、能量密度、动量和压强。</span></li>
+                  <li class="flex gap-2"><span class="w-8 font-mono text-white">G</span> <span>牛顿万有引力常数。</span></li>
+                  <li class="flex gap-2"><span class="w-8 font-mono text-white">c<sup>4</sup></span>
+                    <span>真空中的光速的四次方。作为极大的分母，说明<strong>需要极其巨大的能量才能使时空产生哪怕一点点的弯曲</strong>。</span></li>
+                </ul>
+              </div>
+            </div>
+            <p class="text-center text-xs text-purple-400/80 mt-4 italic font-semibold">公式本质：左侧 (时空几何) ＝ 右侧 (物质能量分布)</p>
+          </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 rounded-full bg-rose-600/20 flex items-center justify-center text-rose-400 font-bold border border-rose-500/30">
+              3</div>
+            <h3 class="text-2xl font-semibold text-white">现代天体物理的前沿探秘</h3>
+          </div>
+          <p class="text-gray-300 leading-relaxed text-justify">
+            进入20世纪下半叶和21世纪，借助射电望远镜和空间探测器，人类对宇宙的认知呈指数级爆发。但同时，我们也发现人类已知的普通物质仅仅占据了宇宙极小的一部分。</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            <div class="bg-gray-800/40 p-4 rounded-xl border border-white/5">
+              <h4 class="text-rose-400 font-bold mb-1">宇宙膨胀与大爆炸</h4>
+              <p class="text-sm text-gray-400">哈勃发现遥远星系正在退行（哈勃定律 v = H₀d），推演出了宇宙起源于138亿年前的一个奇点的大爆炸理论。</p>
+            </div>
+            <div class="bg-gray-800/40 p-4 rounded-xl border border-white/5">
+              <h4 class="text-rose-400 font-bold mb-1">暗物质与暗能量</h4>
+              <p class="text-sm text-gray-400">为了解释星系的异常旋转速度和宇宙的加速膨胀，科学家推测宇宙中充满着不可见的暗物质（提供引力）和暗能量（提供斥力）。</p>
+            </div>
+            <div class="bg-gray-800/40 p-4 rounded-xl border border-white/5">
+              <h4 class="text-rose-400 font-bold mb-1">引力波与系外行星</h4>
+              <p class="text-sm text-gray-400">LIGO在2015年首次探测到时空涟漪（引力波），而詹姆斯·韦伯望远镜(JWST)正在深空寻找宜居的系外行星。</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- 核心配置数据 (用于科普教学的全面数据) ---
+    const planetData = [
+      { id: 'sun', category: '恒星', name: "太阳", type: "黄矮星", radius: 5, distance: 0, speed: 0, selfRotation: 0.002, color: 0xffd700, emissive: 0xffaa00, realDist: "0 AU", realRadius: "696,340 km", orbitPeriod: "-", rotPeriod: "27 天", description: "太阳是太阳系中心的恒星，质量占整个太阳系的99.86%。它是一个主要由氢和氦组成的炽热等离子体球，核心的核聚变反应持续释放出巨大的光和热，是地球生命存在的基础和能量源泉。" },
+      { id: 'mercury', category: '行星', name: "水星", type: "岩石行星", radius: 0.38, distance: 12, speed: 0.02, selfRotation: 0.01, color: 0x8c8c8c, realDist: "0.39 AU", realRadius: "2,439 km", orbitPeriod: "88 天", rotPeriod: "58.6 天", au: 0.39, description: "太阳系中最小、最靠近太阳的行星。由于缺乏大气的保护和极近的距离，水星表面的昼夜温差极大，白天可达430°C，夜晚则降至-180°C。表面布满了与月球相似的陨石坑。" },
+      { id: 'venus', category: '行星', name: "金星", type: "岩石行星", radius: 0.95, distance: 17, speed: 0.015, selfRotation: -0.008, color: 0xe3bb76, realDist: "0.72 AU", realRadius: "6,051 km", orbitPeriod: "224.7 天", rotPeriod: "243 天 (逆行)", au: 0.72, description: "夜空中最亮的行星，被称为地球的“姊妹星”。但它拥有极其浓厚且充满二氧化碳的毒性大气层，导致强烈的温室效应，使其成为太阳系中表面温度最高的行星（约462°C）。自转方向与大多数行星相反。" },
+      { id: 'earth', category: '行星', name: "地球", type: "岩石行星", radius: 1, distance: 24, speed: 0.01, selfRotation: 0.02, color: 0x2b82c9, realDist: "1.00 AU", realRadius: "6,371 km", orbitPeriod: "365.2 天", rotPeriod: "24 小时", au: 1.0, description: "我们的家园，太阳系中唯一已知孕育了生命的星球。表面71%被液态水覆盖，拥有富含氧气的大气层和强大的磁场，能有效抵御太空辐射和太阳风的侵袭。" },
+      { id: 'moon', category: '卫星', name: "月球", type: "天然卫星", parentId: 'earth', radius: 0.27, distance: 3.5, speed: 0.03, selfRotation: 0.03, color: 0xaaaaaa, realDist: "384,400 km", realRadius: "1,737 km", orbitPeriod: "27.3 天", rotPeriod: "27.3 天", description: "地球唯一的天然卫星。由于潮汐锁定，月球始终以同一面朝向地球。它对地球的引力作用产生了海洋的潮汐现象，并且稳固了地球的自转轴倾角，对地球气候的稳定起到了关键作用。" },
+      { id: 'mars', category: '行星', name: "火星", type: "岩石行星", radius: 0.53, distance: 31, speed: 0.008, selfRotation: 0.018, color: 0xc1440e, realDist: "1.52 AU", realRadius: "3,389 km", orbitPeriod: "687 天", rotPeriod: "24.6 小时", au: 1.52, description: "被称为“红色星球”，因为其地表富含氧化铁。火星有稀薄的大气，拥有太阳系中最高的山峰（奥林帕斯山）和最深的峡谷（水手号峡谷）。科学家一直在火星上寻找远古生命的痕迹。" },
+      { id: 'ceres', category: '矮行星', name: "谷神星", type: "矮行星", radius: 0.15, distance: 38, speed: 0.006, selfRotation: 0.04, color: 0x888888, realDist: "2.77 AU", realRadius: "473 km", orbitPeriod: "4.6 年", rotPeriod: "9 小时", au: 2.77, description: "主小行星带中最大的天体，也是唯一位于海王星轨道内侧的矮行星。它主要由岩石和冰组成，探测器发现其地表之下可能存在富含盐分的液态水海洋。" },
+      { id: 'jupiter', category: '行星', name: "木星", type: "气态巨行星", radius: 3.2, distance: 48, speed: 0.004, selfRotation: 0.04, color: 0xd8ca9d, realDist: "5.20 AU", realRadius: "69,911 km", orbitPeriod: "11.8 年", rotPeriod: "9.9 小时", au: 5.2, isGasGiant: true, description: "太阳系中体积和质量最大的行星，其质量是其他所有行星总和的2.5倍。主要由氢和氦组成，没有固态表面。最著名的标志是“大红斑”，一个存在了数百年的巨大风暴。" },
+      { id: 'saturn', category: '行星', name: "土星", type: "气态巨行星", radius: 2.5, distance: 66, speed: 0.003, selfRotation: 0.038, color: 0xead6b8, realDist: "9.58 AU", realRadius: "58,232 km", orbitPeriod: "29.4 年", rotPeriod: "10.7 小时", au: 9.58, hasRings: true, description: "太阳系中密度最小的行星（可以浮在水上），拥有极其壮观、极其复杂的星环系统。星环主要由冰块、岩石碎片和宇宙尘埃组成。" },
+      { id: 'uranus', category: '行星', name: "天王星", type: "冰巨星", radius: 1.8, distance: 82, speed: 0.002, selfRotation: -0.025, color: 0x90b0df, realDist: "19.22 AU", realRadius: "25,362 km", orbitPeriod: "84 年", rotPeriod: "17.2 小时", au: 19.22, description: "第一颗使用望远镜发现的行星。大气中含有甲烷，使其呈现出独特的淡蓝色。最奇特的是，它的自转轴倾斜了近98度，几乎是“躺”在轨道上绕太阳公转。" },
+      { id: 'neptune', category: '行星', name: "海王星", type: "冰巨星", radius: 1.7, distance: 98, speed: 0.001, selfRotation: 0.026, color: 0x274687, realDist: "30.05 AU", realRadius: "24,622 km", orbitPeriod: "164.8 年", rotPeriod: "16.1 小时", au: 30.05, description: "太阳系中最遥远的已知行星，拥有太阳系中最高速的风暴（可达2100公里/小时）。由于距离太阳遥远，它也是极其寒冷的冰巨星，深蓝色的大气中同样富含甲烷。" },
+      { id: 'pluto', category: '矮行星', name: "冥王星", type: "矮行星", radius: 0.18, distance: 110, speed: 0.0008, selfRotation: -0.005, color: 0xdddddd, realDist: "39.48 AU", realRadius: "1,188 km", orbitPeriod: "248 年", rotPeriod: "6.4 天 (逆行)", au: 39.48, description: "曾经的“第九大行星”，2006年被国际天文学联合会重新分类为柯伊伯带的矮行星。它的表面覆盖着固态的氮冰、甲烷冰，并拥有标志性的心形地貌（汤博区）。" }
+    ];
+
+    // --- Three.js 初始化 ---
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x000000, 0.0025);
+
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+    camera.position.set(0, 60, 100);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.maxDistance = 500;
+    controls.minDistance = 2;
+
+    // --- 纹理生成工具 (不依赖外部图片) ---
+    function createNoiseCanvas(color1, color2, isBanded = false) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 512;
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = color1;
+      ctx.fillRect(0, 0, 512, 512);
+
+      if (isBanded) {
+        // 木星/土星的条纹
+        for (let y = 0; y < 512; y += 4) {
+          ctx.fillStyle = Math.random() > 0.5 ? color2 : color1;
+          ctx.globalAlpha = Math.random() * 0.5;
+          ctx.fillRect(0, y, 512, Math.random() * 20);
+        }
+      } else {
+        // 地球/火星的斑块
+        for (let i = 0; i < 2000; i++) {
+          ctx.fillStyle = color2;
+          ctx.globalAlpha = Math.random() * 0.3;
+          ctx.beginPath();
+          ctx.arc(Math.random() * 512, Math.random() * 512, Math.random() * 20, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      return new THREE.CanvasTexture(canvas);
+    }
+
+    // --- 光源 ---
+    const ambientLight = new THREE.AmbientLight(0x222222); // 暗淡环境光
+    scene.add(ambientLight);
+
+    // 太阳中心点光源
+    const pointLight = new THREE.PointLight(0xffffff, 2, 300);
+    scene.add(pointLight);
+
+    // --- 宇宙背景 (繁星点点) ---
+    function createStarfield() {
+      const starsGeometry = new THREE.BufferGeometry();
+      const starsMaterial = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.5,
+        transparent: true,
+        opacity: 0.8,
+        sizeAttenuation: true
+      });
+
+      const starsVertices = [];
+      for (let i = 0; i < 15000; i++) {
+        // 在一个巨大的球体内随机分布
+        const r = 800 + Math.random() * 1000;
+        const theta = 2 * Math.PI * Math.random();
+        const phi = Math.acos(2 * Math.random() - 1);
+
+        const x = r * Math.sin(phi) * Math.cos(theta);
+        const y = r * Math.sin(phi) * Math.sin(theta);
+        const z = r * Math.cos(phi);
+
+        starsVertices.push(x, y, z);
+      }
+
+      starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
+      const starField = new THREE.Points(starsGeometry, starsMaterial);
+      scene.add(starField);
+      return starField;
+    }
+    const starField = createStarfield();
+
+    // --- 小行星带生成 (火星与木星之间) ---
+    function createAsteroidBelt() {
+      const beltGeometry = new THREE.BufferGeometry();
+      const beltMaterial = new THREE.PointsMaterial({
+        color: 0x888888,
+        size: 0.1,
+        transparent: true,
+        opacity: 0.6
+      });
+
+      const beltVertices = [];
+      // 在距离 33 (火星外侧) 到 44 (木星内侧) 之间生成小行星群
+      for (let i = 0; i < 4000; i++) {
+        const r = 33 + Math.random() * 11;
+        const theta = 2 * Math.PI * Math.random();
+
+        // 给轨道一点倾角和厚度扰动
+        const y = (Math.random() - 0.5) * 3;
+        const x = r * Math.cos(theta);
+        const z = r * Math.sin(theta);
+
+        beltVertices.push(x, y, z);
+      }
+
+      beltGeometry.setAttribute('position', new THREE.Float32BufferAttribute(beltVertices, 3));
+      const asteroidBelt = new THREE.Points(beltGeometry, beltMaterial);
+      scene.add(asteroidBelt);
+      return asteroidBelt;
+    }
+    const asteroidBelt = createAsteroidBelt();
+
+    // --- 创建星体 ---
+    const celestialBodies = [];
+    const planetMeshes = []; // 用于射线检测
+
+    planetData.forEach((data) => {
+      // 材质生成
+      let material;
+      if (data.id === 'sun') {
+        material = new THREE.MeshBasicMaterial({ color: data.color });
+      } else {
+        let texture = null;
+        if (data.id === 'earth') texture = createNoiseCanvas('#2b82c9', '#4caf50'); // 蓝绿
+        else if (data.id === 'mars') texture = createNoiseCanvas('#c1440e', '#8c3310'); // 红褐
+        else if (data.isGasGiant) texture = createNoiseCanvas('#d8ca9d', '#b69b7d', true); // 条纹
+        else texture = createNoiseCanvas(`#${data.color.toString(16)}`, '#555555');
+
+        material = new THREE.MeshStandardMaterial({
+          color: data.color,
+          map: texture,
+          roughness: data.isGasGiant ? 0.2 : 0.8,
+          metalness: 0.1
+        });
+      }
+
+      const geometry = new THREE.SphereGeometry(data.radius, 64, 64);
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.userData = data; // 绑定数据供UI使用
+
+      // 组结构优化：分离位置和自转，以支持精准的卫星系统
+      const pivotGroup = new THREE.Group(); // 负责绕父节点公转
+      const positionGroup = new THREE.Group(); // 负责自身位置偏移
+
+      positionGroup.position.x = data.distance;
+      pivotGroup.add(positionGroup);
+      positionGroup.add(mesh); // mesh自身仅负责自转
+
+      if (!data.parentId) {
+        scene.add(pivotGroup); // 独立天体直接加入场景
+      }
+
+      // 光环特效
+      if (data.id === 'sun') {
+        const glowGeometry = new THREE.SphereGeometry(data.radius * 1.2, 32, 32);
+        const glowMaterial = new THREE.MeshBasicMaterial({ color: 0xffaa00, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
+        const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
+        mesh.add(glowMesh);
+      }
+
+      if (data.hasRings) {
+        const ringGeometry = new THREE.RingGeometry(data.radius * 1.4, data.radius * 2.2, 64);
+        const ringMaterial = new THREE.MeshStandardMaterial({ color: 0xead6b8, side: THREE.DoubleSide, transparent: true, opacity: 0.8 });
+        const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
+        ringMesh.rotation.x = Math.PI / 2 + 0.3;
+        mesh.add(ringMesh);
+      }
+
+      // 绘制公转轨道线 (仅限直接绕太阳公转的天体)
+      if (data.distance > 0 && !data.parentId) {
+        const orbitPathGeometry = new THREE.RingGeometry(data.distance - 0.05, data.distance + 0.05, 128);
+        const orbitPathMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.1, side: THREE.DoubleSide });
+        const orbitPathMesh = new THREE.Mesh(orbitPathGeometry, orbitPathMaterial);
+        orbitPathMesh.rotation.x = Math.PI / 2;
+        scene.add(orbitPathMesh);
+      }
+
+      celestialBodies.push({
+        ...data,
+        mesh: mesh,
+        pivot: pivotGroup,
+        positionGroup: positionGroup
+      });
+      planetMeshes.push(mesh);
+    });
+
+    // 第二次遍历：构建卫星等父子层级关系
+    celestialBodies.forEach(body => {
+      if (body.parentId) {
+        const parentBody = celestialBodies.find(b => b.id === body.parentId);
+        if (parentBody) {
+          // 将卫星的公转轴(pivot)附加到父星的位置容器上，使其不受父星自转影响
+          parentBody.positionGroup.add(body.pivot);
+        }
+      }
+    });
+
+    // --- 动态生成教学目录侧边栏 ---
+    const catalogContainer = document.getElementById('catalog-list');
+    const categories = ['恒星', '行星', '矮行星', '卫星'];
+
+    categories.forEach(cat => {
+      const bodiesInCat = celestialBodies.filter(b => b.category === cat);
+      if (bodiesInCat.length > 0) {
+        const catGroup = document.createElement('div');
+
+        const catTitle = document.createElement('h4');
+        catTitle.className = 'text-gray-400 text-[11px] font-bold uppercase tracking-widest mb-2 mt-4';
+        catTitle.innerText = cat;
+        catGroup.appendChild(catTitle);
+
+        const list = document.createElement('ul');
+        list.className = 'space-y-1.5 pl-3 border-l border-white/20';
+
+        bodiesInCat.forEach(body => {
+          const item = document.createElement('li');
+          item.className = 'cursor-pointer text-gray-300 hover:text-white hover:bg-white/10 px-2 py-1 rounded transition-colors flex items-center gap-2';
+          item.innerHTML = `<span class="w-2 h-2 rounded-full inline-block shadow-[0_0_5px_currentColor]" style="background-color: #${body.color.toString(16)}; color: #${body.color.toString(16)}"></span>${body.name}`;
+          item.onclick = () => focusOnPlanet(body);
+          list.appendChild(item);
+        });
+
+        catGroup.appendChild(list);
+        catalogContainer.appendChild(catGroup);
+      }
+    });
+
+
+    // --- UI 图表生成与交互 ---
+    const scaleContainer = document.getElementById('distance-scale-container');
+    const MAX_AU = 31; // 海王星约 30 AU
+
+    function getLogPercentage(au) {
+      // 使用对数映射避免内行星挤在一起: log(AU+1) / log(MAX_AU+1)
+      return (Math.log(au + 1) / Math.log(MAX_AU + 1)) * 100;
+    }
+
+    planetData.forEach(planet => {
+      if (planet.au) { // 排除太阳
+        const percentage = getLogPercentage(planet.au);
+        const marker = document.createElement('div');
+        marker.className = 'absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full cursor-pointer planet-marker hover:scale-150 transition-transform z-10 shadow-[0_0_8px_currentColor]';
+        marker.style.left = `${percentage}%`;
+        marker.style.backgroundColor = `#${planet.color.toString(16)}`;
+        marker.style.color = `#${planet.color.toString(16)}`; // for shadow
+        marker.dataset.id = planet.id;
+
+        // Tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black/80 text-white text-xs rounded opacity-0 translate-y-2 pointer-events-none whitespace-nowrap border border-white/20';
+        tooltip.innerHTML = `<strong>${planet.name}</strong><br>${planet.realDist}`;
+        marker.appendChild(tooltip);
+
+        marker.addEventListener('click', () => {
+          const targetBody = celestialBodies.find(b => b.id === planet.id);
+          if (targetBody) focusOnPlanet(targetBody);
+        });
+
+        scaleContainer.appendChild(marker);
+      }
+    });
+
+
+    // --- 交互逻辑 (射线检测与聚焦) ---
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    let focusedPlanet = null;
+    let isOrbitPaused = false; // 聚焦时暂停公转
+
+    // 动画插值用状态
+    let isTransitioning = false;
+    let transitionProgress = 0;
+    const transitionDuration = 60; // frames
+    let startCamPos = new THREE.Vector3();
+    let startCamTarget = new THREE.Vector3();
+    let endCamTarget = new THREE.Vector3();
+
+    window.addEventListener('click', (event) => {
+      // 忽略UI点击
+      if (event.target.closest('#ui-layer') || event.target.closest('#physics-modal')) return;
+
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(planetMeshes);
+
+      if (intersects.length > 0) {
+        const clickedMesh = intersects[0].object;
+        const planetData = celestialBodies.find(b => b.mesh === clickedMesh);
+        if (planetData) {
+          focusOnPlanet(planetData);
+        }
+      }
+    });
+
+    const infoPanel = document.getElementById('info-panel');
+    const btnExitFocus = document.getElementById('btn-exit-focus');
+    const btnCloseFocus = document.getElementById('btn-close-focus');
+    const topRightControls = document.getElementById('top-right-controls');
+
+    function focusOnPlanet(planet) {
+      focusedPlanet = planet;
+      isOrbitPaused = true;
+      isTransitioning = true;
+      transitionProgress = 0;
+
+      // 记录当前相机状态
+      startCamPos.copy(camera.position);
+      startCamTarget.copy(controls.target);
+
+      // 获取目标行星的绝对世界坐标
+      planet.mesh.getWorldPosition(endCamTarget);
+
+      // 更新 UI
+      document.getElementById('info-name').innerText = planet.name;
+      document.getElementById('info-type').innerText = planet.type;
+      document.getElementById('info-dist').innerText = planet.realDist;
+      document.getElementById('info-radius').innerText = planet.realRadius;
+      document.getElementById('info-orbit').innerText = planet.orbitPeriod;
+      document.getElementById('info-rotation').innerText = planet.rotPeriod;
+      document.getElementById('info-desc').innerText = planet.description; // 写入科普数据
+
+      // 隐藏右上角物理按钮
+      topRightControls.classList.add('opacity-0', 'pointer-events-none');
+
+      infoPanel.classList.remove('hidden');
+      infoPanel.classList.add('opacity-0');
+      setTimeout(() => infoPanel.classList.remove('opacity-0'), 10); // trigger animation
+
+      controls.enabled = false; // 过渡期间禁用手动控制
+    }
+
+    // 抽取退出逻辑复用
+    function exitFocusMode() {
+      if (!focusedPlanet) return;
+      focusedPlanet = null;
+      isOrbitPaused = false;
+      isTransitioning = true;
+      transitionProgress = 0;
+
+      startCamPos.copy(camera.position);
+      startCamTarget.copy(controls.target);
+      endCamTarget.set(0, 0, 0); // 太阳/中心
+
+      infoPanel.classList.add('opacity-0');
+      setTimeout(() => {
+        infoPanel.classList.add('hidden');
+        // 恢复右上角物理按钮
+        topRightControls.classList.remove('opacity-0', 'pointer-events-none');
+      }, 300);
+
+      controls.enabled = false;
+    }
+
+    btnExitFocus.addEventListener('click', exitFocusMode);
+    btnCloseFocus.addEventListener('click', exitFocusMode);
+
+    // --- 物理知识课堂交互逻辑 ---
+    const physicsModal = document.getElementById('physics-modal');
+    const btnPhysics = document.getElementById('btn-physics');
+    const btnClosePhysics = document.getElementById('btn-close-physics');
+
+    btnPhysics.addEventListener('click', () => {
+      physicsModal.classList.remove('hidden');
+      // 触发淡入动画
+      setTimeout(() => {
+        physicsModal.classList.remove('opacity-0');
+      }, 10);
+    });
+
+    btnClosePhysics.addEventListener('click', () => {
+      physicsModal.classList.add('opacity-0');
+      // 等待淡出动画结束隐藏
+      setTimeout(() => {
+        physicsModal.classList.add('hidden');
+      }, 300);
+    });
+
+    // 点击模态框背景关闭
+    physicsModal.addEventListener('click', (e) => {
+      if (e.target === physicsModal) {
+        btnClosePhysics.click();
+      }
+    });
+
+    // 窗口大小适配
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // --- 渲染循环 ---
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // 恒星背景缓慢旋转
+      starField.rotation.y += 0.0002;
+
+      // 小行星带缓慢旋转
+      if (typeof asteroidBelt !== 'undefined') {
+        asteroidBelt.rotation.y += 0.0005;
+      }
+
+      // 行星运动逻辑
+      celestialBodies.forEach(body => {
+        // 自转 (始终进行)
+        body.mesh.rotation.y += body.selfRotation;
+
+        // 公转 (聚焦时不公转)
+        if (!isOrbitPaused) {
+          body.pivot.rotation.y += body.speed;
+        }
+      });
+
+      // 相机过渡逻辑
+      if (isTransitioning) {
+        transitionProgress++;
+        const t = transitionProgress / transitionDuration;
+        // easeInOutQuad
+        const easeT = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+        if (focusedPlanet) {
+          // 向星体靠近
+          focusedPlanet.mesh.getWorldPosition(endCamTarget); // 更新目标位置(即使暂停也确保精准)
+
+          // 计算合适的观察距离
+          const viewDistance = focusedPlanet.radius * 6;
+          const offset = new THREE.Vector3(viewDistance, viewDistance * 0.5, viewDistance);
+          const idealCamPos = endCamTarget.clone().add(offset);
+
+          camera.position.lerpVectors(startCamPos, idealCamPos, easeT);
+          controls.target.lerpVectors(startCamTarget, endCamTarget, easeT);
+        } else {
+          // 恢复全局视野
+          const idealCamPos = new THREE.Vector3(0, 60, 100);
+          camera.position.lerpVectors(startCamPos, idealCamPos, easeT);
+          controls.target.lerpVectors(startCamTarget, endCamTarget, easeT);
+        }
+
+        if (transitionProgress >= transitionDuration) {
+          isTransitioning = false;
+          controls.enabled = true;
+        }
+      } else if (focusedPlanet) {
+        // 如果处于聚焦状态，持续锁定目标 (处理用户手动拖拽相机后的 target 锁定)
+        focusedPlanet.mesh.getWorldPosition(endCamTarget);
+        controls.target.copy(endCamTarget);
+      }
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    // 启动动画
+    animate();
+  </script>
+</body>
+
+</html>
